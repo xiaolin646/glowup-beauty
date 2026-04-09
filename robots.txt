@@ -1,0 +1,61 @@
+# GlowUp 搜索引擎爬虫配置
+
+# ==========================================
+# robots.txt for glowup.com
+# ==========================================
+
+# 允许所有爬虫访问公开内容
+User-agent: *
+
+# 允许访问的路径
+Allow: /
+
+# 允许抓取静态资源
+Allow: /assets/
+Allow: /icons/
+Allow: /images/
+
+# 禁止访问的路径
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /auth/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /*.json$
+Disallow: /sw.js
+
+# Sitemap 位置
+Sitemap: https://glowup.com/sitemap.xml
+
+# 爬虫延迟（友好设置）
+Crawl-delay: 1
+
+# ==========================================
+# 特定爬虫规则
+# ==========================================
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# Baidubot
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 3
+
+# Sogou Spider
+User-agent: Sogou Spider
+Allow: /
+Crawl-delay: 3
+
+# 360 Spider
+User-agent: 360Spider
+Allow: /
+Crawl-delay: 3

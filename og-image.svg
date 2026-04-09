@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fdf2f8"/>
+      <stop offset="50%" style="stop-color:#fce7f3"/>
+      <stop offset="100%" style="stop-color:#f3e8ff"/>
+    </linearGradient>
+    <linearGradient id="text-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ec4899"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+  
+  <!-- Decorative Circles -->
+  <circle cx="100" cy="100" r="200" fill="#ec4899" opacity="0.1"/>
+  <circle cx="1100" cy="530" r="250" fill="#8b5cf6" opacity="0.1"/>
+  <circle cx="600" cy="315" r="300" fill="white" opacity="0.5"/>
+  
+  <!-- Logo Icon -->
+  <circle cx="300" cy="315" r="80" fill="url(#text-gradient)"/>
+  <text x="300" y="340" 
+        font-family="Arial, sans-serif" 
+        font-size="60" 
+        font-weight="bold" 
+        fill="white" 
+        text-anchor="middle">G</text>
+  
+  <!-- Brand Name -->
+  <text x="450" y="280" 
+        font-family="Arial, sans-serif" 
+        font-size="80" 
+        font-weight="bold" 
+        fill="url(#text-gradient)">GlowUp</text>
+  
+  <!-- Tagline -->
+  <text x="450" y="340" 
+        font-family="Arial, sans-serif" 
+        font-size="32" 
+        fill="#6b7280">基于社区信任的美妆平台</text>
+  
+  <!-- Features -->
+  <text x="450" y="420" 
+        font-family="Arial, sans-serif" 
+        font-size="24" 
+        fill="#9ca3af">肤质档案 | 四维评分 | 众测体验 | 购买回访</text>
+  
+  <!-- Sparkles -->
+  <circle cx="180" cy="200" r="8" fill="#ec4899"/>
+  <circle cx="900" cy="150" r="6" fill="#8b5cf6"/>
+  <circle cx="1050" cy="300" r="10" fill="#ec4899"/>
+  <circle cx="200" cy="450" r="7" fill="#8b5cf6"/>
+  <circle cx="1000" cy="500" r="8" fill="#ec4899"/>
+</svg>
