@@ -1,0 +1,9 @@
+{
+  "name": "glowup-beauty",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd poc/frontend-react && npm install && npm run build",
+    "dev": "cd poc/frontend-react && npm run dev"
+  }
+}
