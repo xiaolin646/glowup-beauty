@@ -2,120 +2,13 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    
-    <!-- PWA Meta -->
-    <meta name="theme-color" content="#ec4899" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="GlowUp" />
-    <link rel="manifest" href="/manifest.json" />
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.svg" />
-    
-    <!-- SEO Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ec4899" />
     <title>GlowUp 美妆社区 - 基于信任的美妆购物平台</title>
-    <meta name="description" content="GlowUp 是一个基于社区信任驱动购买决策的美妆平台。提供肤质档案、四维评分系统、众测体验、购买回访等特色功能，帮助你找到最适合自己的美妆产品。" />
-    <meta name="keywords" content="美妆,护肤,化妆品,肤质检测,产品测评,社区,美妆评测,护肤推荐" />
-    <meta name="author" content="GlowUp Team" />
-    <meta name="robots" content="index, follow" />
-    <meta name="revisit-after" content="7 days" />
-    
-    <!-- Open Graph / Social -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://glowup.com" />
-    <meta property="og:title" content="GlowUp 美妆社区 - 基于信任的美妆购物平台" />
-    <meta property="og:description" content="基于社区信任驱动购买决策的美妆平台。肤质档案、四维评分、众测体验，让美妆选择不再迷茫。" />
-    <meta property="og:image" content="/og-image.png" />
-    <meta property="og:site_name" content="GlowUp" />
-    <meta property="og:locale" content="zh_CN" />
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://glowup.com" />
-    <meta name="twitter:title" content="GlowUp 美妆社区" />
-    <meta name="twitter:description" content="基于社区信任驱动购买决策的美妆平台" />
-    <meta name="twitter:image" content="/og-image.png" />
-    
-    <!-- WeChat -->
-    <meta property="qc:admins" content="admin@glowup.com" />
-    <meta name="tencent-theme" content="light" />
-    
-    <!-- Viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, user-scalable=yes" />
-    <meta name="format-detection" content="telephone=no" />
-    
-    <!-- DNS Prefetch -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    <link rel="dns-prefetch" href="https://api.dicebear.com" />
-    
-    <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="
-      default-src 'self';
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://www.googletagmanager.com;
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-      img-src 'self' data: https: blob:;
-      font-src 'self' https://fonts.gstatic.com;
-      connect-src 'self' https://fonts.googleapis.com https://www.googletagmanager.com;
-      frame-src 'none';
-      object-src 'none';
-      base-uri 'self';
-      form-action 'self';
-      frame-ancestors 'none';
-      upgrade-insecure-requests;
-    " />
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet" />
-    
-    <!-- Performance -->
-    <link rel="preload" href="data:application/octet-stream;base64,aW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0Jw0KaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbS9jbGllbnQnDQppbXBvcnQgQXBwIGZyb20gJy4vQXBwJw0KaW1wb3J0ICcuL2luZGV4LmNzcycNCmltcG9ydCB7IHJlZ2lzdGVyU2VydmljZVdvcmtlciB9IGZyb20gJy4vbGliL3NlcnZpY2VXb3JrZXInDQoNCi8vID09PT09PT09PT09PT09PT09PT09DQovLyDlhajlsYDplJnor6/lpITnkIYNCi8vID09PT09PT09PT09PT09PT09PT09DQoNCi8vIOeUn+S6p+eOr+Wig+emgeeUqCBjb25zb2xlIOi+k+WHug0KaWYgKGltcG9ydC5tZXRhLmVudi5QUk9EKSB7DQogIC8vIOimhuebliBjb25zb2xlIOaWueazleS4uuepuuWHveaVsA0KICBjb25zb2xlLmxvZyA9ICgpID0+IHt9DQogIGNvbnNvbGUuaW5mbyA9ICgpID0+IHt9DQogIGNvbnNvbGUuZGVidWcgPSAoKSA9PiB7fQ0KICAvLyDkv53nlZkgZXJyb3Ig5ZKMIHdhcm7vvIzkvYbpgb/lhY3ms4TpnLLmlY/mhJ/kv6Hmga8NCn0NCg0Kd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ2Vycm9yJywgKGV2ZW50KSA9PiB7DQogIC8vIOeUn+S6p+eOr+Wig+S4jei+k+WHuumUmeivr+ivpuaDheWIsOaOp+WItuWPsA0KICBpZiAoIWltcG9ydC5tZXRhLmVudi5QUk9EKSB7DQogICAgY29uc29sZS5lcnJvcignW0dsb2JhbCBFcnJvcl0nLCBldmVudC5lcnJvcikNCiAgfQ0KICANCiAgLy8g5Y+v6YCJ77ya5LiK5oql6ZSZ6K+v5Yiw55uR5o6n5pyN5YqhDQogIGlmIChpbXBvcnQubWV0YS5lbnYuVklURV9FTkFCTEVfRVJST1JfVFJBQ0tJTkcgPT09ICd0cnVlJykgew0KICAgIC8vIOS7heWcqOW8gOWQr+mUmeivr+i/vei4quaXtuiusOW9lQ0KICAgIGNvbnN0IGVycm9yRGF0YSA9IHsNCiAgICAgIG1lc3NhZ2U6IGV2ZW50Lm1lc3NhZ2UsDQogICAgICBmaWxlbmFtZTogZXZlbnQuZmlsZW5hbWUsDQogICAgICBsaW5lbm86IGV2ZW50LmxpbmVubywNCiAgICAgIGNvbG5vOiBldmVudC5jb2xubywNCiAgICB9DQogICAgLy8g6YCa6L+H5a6J5YWo6YCa6YGT5LiK5oql6ZSZ6K+vDQogICAgY29uc29sZS5sb2coJ1tFcnJvciBUcmFja2luZ10nLCBlcnJvckRhdGEpDQogIH0NCn0pDQoNCndpbmRvdy5hZGRFdmVudExpc3RlbmVyKCd1bmhhbmRsZWRyZWplY3Rpb24nLCAoZXZlbnQpID0+IHsNCiAgaWYgKCFpbXBvcnQubWV0YS5lbnYuUFJPRCkgew0KICAgIGNvbnNvbGUuZXJyb3IoJ1tVbmhhbmRsZWQgUHJvbWlzZSBSZWplY3Rpb25dJywgZXZlbnQucmVhc29uKQ0KICB9DQogIA0KICAvLyDlj6/pgInvvJrkuIrmiqUgUHJvbWlzZSDplJnor68NCiAgaWYgKGltcG9ydC5tZXRhLmVudi5WSVRFX0VOQUJMRV9FUlJPUl9UUkFDS0lORyA9PT0gJ3RydWUnKSB7DQogICAgY29uc29sZS5sb2coJ1tFcnJvciBUcmFja2luZyAtIFByb21pc2VdJywgZXZlbnQucmVhc29uKQ0KICB9DQp9KQ0KDQovLyA9PT09PT09PT09PT09PT09PT09PQ0KLy8gU2VydmljZSBXb3JrZXIg5rOo5YaMDQovLyA9PT09PT09PT09PT09PT09PT09PQ0KDQovLyDku4XlnKjnlJ/kuqfnjq/looPms6jlhowgU1cNCmlmICgnc2VydmljZVdvcmtlcicgaW4gbmF2aWdhdG9yICYmIGltcG9ydC5tZXRhLmVudi5QUk9EKSB7DQogIHdpbmRvdy5hZGRFdmVudExpc3RlbmVyKCdsb2FkJywgKCkgPT4gew0KICAgIHJlZ2lzdGVyU2VydmljZVdvcmtlcigpDQogIH0pDQp9DQoNCi8vID09PT09PT09PT09PT09PT09PT09DQovLyBSZWFjdCDmjILovb0NCi8vID09PT09PT09PT09PT09PT09PT09DQoNClJlYWN0RE9NLmNyZWF0ZVJvb3QoZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3Jvb3QnKSEpLnJlbmRlcigNCiAgPFJlYWN0LlN0cmljdE1vZGU+DQogICAgPEFwcCAvPg0KICA8L1JlYWN0LlN0cmljdE1vZGU+LA0KKQ0K" as="script" />
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "GlowUp 美妆社区",
-      "description": "基于社区信任驱动购买决策的美妆平台",
-      "url": "https://glowup.com",
-      "applicationCategory": "LifestyleApplication",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "CNY"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "ratingCount": "10000"
-      }
-    }
-    </script>
-    <script type="module" crossorigin src="/assets/js/index-6Z9Kt__G.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/js/icons-vendor-dlDnShut.js">
-    <link rel="modulepreload" crossorigin href="/assets/js/react-vendor-B4e0qB4X.js">
-    <link rel="modulepreload" crossorigin href="/assets/js/ui-vendor-D_mVEJJZ.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-Q1k3bIF2.css">
   </head>
   <body>
-    <noscript>
-      <div style="padding: 20px; text-align: center; font-family: system-ui, sans-serif;">
-        <h1>请启用 JavaScript</h1>
-        <p>GlowUp 需要 JavaScript 才能正常运行。请在浏览器设置中启用 JavaScript。</p>
-      </div>
-    </noscript>
-    <div id="root"></div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
