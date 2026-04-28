@@ -8,19 +8,22 @@ interface ScrollRevealProps {
   duration?: number
   threshold?: number
   className?: string
+  immediate?: boolean
 }
 
 export default function ScrollReveal({
   children,
   animation = 'fade-up',
   delay = 0,
-  duration = 600,
+  duration = 500,
   threshold = 0.1,
-  className = ''
+  className = '',
+  immediate = true
 }: ScrollRevealProps) {
   const { ref, isVisible } = useScrollAnimation<HTMLDivElement>({
     threshold,
-    triggerOnce: true
+    triggerOnce: true,
+    immediate
   })
 
   return (
@@ -28,8 +31,8 @@ export default function ScrollReveal({
       ref={ref}
       className={`scroll-reveal ${animation} ${isVisible ? 'is-visible' : ''} ${className}`}
       style={{
-        animationDelay: `${delay}ms`,
-        animationDuration: `${duration}ms`
+        transitionDelay: `${delay}ms`,
+        transitionDuration: `${duration}ms`
       }}
     >
       {children}
@@ -47,12 +50,13 @@ interface StaggeredItemProps {
 export function StaggeredItem({
   children,
   index,
-  baseDelay = 50,
+  baseDelay = 100,
   className = ''
 }: StaggeredItemProps) {
   const { ref, isVisible } = useScrollAnimation<HTMLDivElement>({
-    threshold: 0.1,
-    triggerOnce: true
+    threshold: 0.2,
+    triggerOnce: true,
+    immediate: true
   })
 
   return (
@@ -81,7 +85,7 @@ export function ParallaxSection({
   className = ''
 }: ParallaxSectionProps) {
   const { ref, isVisible } = useScrollAnimation<HTMLDivElement>({
-    threshold: 0.1,
+    threshold: 0.2,
     triggerOnce: true
   })
 

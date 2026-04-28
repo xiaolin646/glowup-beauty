@@ -6,6 +6,7 @@ import {
   Wand2, Sun, Moon, Zap, HeartHandshake
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import ScrollReveal from '@/components/ScrollReveal'
 
 // 发型教程数据
 const hairStyles = [
@@ -229,82 +230,88 @@ export default function StylingHub() {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-purple-50/20 to-white dark:from-slate-900 dark:via-slate-800/50 dark:to-slate-900 transition-colors">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-violet-100 to-purple-100 dark:from-violet-900/40 dark:to-purple-900/40 text-violet-600 dark:text-violet-400 text-sm font-medium shadow-sm mb-6">
-            <Crown className="w-4 h-4" />
-            <span>造型搭配专区</span>
+        <ScrollReveal animation="fade-up">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-violet-100 to-purple-100 dark:from-violet-900/40 dark:to-purple-900/40 text-violet-600 dark:text-violet-400 text-sm font-medium shadow-sm mb-6">
+              <Crown className="w-4 h-4" />
+              <span>造型搭配专区</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-800 dark:text-white mb-4">
+              造型搭配
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
+              发型与首饰的完美搭配，从头到脚打造精致造型
+            </p>
           </div>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-800 dark:text-white mb-4">
-            造型搭配
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
-            发型与首饰的完美搭配，从头到脚打造精致造型
-          </p>
-        </div>
+        </ScrollReveal>
 
         {/* Tab Switcher */}
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex bg-white dark:bg-slate-800 rounded-full p-1.5 shadow-sm border border-violet-100 dark:border-slate-700">
-            <button
-              onClick={() => setActiveTab('hair')}
-              className={cn(
-                "flex items-center gap-2 px-8 py-3 rounded-full font-medium transition-all duration-300 cursor-pointer",
-                activeTab === 'hair'
-                  ? "bg-gradient-to-r from-violet-500 to-purple-500 text-white shadow-lg"
-                  : "text-gray-600 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400"
-              )}
-            >
-              <Scissors className="w-5 h-5" />
-              发型教程
-            </button>
-            <button
-              onClick={() => setActiveTab('jewelry')}
-              className={cn(
-                "flex items-center gap-2 px-8 py-3 rounded-full font-medium transition-all duration-300 cursor-pointer",
-                activeTab === 'jewelry'
-                  ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg"
-                  : "text-gray-600 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400"
-              )}
-            >
-              <Gem className="w-5 h-5" />
-              首饰搭配
-            </button>
+        <ScrollReveal animation="fade-up" delay={200}>
+          <div className="flex justify-center mb-12">
+            <div className="inline-flex bg-white dark:bg-slate-800 rounded-full p-1.5 shadow-sm border border-violet-100 dark:border-slate-700">
+              <button
+                onClick={() => setActiveTab('hair')}
+                className={cn(
+                  "flex items-center gap-2 px-8 py-3 rounded-full font-medium transition-all duration-300 cursor-pointer",
+                  activeTab === 'hair'
+                    ? "bg-gradient-to-r from-violet-500 to-purple-500 text-white shadow-lg"
+                    : "text-gray-600 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400"
+                )}
+              >
+                <Scissors className="w-5 h-5" />
+                发型教程
+              </button>
+              <button
+                onClick={() => setActiveTab('jewelry')}
+                className={cn(
+                  "flex items-center gap-2 px-8 py-3 rounded-full font-medium transition-all duration-300 cursor-pointer",
+                  activeTab === 'jewelry'
+                    ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg"
+                    : "text-gray-600 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400"
+                )}
+              >
+                <Gem className="w-5 h-5" />
+                首饰搭配
+              </button>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Hair Styles Content */}
         {activeTab === 'hair' && (
           <div className="space-y-8">
             {/* Featured Banner */}
-            <div className="bg-gradient-to-r from-violet-500 via-purple-500 to-fuchsia-500 rounded-3xl p-8 text-white relative overflow-hidden">
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIwOS0xLjc5MS00LTQtNHMtNCAxLjc5MS00IDQgMS43OTEgNCA0IDQgNC0xLjc5MSA0LTR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
-              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="flex items-center gap-5">
-                  <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl">
-                    <Sun className="w-10 h-10" />
+            <ScrollReveal animation="fade-up" delay={300}>
+              <div className="bg-gradient-to-r from-violet-500 via-purple-500 to-fuchsia-500 rounded-3xl p-8 text-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIwOS0xLjc5MS00LTQtNHMtNCAxLjc5MS00IDQgMS43OTEgNCA0IDQgNC0xLjc5MSA0LTR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
+                <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-5">
+                    <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl">
+                      <Sun className="w-10 h-10" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-2">当季流行发型趋势</h3>
+                      <p className="text-violet-100 text-lg">解锁2024最in发型，轻松变美</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-2xl font-bold mb-2">当季流行发型趋势</h3>
-                    <p className="text-violet-100 text-lg">解锁2024最in发型，轻松变美</p>
-                  </div>
+                  <button className="px-6 py-3 bg-white text-violet-600 rounded-full font-semibold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap flex items-center gap-2">
+                    <Zap className="w-5 h-5" />
+                    查看趋势
+                  </button>
                 </div>
-                <button className="px-6 py-3 bg-white text-violet-600 rounded-full font-semibold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap flex items-center gap-2">
-                  <Zap className="w-5 h-5" />
-                  查看趋势
-                </button>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Hair Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {hairStyles.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => console.log('查看发型:', item.title)}
-                  className="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer border border-violet-100/50 dark:border-slate-700/50"
-                  onMouseEnter={() => setHoveredItem(item.id)}
-                  onMouseLeave={() => setHoveredItem(null)}
-                >
+              {hairStyles.map((item, index) => (
+                <ScrollReveal key={item.id} animation="fade-up" delay={400 + index * 100}>
+                  <div
+                    onClick={() => console.log('查看发型:', item.title)}
+                    className="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer border border-violet-100/50 dark:border-slate-700/50"
+                    onMouseEnter={() => setHoveredItem(item.id)}
+                    onMouseLeave={() => setHoveredItem(null)}
+                  >
                   {/* Thumbnail */}
                   <div className={cn(
                     "relative aspect-video overflow-hidden",
@@ -382,33 +389,31 @@ export default function StylingHub() {
                       </div>
                     </div>
                   </div>
-                </div>
+                  </div>
+                </ScrollReveal>
               ))}
             </div>
 
             {/* Hair Style Tips */}
             <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-pink-50 to-rose-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-pink-100 dark:border-slate-700">
-                <div className="w-12 h-12 mb-4 rounded-xl bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg shadow-pink-200 dark:shadow-pink-900/40">
-                  <Sun className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">脸型搭配</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">根据脸型选择最适合的发型，圆脸显瘦、长脸显短、方脸柔和</p>
-              </div>
-              <div className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-violet-100 dark:border-slate-700">
-                <div className="w-12 h-12 mb-4 rounded-xl bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center shadow-lg shadow-violet-200 dark:shadow-violet-900/40">
-                  <Moon className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">场合选择</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">职场干练、约会浪漫、派对闪耀，不同场合不同造型</p>
-              </div>
-              <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-amber-100 dark:border-slate-700">
-                <div className="w-12 h-12 mb-4 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-200 dark:shadow-amber-900/40">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">发质养护</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">好发型需要好发质，日常护理让发型更持久更自然</p>
-              </div>
+              {[
+                { icon: Sun, title: '脸型搭配', desc: '根据脸型选择最适合的发型，圆脸显瘦、长脸显短、方脸柔和', gradient: 'from-pink-50 to-rose-50', accent: 'from-pink-400 to-rose-500', darkGradient: 'from-slate-800 to-slate-800', border: 'border-pink-100 dark:border-slate-700', shadow: 'shadow-pink-200 dark:shadow-pink-900/40' },
+                { icon: Moon, title: '场合选择', desc: '职场干练、约会浪漫、派对闪耀，不同场合不同造型', gradient: 'from-violet-50 to-purple-50', accent: 'from-violet-400 to-purple-500', darkGradient: 'from-slate-800 to-slate-800', border: 'border-violet-100 dark:border-slate-700', shadow: 'shadow-violet-200 dark:shadow-violet-900/40' },
+                { icon: Sparkles, title: '发质养护', desc: '好发型需要好发质，日常护理让发型更持久更自然', gradient: 'from-amber-50 to-orange-50', accent: 'from-amber-400 to-orange-500', darkGradient: 'from-slate-800 to-slate-800', border: 'border-amber-100 dark:border-slate-700', shadow: 'shadow-amber-200 dark:shadow-amber-900/40' }
+              ].map((tip, index) => {
+                const Icon = tip.icon;
+                return (
+                  <ScrollReveal key={index} animation="fade-up" delay={1000 + index * 100}>
+                    <div className={`bg-gradient-to-br ${tip.gradient} dark:${tip.darkGradient} rounded-2xl p-6 border ${tip.border}`}>
+                      <div className={`w-12 h-12 mb-4 rounded-xl bg-gradient-to-br ${tip.accent} flex items-center justify-center shadow-lg ${tip.shadow}`}>
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">{tip.title}</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{tip.desc}</p>
+                    </div>
+                  </ScrollReveal>
+                );
+              })}
             </div>
           </div>
         )}
@@ -417,38 +422,40 @@ export default function StylingHub() {
         {activeTab === 'jewelry' && (
           <div className="space-y-8">
             {/* Featured Banner */}
-            <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 rounded-3xl p-8 text-white relative overflow-hidden">
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIi8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
-              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="flex items-center gap-5">
-                  <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl">
-                    <Gem className="w-10 h-10" />
+            <ScrollReveal animation="fade-up" delay={300}>
+              <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 rounded-3xl p-8 text-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIi8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
+                <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-5">
+                    <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl">
+                      <Gem className="w-10 h-10" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-2">首饰叠戴美学</h3>
+                      <p className="text-amber-100 text-lg">学会叠戴技巧，让基础款也能闪耀全场</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-2xl font-bold mb-2">首饰叠戴美学</h3>
-                    <p className="text-amber-100 text-lg">学会叠戴技巧，让基础款也能闪耀全场</p>
-                  </div>
+                  <button 
+                    onClick={() => console.log('首饰搭配指南')}
+                    className="px-6 py-3 bg-white text-amber-600 rounded-full font-semibold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap flex items-center gap-2"
+                  >
+                    <Wand2 className="w-5 h-5" />
+                    搭配指南
+                  </button>
                 </div>
-                <button 
-                  onClick={() => console.log('首饰搭配指南')}
-                  className="px-6 py-3 bg-white text-amber-600 rounded-full font-semibold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap flex items-center gap-2"
-                >
-                  <Wand2 className="w-5 h-5" />
-                  搭配指南
-                </button>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* Jewelry Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {jewelrySets.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => console.log('查看首饰:', item.title)}
-                  className="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer border border-amber-100/50 dark:border-slate-700/50"
-                  onMouseEnter={() => setHoveredItem(item.id)}
-                  onMouseLeave={() => setHoveredItem(null)}
-                >
+              {jewelrySets.map((item, index) => (
+                <ScrollReveal key={item.id} animation="fade-up" delay={400 + index * 100}>
+                  <div
+                    onClick={() => console.log('查看首饰:', item.title)}
+                    className="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer border border-amber-100/50 dark:border-slate-700/50"
+                    onMouseEnter={() => setHoveredItem(item.id)}
+                    onMouseLeave={() => setHoveredItem(null)}
+                  >
                   {/* Thumbnail */}
                   <div className={cn(
                     "relative aspect-video overflow-hidden",
@@ -526,69 +533,71 @@ export default function StylingHub() {
                       </div>
                     </div>
                   </div>
-                </div>
+                  </div>
+                </ScrollReveal>
               ))}
             </div>
 
             {/* Jewelry Tips */}
             <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-amber-100 dark:border-slate-700">
-                <div className="w-12 h-12 mb-4 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center shadow-lg shadow-amber-200 dark:shadow-amber-900/40">
-                  <CircleDot className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">材质统一</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">同一造型中首饰材质尽量统一，金配金、银配银更显高级</p>
-              </div>
-              <div className="bg-gradient-to-br from-zinc-50 to-gray-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-zinc-100 dark:border-slate-700">
-                <div className="w-12 h-12 mb-4 rounded-xl bg-gradient-to-br from-zinc-400 to-gray-500 flex items-center justify-center shadow-lg shadow-zinc-200 dark:shadow-zinc-900/40">
-                  <Heart className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">风格呼应</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">首饰风格要与服装和整体造型呼应，简约穿搭配精致首饰</p>
-              </div>
-              <div className="bg-gradient-to-br from-rose-50 to-pink-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-rose-100 dark:border-slate-700">
-                <div className="w-12 h-12 mb-4 rounded-xl bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center shadow-lg shadow-rose-200 dark:shadow-rose-900/40">
-                  <HeartHandshake className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">重点原则</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">造型要有重点，夸张首饰配简约服装，繁简得当更吸睛</p>
-              </div>
+              {[
+                { icon: CircleDot, title: '材质统一', desc: '同一造型中首饰材质尽量统一，金配金、银配银更显高级', gradient: 'from-amber-50 to-yellow-50', accent: 'from-amber-400 to-yellow-500', darkGradient: 'from-slate-800 to-slate-800', border: 'border-amber-100 dark:border-slate-700', shadow: 'shadow-amber-200 dark:shadow-amber-900/40' },
+                { icon: Heart, title: '风格呼应', desc: '首饰风格要与服装和整体造型呼应，简约穿搭配精致首饰', gradient: 'from-zinc-50 to-gray-50', accent: 'from-zinc-400 to-gray-500', darkGradient: 'from-slate-800 to-slate-800', border: 'border-zinc-100 dark:border-slate-700', shadow: 'shadow-zinc-200 dark:shadow-zinc-900/40' },
+                { icon: HeartHandshake, title: '重点原则', desc: '造型要有重点，夸张首饰配简约服装，繁简得当更吸睛', gradient: 'from-rose-50 to-pink-50', accent: 'from-rose-400 to-pink-500', darkGradient: 'from-slate-800 to-slate-800', border: 'border-rose-100 dark:border-slate-700', shadow: 'shadow-rose-200 dark:shadow-rose-900/40' }
+              ].map((tip, index) => {
+                const Icon = tip.icon;
+                return (
+                  <ScrollReveal key={index} animation="fade-up" delay={1000 + index * 100}>
+                    <div className={`bg-gradient-to-br ${tip.gradient} dark:${tip.darkGradient} rounded-2xl p-6 border ${tip.border}`}>
+                      <div className={`w-12 h-12 mb-4 rounded-xl bg-gradient-to-br ${tip.accent} flex items-center justify-center shadow-lg ${tip.shadow}`}>
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">{tip.title}</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{tip.desc}</p>
+                    </div>
+                  </ScrollReveal>
+                );
+              })}
             </div>
 
             {/* Matching Guide Banner */}
-            <div className="mt-12 bg-gradient-to-r from-gray-900 to-gray-800 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 text-white">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="flex items-center gap-5">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-xl">
-                    <Watch className="w-8 h-8 text-white" />
+            <ScrollReveal animation="fade-up" delay={1300}>
+              <div className="mt-12 bg-gradient-to-r from-gray-900 to-gray-800 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 text-white">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-5">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-xl">
+                      <Watch className="w-8 h-8 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold mb-1">AI造型搭配助手</h3>
+                      <p className="text-gray-400">上传你的照片，获取专属发型+首饰搭配方案</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-1">AI造型搭配助手</h3>
-                    <p className="text-gray-400">上传你的照片，获取专属发型+首饰搭配方案</p>
-                  </div>
+                  <button 
+                    onClick={() => console.log('AI造型搭配')}
+                    className="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full font-semibold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap flex items-center gap-2"
+                  >
+                    <Sparkles className="w-5 h-5" />
+                    智能搭配
+                  </button>
                 </div>
-                <button 
-                  onClick={() => console.log('AI造型搭配')}
-                  className="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full font-semibold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap flex items-center gap-2"
-                >
-                  <Sparkles className="w-5 h-5" />
-                  智能搭配
-                </button>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         )}
 
         {/* Load More */}
-        <div className="text-center mt-14">
-          <button 
-            onClick={() => console.log('加载更多造型内容')}
-            className="group inline-flex items-center gap-2 px-8 py-4 bg-white dark:bg-slate-800 text-violet-600 dark:text-violet-400 rounded-full font-medium border-2 border-violet-200 dark:border-slate-700 hover:border-violet-300 dark:hover:border-violet-600 hover:bg-violet-50 dark:hover:bg-slate-700 transition-all duration-300 cursor-pointer shadow-sm"
-          >
-            查看更多内容
-            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </button>
-        </div>
+        <ScrollReveal animation="fade-up" delay={1500}>
+          <div className="text-center mt-14">
+            <button 
+              onClick={() => console.log('加载更多造型内容')}
+              className="group inline-flex items-center gap-2 px-8 py-4 bg-white dark:bg-slate-800 text-violet-600 dark:text-violet-400 rounded-full font-medium border-2 border-violet-200 dark:border-slate-700 hover:border-violet-300 dark:hover:border-violet-600 hover:bg-violet-50 dark:hover:bg-slate-700 transition-all duration-300 cursor-pointer shadow-sm"
+            >
+              查看更多内容
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   )

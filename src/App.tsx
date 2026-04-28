@@ -341,7 +341,7 @@ function App() {
         <CartContextProvider>
           <ToastProvider>
             <ErrorBoundary>
-              {!device.isMobile && !forceMobileMode && showSplash && (
+              {showSplash && (
                 <SplashScreen
                   onComplete={(preferences) => {
                     console.log('用户兴趣偏好:', preferences)
@@ -349,7 +349,7 @@ function App() {
                   }}
                 />
               )}
-              {(!showSplash || device.isMobile || forceMobileMode) && <AppContent />}
+              {!showSplash && <AppContent />}
             </ErrorBoundary>
           </ToastProvider>
         </CartContextProvider>

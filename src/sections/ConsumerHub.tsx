@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Coins, Gift, Users, Star, ShoppingBag, TrendingUp, Award, Shield, ChevronRight, ArrowRight, Sparkles, Heart, Package, Wallet, Ticket, Target } from 'lucide-react'
+import ScrollReveal from '@/components/ScrollReveal'
 
 // 导入子模块
 import BeautyCoin from './BeautyCoin'
@@ -142,184 +143,194 @@ const ConsumerHub: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-stone-50 dark:from-gray-900 dark:via-slate-900 dark:to-zinc-900 py-8 px-4">
       <div className="max-w-6xl mx-auto">
         {/* 顶部 Banner */}
-        <div className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 rounded-3xl p-8 text-white shadow-2xl mb-8 relative overflow-hidden">
-          {/* 装饰背景 */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-          </div>
-          
-          <div className="relative z-10">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                <Sparkles className="w-8 h-8" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold mb-1">美丽消费中心</h1>
-                <p className="text-purple-200">让消费变成一种投资，一种享受，一种参与</p>
-              </div>
+        <ScrollReveal animation="fade-up">
+          <div className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 rounded-3xl p-8 text-white shadow-2xl mb-8 relative overflow-hidden">
+            {/* 装饰背景 */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
             </div>
+            
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                  <Sparkles className="w-8 h-8" />
+                </div>
+                <div>
+                  <h1 className="text-3xl font-bold mb-1">美丽消费中心</h1>
+                  <p className="text-purple-200">让消费变成一种投资，一种享受，一种参与</p>
+                </div>
+              </div>
 
-            {/* 会员等级卡片 */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mt-6">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${
-                    userProgress.levelColor === 'silver' ? 'bg-gradient-to-br from-gray-300 to-gray-400' :
-                    userProgress.levelColor === 'gold' ? 'bg-gradient-to-br from-amber-400 to-yellow-500' :
-                    'bg-gradient-to-br from-violet-400 to-fuchsia-500'
-                  }`}>
-                    <Award className="w-7 h-7 text-white" />
+              {/* 会员等级卡片 */}
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mt-6">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${
+                      userProgress.levelColor === 'silver' ? 'bg-gradient-to-br from-gray-300 to-gray-400' :
+                      userProgress.levelColor === 'gold' ? 'bg-gradient-to-br from-amber-400 to-yellow-500' :
+                      'bg-gradient-to-br from-violet-400 to-fuchsia-500'
+                    }`}>
+                      <Award className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-sm text-purple-200">当前等级</div>
+                      <div className="text-xl font-bold">{userProgress.level}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-sm text-purple-200">当前等级</div>
-                    <div className="text-xl font-bold">{userProgress.level}</div>
-                  </div>
-                </div>
-                <div className="flex-1 max-w-md">
-                  <div className="flex justify-between text-sm mb-2">
-                    <span className="text-purple-200">升级至 {userProgress.nextLevel}</span>
-                    <span>{userProgress.progress}%</span>
-                  </div>
-                  <div className="h-3 bg-white/20 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-amber-400 to-yellow-300 rounded-full"
-                      style={{ width: `${userProgress.progress}%` }}
-                    />
-                  </div>
-                  <div className="text-xs text-purple-200 mt-1">
-                    再消费 ¥{userProgress.required - userProgress.current} 即可升级
+                  <div className="flex-1 max-w-md">
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="text-purple-200">升级至 {userProgress.nextLevel}</span>
+                      <span>{userProgress.progress}%</span>
+                    </div>
+                    <div className="h-3 bg-white/20 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-amber-400 to-yellow-300 rounded-full"
+                        style={{ width: `${userProgress.progress}%` }}
+                      />
+                    </div>
+                    <div className="text-xs text-purple-200 mt-1">
+                      再消费 ¥{userProgress.required - userProgress.current} 即可升级
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* 功能模块 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {features.map((feature) => (
-            <div 
-              key={feature.id}
-              className="group bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
-              onClick={() => setActiveModule(feature.id as any)}
-            >
-              {/* 渐变头部 */}
-              <div className={`bg-gradient-to-br ${feature.gradient} p-6 relative overflow-hidden`}>
-                {/* 装饰 */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl translate-x-8 -translate-y-8" />
-                
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                      <feature.icon className="w-7 h-7 text-white" />
+          {features.map((feature, index) => (
+            <ScrollReveal key={feature.id} animation="fade-up" delay={200 + index * 100}>
+              <div 
+                key={feature.id}
+                className="group bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                onClick={() => setActiveModule(feature.id as any)}
+              >
+                {/* 渐变头部 */}
+                <div className={`bg-gradient-to-br ${feature.gradient} p-6 relative overflow-hidden`}>
+                  {/* 装饰 */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl translate-x-8 -translate-y-8" />
+                  
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                        <feature.icon className="w-7 h-7 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white">{feature.title}</h3>
+                        <p className="text-white/80 text-sm">{feature.subtitle}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">{feature.title}</h3>
-                      <p className="text-white/80 text-sm">{feature.subtitle}</p>
-                    </div>
-                  </div>
-                  <span className="px-3 py-1 bg-white/20 rounded-full text-xs text-white font-medium backdrop-blur-sm">
-                    {feature.badge}
-                  </span>
-                </div>
-
-                <p className="text-white/90 text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-
-                {/* 高亮标签 */}
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {feature.highlights.map((highlight, i) => (
-                    <span key={i} className="px-2 py-1 bg-white/20 rounded-lg text-xs text-white">
-                      {highlight}
+                    <span className="px-3 py-1 bg-white/20 rounded-full text-xs text-white font-medium backdrop-blur-sm">
+                      {feature.badge}
                     </span>
-                  ))}
+                  </div>
+
+                  <p className="text-white/90 text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
+
+                  {/* 高亮标签 */}
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {feature.highlights.map((highlight, i) => (
+                      <span key={i} className="px-2 py-1 bg-white/20 rounded-lg text-xs text-white">
+                        {highlight}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 统计数据 */}
+                <div className="p-6">
+                  <div className="grid grid-cols-3 gap-4">
+                    {feature.stats.map((stat, i) => (
+                      <div key={i} className="text-center">
+                        <div className="text-xl font-bold text-gray-800 dark:text-white">{stat.value}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button className={`w-full mt-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 bg-gradient-to-br ${feature.gradient} text-white group-hover:shadow-lg transition-all`}>
+                    进入{feature.title}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </button>
                 </div>
               </div>
-
-              {/* 统计数据 */}
-              <div className="p-6">
-                <div className="grid grid-cols-3 gap-4">
-                  {feature.stats.map((stat, i) => (
-                    <div key={i} className="text-center">
-                      <div className="text-xl font-bold text-gray-800 dark:text-white">{stat.value}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
-
-                <button className={`w-full mt-4 py-3 rounded-xl font-medium flex items-center justify-center gap-2 bg-gradient-to-br ${feature.gradient} text-white group-hover:shadow-lg transition-all`}>
-                  进入{feature.title}
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
 
         {/* 消费理念 */}
-        <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-lg mb-8">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
-              {consumptionPhilosophy.title}
-            </h2>
-            <p className="text-gray-500 dark:text-gray-400">
-              {consumptionPhilosophy.subtitle}
-            </p>
-          </div>
+        <ScrollReveal animation="fade-up" delay={600}>
+          <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-lg mb-8">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+                {consumptionPhilosophy.title}
+              </h2>
+              <p className="text-gray-500 dark:text-gray-400">
+                {consumptionPhilosophy.subtitle}
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {consumptionPhilosophy.points.map((point, index) => (
-              <div key={index} className="text-center group">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-violet-100 to-purple-100 dark:from-violet-900/30 dark:to-purple-900/30 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <point.icon className="w-8 h-8 text-violet-600 dark:text-violet-400" />
-                </div>
-                <h4 className="font-bold text-gray-800 dark:text-white mb-2">{point.title}</h4>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{point.description}</p>
-              </div>
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {consumptionPhilosophy.points.map((point, index) => (
+                <ScrollReveal key={index} animation="fade-up" delay={700 + index * 50}>
+                  <div key={index} className="text-center group">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-violet-100 to-purple-100 dark:from-violet-900/30 dark:to-purple-900/30 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <point.icon className="w-8 h-8 text-violet-600 dark:text-violet-400" />
+                    </div>
+                    <h4 className="font-bold text-gray-800 dark:text-white mb-2">{point.title}</h4>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{point.description}</p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* 会员权益 */}
-        <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-3xl p-8">
-          <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-6 text-center">
-            银钻会员专属权益
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {userProgress.perks.map((perk, index) => (
-              <div 
-                key={index}
-                className={`p-4 rounded-2xl flex items-center gap-3 ${
-                  perk.unlocked 
-                    ? 'bg-white dark:bg-gray-800 shadow' 
-                    : 'bg-white/50 dark:bg-gray-800/50 opacity-50'
-                }`}
-              >
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                  perk.unlocked 
-                    ? 'bg-emerald-100 dark:bg-emerald-900/30' 
-                    : 'bg-gray-100 dark:bg-gray-700'
-                }`}>
-                  {perk.unlocked ? (
-                    <Shield className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                  ) : (
-                    <Package className="w-5 h-5 text-gray-400" />
-                  )}
-                </div>
-                <div>
-                  <div className={`font-medium ${perk.unlocked ? 'text-gray-800 dark:text-white' : 'text-gray-400'}`}>
-                    {perk.name}
+        <ScrollReveal animation="fade-up" delay={900}>
+          <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-3xl p-8">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-6 text-center">
+              银钻会员专属权益
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {userProgress.perks.map((perk, index) => (
+                <div 
+                  key={index}
+                  className={`p-4 rounded-2xl flex items-center gap-3 ${
+                    perk.unlocked 
+                      ? 'bg-white dark:bg-gray-800 shadow' 
+                      : 'bg-white/50 dark:bg-gray-800/50 opacity-50'
+                  }`}
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                    perk.unlocked 
+                      ? 'bg-emerald-100 dark:bg-emerald-900/30' 
+                      : 'bg-gray-100 dark:bg-gray-700'
+                  }`}>
+                    {perk.unlocked ? (
+                      <Shield className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                    ) : (
+                      <Package className="w-5 h-5 text-gray-400" />
+                    )}
                   </div>
-                  <div className="text-xs text-gray-500">
-                    {perk.unlocked ? '已解锁' : '升级后解锁'}
+                  <div>
+                    <div className={`font-medium ${perk.unlocked ? 'text-gray-800 dark:text-white' : 'text-gray-400'}`}>
+                      {perk.name}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {perk.unlocked ? '已解锁' : '升级后解锁'}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </div>
   )

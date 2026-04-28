@@ -7,6 +7,7 @@ import {
   Scissors, Crown, Gem, Watch
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import ScrollReveal from '@/components/ScrollReveal'
 
 // 五官部位分类
 type FacePart = 'all' | 'brows' | 'eyes' | 'lips' | 'base' | 'blush'
@@ -413,225 +414,237 @@ export default function MakeupTutorials() {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-pink-50/20 to-white dark:from-slate-900 dark:via-slate-800/50 dark:to-slate-900 transition-colors">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-100 to-rose-100 dark:from-pink-900/40 dark:to-rose-900/40 text-pink-600 dark:text-pink-400 text-sm font-medium shadow-sm mb-6">
-            <Wand2 className="w-4 h-4" />
-            <span>专业化妆教程</span>
+        <ScrollReveal animation="fade-up" delay={0}>
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-100 to-rose-100 dark:from-pink-900/40 dark:to-rose-900/40 text-pink-600 dark:text-pink-400 text-sm font-medium shadow-sm mb-6">
+              <Wand2 className="w-4 h-4" />
+              <span>专业化妆教程</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-800 dark:text-white mb-4">
+              妆容教程
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
+              按五官部位细分，从基础到进阶，跟着专业化妆师学习精准妆容技巧
+            </p>
           </div>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-800 dark:text-white mb-4">
-            妆容教程
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
-            按五官部位细分，从基础到进阶，跟着专业化妆师学习精准妆容技巧
-          </p>
-        </div>
+        </ScrollReveal>
 
         {/* Face Part Selector */}
-        <div className="mb-12">
-          <div className="flex flex-wrap justify-center gap-4 mb-6">
-            {faceParts.map((part) => {
-              const IconComponent = part.icon
-              const isActive = activePart === part.id
-              return (
-                <button
-                  key={part.id}
-                  onClick={() => setActivePart(part.id)}
-                  className={cn(
-                    "group relative flex flex-col items-center gap-2 px-6 py-4 rounded-2xl transition-all duration-300 cursor-pointer",
-                    isActive
-                      ? "bg-gradient-to-br from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-200 dark:shadow-pink-900/40 scale-105"
-                      : "bg-white dark:bg-slate-800 text-gray-600 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-slate-700 border border-pink-100/50 dark:border-slate-700 shadow-sm hover:shadow-md"
-                  )}
-                >
-                  <IconComponent className={cn("w-6 h-6 transition-transform duration-300", isActive ? "" : "group-hover:scale-110")} />
-                  <span className="font-medium text-sm">{part.name}</span>
-                  <span className={cn(
-                    "text-xs transition-opacity",
-                    isActive ? "text-pink-100" : "opacity-60"
-                  )}>
-                    {partCounts[part.id]}+教程
-                  </span>
-                </button>
-              )
-            })}
+        <ScrollReveal animation="fade-up" delay={200}>
+          <div className="mb-12">
+            <div className="flex flex-wrap justify-center gap-4 mb-6">
+              {faceParts.map((part) => {
+                const IconComponent = part.icon
+                const isActive = activePart === part.id
+                return (
+                  <button
+                    key={part.id}
+                    onClick={() => setActivePart(part.id)}
+                    className={cn(
+                      "group relative flex flex-col items-center gap-2 px-6 py-4 rounded-2xl transition-all duration-300 cursor-pointer",
+                      isActive
+                        ? "bg-gradient-to-br from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-200 dark:shadow-pink-900/40 scale-105"
+                        : "bg-white dark:bg-slate-800 text-gray-600 dark:text-gray-300 hover:bg-pink-50 dark:hover:bg-slate-700 border border-pink-100/50 dark:border-slate-700 shadow-sm hover:shadow-md"
+                    )}
+                  >
+                    <IconComponent className={cn("w-6 h-6 transition-transform duration-300", isActive ? "" : "group-hover:scale-110")} />
+                    <span className="font-medium text-sm">{part.name}</span>
+                    <span className={cn(
+                      "text-xs transition-opacity",
+                      isActive ? "text-pink-100" : "opacity-60"
+                    )}>
+                      {partCounts[part.id]}+教程
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Tutorial Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredTutorials.map((tutorial) => (
-            <div
-              key={tutorial.id}
-              onClick={() => console.log('查看教程:', tutorial.title)}
-              className="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer border border-pink-100/50 dark:border-slate-700/50"
-              onMouseEnter={() => setHoveredTutorial(tutorial.id)}
-              onMouseLeave={() => setHoveredTutorial(null)}
-            >
-              {/* Thumbnail */}
-              <div className={cn(
-                "relative aspect-video overflow-hidden",
-                `bg-gradient-to-br ${tutorial.gradient} dark:from-slate-700 dark:via-slate-800 dark:to-slate-700`
-              )}>
-                {/* 装饰元素 */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className={cn(
-                    "w-20 h-20 rounded-2xl bg-white/30 dark:bg-white/10 backdrop-blur-sm flex items-center justify-center transition-all duration-500",
-                    hoveredTutorial === tutorial.id && "scale-110 rotate-3"
-                  )}>
-                    <Layers className="w-10 h-10 text-white/80" />
-                  </div>
-                </div>
-
-                {/* Play Button */}
+          {filteredTutorials.map((tutorial, index) => (
+            <ScrollReveal key={tutorial.id} animation="fade-up" delay={300 + index * 100}>
+              <div
+                key={tutorial.id}
+                onClick={() => console.log('查看教程:', tutorial.title)}
+                className="group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer border border-pink-100/50 dark:border-slate-700/50"
+                onMouseEnter={() => setHoveredTutorial(tutorial.id)}
+                onMouseLeave={() => setHoveredTutorial(null)}
+              >
+                {/* Thumbnail */}
                 <div className={cn(
-                  "absolute inset-0 flex items-center justify-center transition-all duration-300",
-                  hoveredTutorial === tutorial.id ? "bg-black/20" : "bg-black/10"
+                  "relative aspect-video overflow-hidden",
+                  `bg-gradient-to-br ${tutorial.gradient} dark:from-slate-700 dark:via-slate-800 dark:to-slate-700`
                 )}>
-                  <div className={cn(
-                    "w-14 h-14 rounded-full bg-white/90 dark:bg-slate-700/90 backdrop-blur-sm flex items-center justify-center shadow-xl transition-all duration-300",
-                    hoveredTutorial === tutorial.id ? "scale-110 shadow-2xl" : ""
-                  )}>
-                    <Play className="w-5 h-5 text-pink-600 dark:text-pink-400 ml-1" />
-                  </div>
-                </div>
-
-                {/* Category */}
-                <div className="absolute top-3 left-3">
-                  <span className={cn(
-                    "px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm",
-                    tutorial.bgColor, "text-white"
-                  )}>
-                    {tutorial.category}
-                  </span>
-                </div>
-
-                {/* Difficulty */}
-                <div className="absolute top-3 right-3">
-                  <span className="px-3 py-1 bg-white/90 dark:bg-slate-700/90 backdrop-blur-sm rounded-full text-xs font-medium text-gray-600 dark:text-gray-300">
-                    {tutorial.difficulty}
-                  </span>
-                </div>
-
-                {/* Duration */}
-                <div className="absolute bottom-3 right-3">
-                  <span className="flex items-center gap-1.5 px-3 py-1.5 bg-black/40 backdrop-blur-sm rounded-full text-xs font-medium text-white">
-                    <Clock className="w-3.5 h-3.5" />
-                    {tutorial.duration}
-                  </span>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-5">
-                <h3 className="font-semibold text-lg text-gray-800 dark:text-white mb-2 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors line-clamp-1">
-                  {tutorial.title}
-                </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 line-clamp-2 leading-relaxed">
-                  {tutorial.description}
-                </p>
-                
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {tutorial.tags.map((tag) => (
-                    <span key={tag} className="px-2 py-0.5 bg-pink-50 dark:bg-slate-700 rounded-full text-xs text-pink-600 dark:text-pink-400">
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex items-center justify-between text-sm pt-3 border-t border-pink-50 dark:border-slate-700">
-                  <div className="flex items-center gap-2">
+                  {/* 装饰元素 */}
+                  <div className="absolute inset-0 flex items-center justify-center">
                     <div className={cn(
-                      "w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold",
-                      tutorial.bgColor
+                      "w-20 h-20 rounded-2xl bg-white/30 dark:bg-white/10 backdrop-blur-sm flex items-center justify-center transition-all duration-500",
+                      hoveredTutorial === tutorial.id && "scale-110 rotate-3"
                     )}>
-                      {tutorial.author.charAt(0)}
+                      <Layers className="w-10 h-10 text-white/80" />
                     </div>
-                    <span className="text-sm text-gray-600 dark:text-gray-400">{tutorial.author}</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
-                      <Eye className="w-4 h-4" />
-                      {tutorial.views}
+
+                  {/* Play Button */}
+                  <div className={cn(
+                    "absolute inset-0 flex items-center justify-center transition-all duration-300",
+                    hoveredTutorial === tutorial.id ? "bg-black/20" : "bg-black/10"
+                  )}>
+                    <div className={cn(
+                      "w-14 h-14 rounded-full bg-white/90 dark:bg-slate-700/90 backdrop-blur-sm flex items-center justify-center shadow-xl transition-all duration-300",
+                      hoveredTutorial === tutorial.id ? "scale-110 shadow-2xl" : ""
+                    )}>
+                      <Play className="w-5 h-5 text-pink-600 dark:text-pink-400 ml-1" />
+                    </div>
+                  </div>
+
+                  {/* Category */}
+                  <div className="absolute top-3 left-3">
+                    <span className={cn(
+                      "px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm",
+                      tutorial.bgColor, "text-white"
+                    )}>
+                      {tutorial.category}
                     </span>
-                    <span className="flex items-center gap-1 text-amber-500">
-                      <Star className="w-4 h-4 fill-current" />
-                      {tutorial.rating}
+                  </div>
+
+                  {/* Difficulty */}
+                  <div className="absolute top-3 right-3">
+                    <span className="px-3 py-1 bg-white/90 dark:bg-slate-700/90 backdrop-blur-sm rounded-full text-xs font-medium text-gray-600 dark:text-gray-300">
+                      {tutorial.difficulty}
+                    </span>
+                  </div>
+
+                  {/* Duration */}
+                  <div className="absolute bottom-3 right-3">
+                    <span className="flex items-center gap-1.5 px-3 py-1.5 bg-black/40 backdrop-blur-sm rounded-full text-xs font-medium text-white">
+                      <Clock className="w-3.5 h-3.5" />
+                      {tutorial.duration}
                     </span>
                   </div>
                 </div>
+
+                {/* Content */}
+                <div className="p-5">
+                  <h3 className="font-semibold text-lg text-gray-800 dark:text-white mb-2 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors line-clamp-1">
+                    {tutorial.title}
+                  </h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 line-clamp-2 leading-relaxed">
+                    {tutorial.description}
+                  </p>
+                  
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {tutorial.tags.map((tag) => (
+                      <span key={tag} className="px-2 py-0.5 bg-pink-50 dark:bg-slate-700 rounded-full text-xs text-pink-600 dark:text-pink-400">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between text-sm pt-3 border-t border-pink-50 dark:border-slate-700">
+                    <div className="flex items-center gap-2">
+                      <div className={cn(
+                        "w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold",
+                        tutorial.bgColor
+                      )}>
+                        {tutorial.author.charAt(0)}
+                      </div>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">{tutorial.author}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
+                        <Eye className="w-4 h-4" />
+                        {tutorial.views}
+                      </span>
+                      <span className="flex items-center gap-1 text-amber-500">
+                        <Star className="w-4 h-4 fill-current" />
+                        {tutorial.rating}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
 
         {/* Load More */}
-        <div className="text-center mt-14">
-          <button 
-            onClick={() => console.log('加载更多教程')}
-            className="group inline-flex items-center gap-2 px-8 py-4 bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 rounded-full font-medium border-2 border-pink-200 dark:border-slate-700 hover:border-pink-300 dark:hover:border-pink-600 hover:bg-pink-50 dark:hover:bg-slate-700 transition-all duration-300 cursor-pointer shadow-sm"
-          >
-            查看更多教程
-            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </button>
-        </div>
-
-        {/* Stats Banner */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-gradient-to-br from-pink-50 to-rose-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-pink-100 dark:border-slate-700 text-center">
-            <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg shadow-pink-200 dark:shadow-pink-900/40">
-              <BookOpen className="w-6 h-6 text-white" />
-            </div>
-            <h4 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">200+</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">精选教程</p>
-          </div>
-          <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-amber-100 dark:border-slate-700 text-center">
-            <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-200 dark:shadow-amber-900/40">
-              <Award className="w-6 h-6 text-white" />
-            </div>
-            <h4 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">50+</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">专业化妆师</p>
-          </div>
-          <div className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-violet-100 dark:border-slate-700 text-center">
-            <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center shadow-lg shadow-violet-200 dark:shadow-violet-900/40">
-              <Layers className="w-6 h-6 text-white" />
-            </div>
-            <h4 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">6</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">五官部位</p>
-          </div>
-          <div className="bg-gradient-to-br from-cyan-50 to-teal-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-cyan-100 dark:border-slate-700 text-center">
-            <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center shadow-lg shadow-cyan-200 dark:shadow-cyan-900/40">
-              <Target className="w-6 h-6 text-white" />
-            </div>
-            <h4 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">100%</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">实用技巧</p>
-          </div>
-        </div>
-
-        {/* AI Recommendation Banner */}
-        <div className="mt-16 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-500 rounded-3xl p-10 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-56 h-56 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/3 blur-2xl" />
-          
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="flex items-center gap-5">
-              <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl">
-                <Sparkles className="w-10 h-10" />
-              </div>
-              <div>
-                <h3 className="text-3xl font-bold mb-2">AI智能妆容推荐</h3>
-                <p className="text-pink-100 text-lg">上传照片，获取专属五官妆容建议</p>
-              </div>
-            </div>
+        <ScrollReveal animation="fade-up" delay={600}>
+          <div className="text-center mt-14">
             <button 
-              onClick={() => console.log('AI妆容推荐')}
-              className="px-8 py-4 bg-white text-pink-600 rounded-full font-semibold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap flex items-center gap-2"
+              onClick={() => console.log('加载更多教程')}
+              className="group inline-flex items-center gap-2 px-8 py-4 bg-white dark:bg-slate-800 text-pink-600 dark:text-pink-400 rounded-full font-medium border-2 border-pink-200 dark:border-slate-700 hover:border-pink-300 dark:hover:border-pink-600 hover:bg-pink-50 dark:hover:bg-slate-700 transition-all duration-300 cursor-pointer shadow-sm"
             >
-              <Wand2 className="w-5 h-5" />
-              立即体验
+              查看更多教程
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
-        </div>
+        </ScrollReveal>
+
+        {/* Stats Banner */}
+        <ScrollReveal animation="fade-up" delay={700}>
+          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-gradient-to-br from-pink-50 to-rose-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-pink-100 dark:border-slate-700 text-center">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg shadow-pink-200 dark:shadow-pink-900/40">
+                <BookOpen className="w-6 h-6 text-white" />
+              </div>
+              <h4 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">200+</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">精选教程</p>
+            </div>
+            <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-amber-100 dark:border-slate-700 text-center">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-200 dark:shadow-amber-900/40">
+                <Award className="w-6 h-6 text-white" />
+              </div>
+              <h4 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">50+</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">专业化妆师</p>
+            </div>
+            <div className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-violet-100 dark:border-slate-700 text-center">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center shadow-lg shadow-violet-200 dark:shadow-violet-900/40">
+                <Layers className="w-6 h-6 text-white" />
+              </div>
+              <h4 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">6</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">五官部位</p>
+            </div>
+            <div className="bg-gradient-to-br from-cyan-50 to-teal-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-6 border border-cyan-100 dark:border-slate-700 text-center">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center shadow-lg shadow-cyan-200 dark:shadow-cyan-900/40">
+                <Target className="w-6 h-6 text-white" />
+              </div>
+              <h4 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">100%</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400">实用技巧</p>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        {/* AI Recommendation Banner */}
+        <ScrollReveal animation="fade-up" delay={800}>
+          <div className="mt-16 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-500 rounded-3xl p-10 text-white relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-56 h-56 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/3 blur-2xl" />
+            
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="flex items-center gap-5">
+                <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl">
+                  <Sparkles className="w-10 h-10" />
+                </div>
+                <div>
+                  <h3 className="text-3xl font-bold mb-2">AI智能妆容推荐</h3>
+                  <p className="text-pink-100 text-lg">上传照片，获取专属五官妆容建议</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => console.log('AI妆容推荐')}
+                className="px-8 py-4 bg-white text-pink-600 rounded-full font-semibold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap flex items-center gap-2"
+              >
+                <Wand2 className="w-5 h-5" />
+                立即体验
+              </button>
+            </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   )

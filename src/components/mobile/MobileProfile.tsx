@@ -2,6 +2,7 @@ import { Settings, Heart, Bookmark, ShoppingBag, Clock, Sun, Moon, ChevronRight,
 import { cn } from '@/lib/utils'
 import { useState, useEffect, useRef } from 'react'
 import { useTheme } from '@/contexts/ThemeContext'
+import ScrollReveal from '../ScrollReveal'
 
 // 模拟数据
 const userStats = {
@@ -123,148 +124,161 @@ export default function MobileProfile({ isOpen, onClose, onSettingsClick, onBack
 
       <div className="relative z-10">
         {/* 顶部导航 */}
-        <header className="sticky top-0 z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-gray-100/50 dark:border-slate-700/50">
-          <div className="flex items-center justify-between px-4 py-3">
-            <h1 className="text-lg font-bold text-gray-800 dark:text-gray-100">我的</h1>
-            <div className="flex items-center gap-2">
-              {/* 主题切换 */}
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-full bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-300"
-                title={theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'}
-              >
-                {theme === 'dark' ? (
-                  <Sun className="w-5 h-5 text-amber-500 animate-spin-slow" />
-                ) : (
-                  <Moon className="w-5 h-5 text-slate-600 animate-pulse-soft" />
-                )}
-              </button>
-              <button className="p-2 rounded-full bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors">
-                <Settings className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-              </button>
+        <ScrollReveal animation="fade-down" immediate={true}>
+          <header className="sticky top-0 z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-gray-100/50 dark:border-slate-700/50">
+            <div className="flex items-center justify-between px-4 py-3">
+              <h1 className="text-lg font-bold text-gray-800 dark:text-gray-100">我的</h1>
+              <div className="flex items-center gap-2">
+                {/* 主题切换 */}
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 rounded-full bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-300"
+                  title={theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'}
+                >
+                  {theme === 'dark' ? (
+                    <Sun className="w-5 h-5 text-amber-500 animate-spin-slow" />
+                  ) : (
+                    <Moon className="w-5 h-5 text-slate-600 animate-pulse-soft" />
+                  )}
+                </button>
+                <button className="p-2 rounded-full bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors">
+                  <Settings className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+                </button>
+              </div>
             </div>
-          </div>
-        </header>
+          </header>
+        </ScrollReveal>
 
         {/* 用户信息卡片 */}
-        <div className="px-4 py-6 animate-card-enter">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop"
-                  alt="头像"
-                  className="w-20 h-20 rounded-full object-cover ring-4 ring-pink-100 dark:ring-pink-900/50"
-                />
-                <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">5</span>
+        <ScrollReveal animation="fade-up" delay={50} immediate={true}>
+          <div className="px-4 py-6">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm">
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop"
+                    alt="头像"
+                    className="w-20 h-20 rounded-full object-cover ring-4 ring-pink-100 dark:ring-pink-900/50"
+                  />
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">5</span>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">美妆爱好者</h2>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">@beauty_lover</p>
+                  <div className="flex items-center gap-4 mt-2 text-sm">
+                    <span className="text-gray-600 dark:text-gray-300">
+                      <strong className="text-gray-800 dark:text-gray-100">{userStats.followers}</strong> 粉丝
+                    </span>
+                    <span className="text-gray-600 dark:text-gray-300">
+                      <strong className="text-gray-800 dark:text-gray-100">{userStats.following}</strong> 关注
+                    </span>
+                    <span className="text-gray-600 dark:text-gray-300">
+                      <strong className="text-gray-800 dark:text-gray-100">{userStats.likes}</strong> 获赞
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div className="flex-1">
-                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">美妆爱好者</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">@beauty_lover</p>
-                <div className="flex items-center gap-4 mt-2 text-sm">
-                  <span className="text-gray-600 dark:text-gray-300">
-                    <strong className="text-gray-800 dark:text-gray-100">{userStats.followers}</strong> 粉丝
-                  </span>
-                  <span className="text-gray-600 dark:text-gray-300">
-                    <strong className="text-gray-800 dark:text-gray-100">{userStats.following}</strong> 关注
-                  </span>
-                  <span className="text-gray-600 dark:text-gray-300">
-                    <strong className="text-gray-800 dark:text-gray-100">{userStats.likes}</strong> 获赞
-                  </span>
-                </div>
-              </div>
-            </div>
 
-            {/* 成就徽章 */}
-            <div className="mt-4 pt-4 border-t border-gray-100 dark:border-slate-700">
-              <p className="text-xs text-gray-400 mb-3">我的成就</p>
-              <div className="flex gap-3 overflow-x-auto scrollbar-hide">
-                {userAchievements.map((achievement, index) => {
-                  const Icon = achievement.icon
-                  return (
-                    <div
-                      key={index}
-                      className={cn(
-                        "flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl",
-                        "bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20"
-                      )}
-                    >
-                      <Icon className={cn("w-4 h-4", achievement.color)} />
-                      <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
-                        {achievement.name}
-                      </span>
-                      <div className="flex gap-0.5">
-                        {[...Array(achievement.level)].map((_, i) => (
-                          <Star key={i} className="w-2.5 h-2.5 text-amber-500 fill-amber-500" />
-                        ))}
-                      </div>
-                    </div>
-                  )
-                })}
+              {/* 成就徽章 */}
+              <div className="mt-4 pt-4 border-t border-gray-100 dark:border-slate-700">
+                <p className="text-xs text-gray-400 mb-3">我的成就</p>
+                <div className="flex gap-3 overflow-x-auto scrollbar-hide">
+                  {userAchievements.map((achievement, index) => {
+                    const Icon = achievement.icon
+                    return (
+                      <ScrollReveal key={index} animation="fade-up" delay={60 + index * 40} duration={400}>
+                        <div
+                          className={cn(
+                            "flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl",
+                            "bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20"
+                          )}
+                        >
+                          <Icon className={cn("w-4 h-4", achievement.color)} />
+                          <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
+                            {achievement.name}
+                          </span>
+                          <div className="flex gap-0.5">
+                            {[...Array(achievement.level)].map((_, i) => (
+                              <Star key={i} className="w-2.5 h-2.5 text-amber-500 fill-amber-500" />
+                            ))}
+                          </div>
+                        </div>
+                      </ScrollReveal>
+                    )
+                  })}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* 功能入口 */}
-        <div className="px-4 pb-4 space-y-3 animate-card-enter" style={{ animationDelay: '100ms' }}>
-          {/* 收藏分类 */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm">
-            <p className="text-xs text-gray-400 mb-3">我的收藏</p>
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-              {favoriteCategories.map((category, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-50 dark:bg-slate-700"
-                >
-                  <div className={cn("w-2 h-2 rounded-full", category.color)} />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                    {category.name}
-                  </span>
-                  <span className="text-xs text-gray-400">{category.count}</span>
+        <ScrollReveal animation="fade-up" delay={100} immediate={true}>
+          <div className="px-4 pb-4 space-y-3">
+            {/* 收藏分类 */}
+            <ScrollReveal animation="fade-up" delay={110} duration={400}>
+              <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm">
+                <p className="text-xs text-gray-400 mb-3">我的收藏</p>
+                <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+                  {favoriteCategories.map((category, index) => (
+                    <div
+                      key={index}
+                      className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-50 dark:bg-slate-700"
+                    >
+                      <div className={cn("w-2 h-2 rounded-full", category.color)} />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                        {category.name}
+                      </span>
+                      <span className="text-xs text-gray-400">{category.count}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
+            </ScrollReveal>
 
-          {/* 菜单项 */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm">
-            <MenuItem icon={Heart} label="我的点赞" count={156} />
-            <MenuItem icon={Bookmark} label="我的收藏" count={89} />
-            <MenuItem icon={Clock} label="浏览历史" count={234} />
-            <MenuItem icon={ShoppingBag} label="购买记录" count={12} isLast />
-          </div>
+            {/* 菜单项 */}
+            <ScrollReveal animation="fade-up" delay={160} duration={400}>
+              <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm">
+                <MenuItem icon={Heart} label="我的点赞" count={156} />
+                <MenuItem icon={Bookmark} label="我的收藏" count={89} />
+                <MenuItem icon={Clock} label="浏览历史" count={234} />
+                <MenuItem icon={ShoppingBag} label="购买记录" count={12} isLast />
+              </div>
+            </ScrollReveal>
 
-          {/* 最近活动 */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm animate-card-enter" style={{ animationDelay: '200ms' }}>
-            <p className="text-xs text-gray-400 mb-3">最近动态</p>
-            <div className="space-y-3">
-              {recentActivity.map((activity, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-3 text-sm"
-                >
-                  <div className={cn(
-                    "w-8 h-8 rounded-full flex items-center justify-center",
-                    activity.type === 'like' && "bg-pink-100 dark:bg-pink-900/30",
-                    activity.type === 'comment' && "bg-purple-100 dark:bg-purple-900/30",
-                    activity.type === 'share' && "bg-amber-100 dark:bg-amber-900/30"
-                  )}>
-                    {activity.type === 'like' && <Heart className="w-4 h-4 text-pink-500" />}
-                    {activity.type === 'comment' && <MessageCircle className="w-4 h-4 text-purple-500" />}
-                    {activity.type === 'share' && <Share2Icon className="w-4 h-4 text-amber-500" />}
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-gray-700 dark:text-gray-200">{activity.content}</p>
-                    <p className="text-xs text-gray-400">{activity.time}</p>
-                  </div>
+            {/* 最近活动 */}
+            <ScrollReveal animation="fade-up" delay={210} duration={400}>
+              <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm">
+                <p className="text-xs text-gray-400 mb-3">最近动态</p>
+                <div className="space-y-3">
+                  {recentActivity.map((activity, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 text-sm"
+                    >
+                      <div className={cn(
+                        "w-8 h-8 rounded-full flex items-center justify-center",
+                        activity.type === 'like' && "bg-pink-100 dark:bg-pink-900/30",
+                        activity.type === 'comment' && "bg-purple-100 dark:bg-purple-900/30",
+                        activity.type === 'share' && "bg-amber-100 dark:bg-amber-900/30"
+                      )}>
+                        {activity.type === 'like' && <Heart className="w-4 h-4 text-pink-500" />}
+                        {activity.type === 'comment' && <MessageCircle className="w-4 h-4 text-purple-500" />}
+                        {activity.type === 'share' && <Share2Icon className="w-4 h-4 text-amber-500" />}
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-gray-700 dark:text-gray-200">{activity.content}</p>
+                        <p className="text-xs text-gray-400">{activity.time}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            </ScrollReveal>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </div>
   )

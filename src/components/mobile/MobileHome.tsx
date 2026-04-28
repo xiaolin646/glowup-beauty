@@ -2,6 +2,7 @@ import { Heart, MessageCircle, Bookmark, Share2, MoreHorizontal, TrendingUp, Spa
 import { cn } from '@/lib/utils'
 import { useState, useEffect, useRef } from 'react'
 import { Product } from '@/types'
+import ScrollReveal from '../ScrollReveal'
 
 interface MobileHomeProps {
   onProductClick?: (productId: string | number) => void
@@ -175,217 +176,239 @@ export default function MobileHome({ onProductClick }: MobileHomeProps) {
       />
 
       {/* 顶部导航 */}
-      <header className="sticky top-0 z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-gray-100/50 dark:border-slate-700/50">
-        <div className="flex items-center justify-between px-4 py-3">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">G</span>
-            </div>
-            <span className="font-bold text-lg bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-              GlowUp
-            </span>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
-              <Search className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* 热门话题 */}
-      <section className="px-4 py-3">
-        <div className="flex items-center gap-2 mb-3">
-          <TrendingUp className="w-4 h-4 text-pink-500" />
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-200">热门话题</span>
-        </div>
-        <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
-          {trendingTopics.map((topic) => (
-            <div
-              key={topic.id}
-              className={cn(
-                "flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium",
-                "bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-900/30 dark:to-rose-900/30",
-                "text-pink-600 dark:text-pink-400",
-                "hover:shadow-md transition-all cursor-pointer animate-card-enter"
-              )}
-              style={{ animationDelay: `${topic.id * 50}ms` }}
-            >
-              #{topic.name}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 推荐用户 */}
-      <section className="px-4 py-3">
-        <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="w-4 h-4 text-amber-500" />
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-200">推荐关注</span>
-        </div>
-        <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-1">
-          {recommendedUsers.map((user, index) => (
-            <div
-              key={user.id}
-              className={cn(
-                "flex-shrink-0 flex flex-col items-center p-3 rounded-2xl",
-                "bg-white dark:bg-slate-800",
-                "shadow-sm hover:shadow-md transition-all cursor-pointer",
-                "animate-card-enter"
-              )}
-              style={{ animationDelay: `${(index + 5) * 100}ms` }}
-            >
-              <img
-                src={user.avatar}
-                alt={user.name}
-                className="w-14 h-14 rounded-full object-cover mb-2 ring-2 ring-pink-100 dark:ring-pink-900/50"
-              />
-              <span className="text-xs font-medium text-gray-700 dark:text-gray-200 truncate max-w-[70px]">
-                {user.name}
+      <ScrollReveal animation="fade-down" immediate={true}>
+        <header className="sticky top-0 z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-gray-100/50 dark:border-slate-700/50">
+          <div className="flex items-center justify-between px-4 py-3">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">G</span>
+              </div>
+              <span className="font-bold text-lg bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
+                GlowUp
               </span>
-              <span className="text-[10px] text-gray-400 mt-0.5">{user.followers}</span>
-              <button className="mt-2 px-3 py-1 text-xs font-medium bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full hover:shadow-lg transition-all">
-                + 关注
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
+                <Search className="w-5 h-5 text-gray-600 dark:text-gray-300" />
               </button>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </header>
+      </ScrollReveal>
+
+      {/* 热门话题 */}
+      <ScrollReveal animation="fade-up" immediate={true} delay={50} duration={350}>
+        <section className="px-4 py-3">
+          <div className="flex items-center gap-2 mb-3">
+            <TrendingUp className="w-4 h-4 text-pink-500" />
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-200">热门话题</span>
+          </div>
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+            {trendingTopics.map((topic, index) => (
+              <ScrollReveal
+                key={topic.id}
+                animation="fade-up"
+                delay={60 + index * 30}
+                duration={300}
+              >
+                <div
+                  className={cn(
+                    "flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium",
+                    "bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-900/30 dark:to-rose-900/30",
+                    "text-pink-600 dark:text-pink-400",
+                    "hover:shadow-md transition-all cursor-pointer"
+                  )}
+                >
+                  #{topic.name}
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* 推荐用户 */}
+      <ScrollReveal animation="fade-up" immediate={true} delay={100} duration={350}>
+        <section className="px-4 py-3">
+          <div className="flex items-center gap-2 mb-3">
+            <Sparkles className="w-4 h-4 text-amber-500" />
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-200">推荐关注</span>
+          </div>
+          <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-1">
+            {recommendedUsers.map((user, index) => (
+              <ScrollReveal
+                key={user.id}
+                animation="fade-up"
+                delay={110 + index * 30}
+                duration={300}
+              >
+                <div
+                  className={cn(
+                    "flex-shrink-0 flex flex-col items-center p-3 rounded-2xl",
+                    "bg-white dark:bg-slate-800",
+                    "shadow-sm hover:shadow-md transition-all cursor-pointer"
+                  )}
+                >
+                  <img
+                    src={user.avatar}
+                    alt={user.name}
+                    className="w-14 h-14 rounded-full object-cover mb-2 ring-2 ring-pink-100 dark:ring-pink-900/50"
+                  />
+                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200 truncate max-w-[70px]">
+                    {user.name}
+                  </span>
+                  <span className="text-[10px] text-gray-400 mt-0.5">{user.followers}</span>
+                  <button className="mt-2 px-3 py-1 text-xs font-medium bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full hover:shadow-lg transition-all">
+                    + 关注
+                  </button>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+      </ScrollReveal>
 
       {/* 推荐产品 */}
-      <section className="px-4 py-3">
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <ShoppingBag className="w-4 h-4 text-pink-500" />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-200">热门商品</span>
-          </div>
-          <button className="text-xs text-pink-500 font-medium">查看全部</button>
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          {recommendedProducts.slice(0, 4).map((product, index) => (
-            <div
-              key={product.id}
-              onClick={() => onProductClick?.(product.id)}
-              className={cn(
-                "bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm",
-                "hover:shadow-md transition-all cursor-pointer animate-card-enter"
-              )}
-              style={{ animationDelay: `${(index + 12) * 100}ms` }}
-            >
-              <div className="aspect-square bg-gray-100 dark:bg-slate-700 relative">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-                {product.verified && (
-                  <div className="absolute top-1 right-1 px-1 py-0.5 bg-green-500 text-white text-[9px] font-medium rounded">
-                    已验真
-                  </div>
-                )}
-              </div>
-              <div className="p-2">
-                <p className="text-[10px] text-pink-500 font-medium">{product.brand}</p>
-                <p className="text-xs font-medium text-gray-800 dark:text-gray-200 line-clamp-2 mt-0.5">
-                  {product.name}
-                </p>
-                <div className="flex items-center gap-1 mt-1">
-                  <span className="text-sm font-bold text-pink-600">¥{product.price}</span>
-                  {product.originalPrice && (
-                    <span className="text-[10px] text-gray-400 line-through">¥{product.originalPrice}</span>
-                  )}
-                </div>
-                <div className="flex items-center gap-1 mt-0.5">
-                  <span className="text-[10px] text-amber-500">★ {product.rating}</span>
-                  <span className="text-[10px] text-gray-400">{(product.reviews / 10000).toFixed(1)}万条</span>
-                </div>
-              </div>
+      <ScrollReveal animation="fade-up" immediate={true} delay={150} duration={350}>
+        <section className="px-4 py-3">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <ShoppingBag className="w-4 h-4 text-pink-500" />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-200">热门商品</span>
             </div>
-          ))}
-        </div>
-      </section>
+            <button className="text-xs text-pink-500 font-medium">查看全部</button>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {recommendedProducts.slice(0, 4).map((product, index) => (
+              <ScrollReveal
+                key={product.id}
+                animation="fade-up"
+                delay={175 + index * 50}
+                duration={350}
+              >
+                <div
+                  onClick={() => onProductClick?.(product.id)}
+                  className={cn(
+                    "bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm",
+                    "hover:shadow-md transition-all cursor-pointer"
+                  )}
+                >
+                  <div className="aspect-square bg-gray-100 dark:bg-slate-700 relative">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                    {product.verified && (
+                      <div className="absolute top-1 right-1 px-1 py-0.5 bg-green-500 text-white text-[9px] font-medium rounded">
+                        已验真
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-2">
+                    <p className="text-[10px] text-pink-500 font-medium">{product.brand}</p>
+                    <p className="text-xs font-medium text-gray-800 dark:text-gray-200 line-clamp-2 mt-0.5">
+                      {product.name}
+                    </p>
+                    <div className="flex items-center gap-1 mt-1">
+                      <span className="text-sm font-bold text-pink-600">¥{product.price}</span>
+                      {product.originalPrice && (
+                        <span className="text-[10px] text-gray-400 line-through">¥{product.originalPrice}</span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1 mt-0.5">
+                      <span className="text-[10px] text-amber-500">★ {product.rating}</span>
+                      <span className="text-[10px] text-gray-400">{(product.reviews / 10000).toFixed(1)}万条</span>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+      </ScrollReveal>
 
       {/* 内容卡片列表 */}
       <section className="px-4 pb-4 space-y-4 relative z-10">
         {mockPosts.map((post, index) => (
-          <article
+          <ScrollReveal
             key={post.id}
-            className={cn(
-              "bg-white dark:bg-slate-800 rounded-2xl overflow-hidden",
-              "shadow-sm hover:shadow-lg transition-all duration-300",
-              "animate-card-enter"
-            )}
-            style={{ animationDelay: `${(index + 9) * 100}ms` }}
+            animation="fade-up"
+            delay={200 + index * 75}
+            duration={350}
           >
-            {/* 用户信息 */}
-            <div className="flex items-center justify-between p-4">
-              <div className="flex items-center gap-3">
-                <img
-                  src={post.user.avatar}
-                  alt={post.user.name}
-                  className="w-10 h-10 rounded-full object-cover ring-2 ring-pink-100 dark:ring-pink-900/50"
-                />
-                <div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-semibold text-sm text-gray-800 dark:text-gray-100">
-                      {post.user.name}
-                    </span>
+            <article
+              className={cn(
+                "bg-white dark:bg-slate-800 rounded-2xl overflow-hidden",
+                "shadow-sm hover:shadow-lg transition-all duration-300",
+                "animate-card-enter"
+              )}
+              style={{ animationDelay: `${(index + 9) * 100}ms` }}
+            >
+              {/* 用户信息 */}
+              <div className="flex items-center justify-between p-4">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={post.user.avatar}
+                    alt={post.user.name}
+                    className="w-10 h-10 rounded-full object-cover ring-2 ring-pink-100 dark:ring-pink-900/50"
+                  />
+                  <div>
+                    <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{post.user.name}</p>
                     {post.user.badge && (
-                      <span className="px-1.5 py-0.5 text-[10px] font-medium bg-pink-100 dark:bg-pink-900/50 text-pink-600 dark:text-pink-400 rounded">
-                        {post.user.badge}
-                      </span>
+                      <span className="text-[10px] text-pink-500">{post.user.badge}</span>
                     )}
                   </div>
-                  <span className="text-xs text-gray-400">{post.time}</span>
+                </div>
+                <MoreHorizontal className="w-4 h-4 text-gray-400" />
+              </div>
+
+              {/* 图片区域 */}
+              {post.images.length > 0 && (
+                <div className="relative">
+                  <div
+                    className={cn(
+                      "grid gap-1",
+                      post.images.length === 1 ? "grid-cols-1" : "grid-cols-2"
+                    )}
+                  >
+                    {post.images.slice(0, post.images.length === 1 ? 1 : 2).map((img, idx) => (
+                      <div key={idx} className="aspect-[3/4] relative cursor-pointer" onClick={() => setShowFullImage({ postId: post.id, index: idx })}>
+                        <img src={img} alt="" className="w-full h-full object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 内容 */}
+              <div className="p-4">
+                <p className="text-sm text-gray-800 dark:text-gray-200">{post.content}</p>
+
+                {/* 互动区域 */}
+                <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                  <div className="flex items-center gap-6">
+                    <button className="flex items-center gap-1">
+                      <Heart className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                      <span className="text-xs text-gray-600 dark:text-gray-300">{post.likes}</span>
+                    </button>
+                    <button className="flex items-center gap-1">
+                      <MessageCircle className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                      <span className="text-xs text-gray-600 dark:text-gray-300">{post.comments}</span>
+                    </button>
+                    <button className="flex items-center gap-1">
+                      <Bookmark className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                    </button>
+                    <button className="flex items-center gap-1">
+                      <Share2 className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                    </button>
+                  </div>
+                  <span className="text-[10px] text-gray-400">{post.time}</span>
                 </div>
               </div>
-              <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
-                <MoreHorizontal className="w-5 h-5 text-gray-400" />
-              </button>
-            </div>
-
-            {/* 图片 */}
-            <div className="relative px-4">
-              <div className="flex gap-1 overflow-x-auto scrollbar-hide rounded-xl">
-                {post.images.map((img, imgIndex) => (
-                  <img
-                    key={imgIndex}
-                    src={img}
-                    alt=""
-                    className="w-full h-64 object-cover rounded-xl flex-shrink-0"
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* 互动按钮 */}
-            <div className="flex items-center justify-between p-4">
-              <div className="flex items-center gap-4">
-                <button className="flex items-center gap-1.5 text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400 transition-colors group">
-                  <Heart className="w-5 h-5 group-hover:scale-125 transition-transform" />
-                  <span className="text-sm">{post.likes}</span>
-                </button>
-                <button className="flex items-center gap-1.5 text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400 transition-colors group">
-                  <MessageCircle className="w-5 h-5 group-hover:scale-125 transition-transform" />
-                  <span className="text-sm">{post.comments}</span>
-                </button>
-                <button className="flex items-center gap-1.5 text-gray-600 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400 transition-colors group">
-                  <Share2 className="w-5 h-5 group-hover:scale-125 transition-transform" />
-                </button>
-              </div>
-              <button className="text-gray-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors group">
-                <Bookmark className="w-5 h-5 group-hover:scale-125 transition-transform" />
-              </button>
-            </div>
-
-            {/* 内容 */}
-            <div className="px-4 pb-4">
-              <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed">
-                {post.content}
-              </p>
-            </div>
-          </article>
+            </article>
+          </ScrollReveal>
         ))}
       </section>
     </div>

@@ -10,6 +10,7 @@ import {
   NaturalLookIcon, KoreanGlowIcon, VintageLookIcon,
   SmokeyEyeIcon, BridalLookIcon, FantasyLookIcon
 } from '@/components/icons/LookIcons'
+import ScrollReveal from '@/components/ScrollReveal'
 
 const looks = [
   {
@@ -130,21 +131,24 @@ export default function LookGallery() {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-pink-50/30 to-white dark:from-slate-900 dark:via-slate-800/50 dark:to-slate-900 transition-colors">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-100 to-rose-100 dark:from-pink-900/40 dark:to-rose-900/40 text-pink-600 dark:text-pink-400 text-sm font-medium shadow-sm mb-6">
-            <Instagram className="w-4 h-4" />
-            <span>灵感画廊</span>
+        <ScrollReveal animation="fade-up">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-pink-100 to-rose-100 dark:from-pink-900/40 dark:to-rose-900/40 text-pink-600 dark:text-pink-400 text-sm font-medium shadow-sm mb-6">
+              <Instagram className="w-4 h-4" />
+              <span>灵感画廊</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-800 dark:text-white mb-4">
+              妆容展示
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
+              探索最新流行妆容，获取美妆灵感，找到属于你的独特风格
+            </p>
           </div>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-800 dark:text-white mb-4">
-            妆容展示
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
-            探索最新流行妆容，获取美妆灵感，找到属于你的独特风格
-          </p>
-        </div>
+        </ScrollReveal>
 
         {/* Filters */}
-        <div className="flex items-center justify-between mb-10">
+        <ScrollReveal animation="fade-up" delay={200}>
+          <div className="flex items-center justify-between mb-10">
           <div className="hidden md:flex items-center gap-2 flex-wrap">
             {styles.map((style) => (
               <button
@@ -178,19 +182,20 @@ export default function LookGallery() {
             布局
           </button>
         </div>
+        </ScrollReveal>
 
         {/* Looks Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredLooks.map((look) => {
+          {filteredLooks.map((look, index) => {
             const IconComponent = look.icon
             return (
-              <div
-                key={look.id}
-                onClick={() => console.log('查看妆容:', look.title)}
-                className="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-pink-100/50 dark:border-slate-700/50 cursor-pointer"
-                onMouseEnter={() => setHoveredCard(look.id)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
+              <ScrollReveal key={look.id} animation="fade-up" delay={300 + index * 100}>
+                <div
+                  onClick={() => console.log('查看妆容:', look.title)}
+                  className="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-pink-100/50 dark:border-slate-700/50 cursor-pointer"
+                  onMouseEnter={() => setHoveredCard(look.id)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                >
                 {/* Image */}
                 <div className={cn(
                   "relative aspect-square flex items-center justify-center overflow-hidden",
@@ -295,13 +300,15 @@ export default function LookGallery() {
                     </span>
                   </div>
                 </div>
-              </div>
+                </div>
+              </ScrollReveal>
             )
           })}
         </div>
 
         {/* Trending Tags */}
-        <div className="mt-20 bg-gradient-to-r from-pink-50 via-rose-50 to-pink-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800 rounded-3xl p-8 border border-pink-100 dark:border-slate-700">
+        <ScrollReveal animation="fade-up" delay={1100}>
+          <div className="mt-20 bg-gradient-to-r from-pink-50 via-rose-50 to-pink-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800 rounded-3xl p-8 border border-pink-100 dark:border-slate-700">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg shadow-pink-200 dark:shadow-pink-900/40">
               <Sparkles className="w-5 h-5 text-white" />
@@ -319,10 +326,12 @@ export default function LookGallery() {
               </button>
             ))}
           </div>
-        </div>
+          </div>
+        </ScrollReveal>
 
         {/* Featured Banner */}
-        <div className="mt-16 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-500 rounded-3xl p-10 text-white relative overflow-hidden">
+        <ScrollReveal animation="fade-up" delay={1400}>
+          <div className="mt-16 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-500 rounded-3xl p-10 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl" />
           <div className="absolute bottom-0 left-0 w-56 h-56 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/3 blur-2xl" />
           
@@ -344,7 +353,8 @@ export default function LookGallery() {
               查看详情
             </button>
           </div>
-        </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   )

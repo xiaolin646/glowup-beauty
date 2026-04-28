@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Star, ThumbsUp, ThumbsDown, Filter, Search, Camera, Shield, BadgeCheck, AlertTriangle, MessageCircle, Share2, Bookmark, TrendingUp, Clock, User, ChevronDown, ChevronUp } from 'lucide-react'
+import ScrollReveal from '@/components/ScrollReveal'
 
 const TrueReviews: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'all' | 'verified' | 'featured' | 'following'>('all')
@@ -181,244 +182,252 @@ const TrueReviews: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 dark:from-gray-900 dark:via-teal-900/10 dark:to-cyan-900/10 py-8 px-4">
       <div className="max-w-6xl mx-auto">
         {/* 顶部 Banner */}
-        <div className="bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 rounded-3xl p-6 text-white shadow-xl mb-8">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <Shield className="w-8 h-8" />
+        <ScrollReveal animation="fade-up">
+          <div className="bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 rounded-3xl p-6 text-white shadow-xl mb-8">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                <Shield className="w-8 h-8" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-1">真实评测</h2>
+                <p className="text-teal-100 text-sm">已购买用户的真实反馈 · 放心参考</p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-2xl font-bold mb-1">真实评测</h2>
-              <p className="text-teal-100 text-sm">已购买用户的真实反馈 · 放心参考</p>
-            </div>
-          </div>
 
-          {/* 承诺 */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
-              <BadgeCheck className="w-8 h-8 text-emerald-300" />
-              <div>
-                <div className="font-bold">真实购买验证</div>
-                <div className="text-sm text-teal-200">所有评测均需验证购买</div>
+            {/* 承诺 */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
+                <BadgeCheck className="w-8 h-8 text-emerald-300" />
+                <div>
+                  <div className="font-bold">真实购买验证</div>
+                  <div className="text-sm text-teal-200">所有评测均需验证购买</div>
+                </div>
               </div>
-            </div>
-            <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
-              <AlertTriangle className="w-8 h-8 text-amber-300" />
-              <div>
-                <div className="font-bold">禁止删改差评</div>
-                <div className="text-sm text-teal-200">品牌方无权删除用户评价</div>
+              <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
+                <AlertTriangle className="w-8 h-8 text-amber-300" />
+                <div>
+                  <div className="font-bold">禁止删改差评</div>
+                  <div className="text-sm text-teal-200">品牌方无权删除用户评价</div>
+                </div>
               </div>
-            </div>
-            <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
-              <TrendingUp className="w-8 h-8 text-pink-300" />
-              <div>
-                <div className="font-bold">AI质量检测</div>
-                <div className="text-sm text-teal-200">自动识别刷单和水军</div>
+              <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
+                <TrendingUp className="w-8 h-8 text-pink-300" />
+                <div>
+                  <div className="font-bold">AI质量检测</div>
+                  <div className="text-sm text-teal-200">自动识别刷单和水军</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* 评分概览 */}
-        <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 mb-8 shadow-lg">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="text-center">
-              <div className="text-5xl font-bold text-gray-800 dark:text-white">{ratingStats.average}</div>
-              <div className="flex items-center justify-center gap-1 my-2">
-                {getStars(Math.round(ratingStats.average))}
-              </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">基于 {ratingStats.total} 条评价</div>
-            </div>
-            <div className="flex-1 space-y-2">
-              {ratingStats.distribution.map((item) => (
-                <div key={item.stars} className="flex items-center gap-3">
-                  <span className="text-sm text-gray-600 dark:text-gray-400 w-12">{item.stars}星</span>
-                  <div className="flex-1 h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                    <div 
-                      className={`h-full rounded-full ${
-                        item.stars === 5 ? 'bg-green-500' :
-                        item.stars === 4 ? 'bg-emerald-500' :
-                        item.stars === 3 ? 'bg-amber-500' :
-                        item.stars === 2 ? 'bg-orange-500' :
-                        'bg-red-500'
-                      }`}
-                      style={{ width: `${item.percentage}%` }}
-                    />
-                  </div>
-                  <span className="text-sm text-gray-500 dark:text-gray-400 w-12">{item.count}</span>
+        <ScrollReveal animation="fade-up" delay={100}>
+          <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 mb-8 shadow-lg">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="text-center">
+                <div className="text-5xl font-bold text-gray-800 dark:text-white">{ratingStats.average}</div>
+                <div className="flex items-center justify-center gap-1 my-2">
+                  {getStars(Math.round(ratingStats.average))}
                 </div>
-              ))}
+                <div className="text-sm text-gray-500 dark:text-gray-400">基于 {ratingStats.total} 条评价</div>
+              </div>
+              <div className="flex-1 space-y-2">
+                {ratingStats.distribution.map((item) => (
+                  <div key={item.stars} className="flex items-center gap-3">
+                    <span className="text-sm text-gray-600 dark:text-gray-400 w-12">{item.stars}星</span>
+                    <div className="flex-1 h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full rounded-full ${
+                          item.stars === 5 ? 'bg-green-500' :
+                          item.stars === 4 ? 'bg-emerald-500' :
+                          item.stars === 3 ? 'bg-amber-500' :
+                          item.stars === 2 ? 'bg-orange-500' :
+                          'bg-red-500'
+                        }`}
+                        style={{ width: `${item.percentage}%` }}
+                      />
+                    </div>
+                    <span className="text-sm text-gray-500 dark:text-gray-400 w-12">{item.count}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* 筛选和排序 */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
-          <div className="flex gap-2 flex-wrap">
-            {[
-              { key: 'all', label: '全部评价' },
-              { key: 'verified', label: '只看已购买' },
-              { key: 'featured', label: '精选评价' },
-              { key: 'following', label: '关注的人' },
-            ].map((tab) => (
-              <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key as any)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  activeTab === tab.key
-                    ? 'bg-teal-500 text-white shadow-lg'
-                    : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-xl px-4 py-2 shadow">
-              <Search className="w-4 h-4 text-gray-400" />
-              <input 
-                type="text" 
-                placeholder="搜索评价..."
-                className="bg-transparent outline-none text-sm w-40"
-              />
+        <ScrollReveal animation="fade-up" delay={200}>
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+            <div className="flex gap-2 flex-wrap">
+              {[
+                { key: 'all', label: '全部评价' },
+                { key: 'verified', label: '只看已购买' },
+                { key: 'featured', label: '精选评价' },
+                { key: 'following', label: '关注的人' },
+              ].map((tab) => (
+                <button
+                  key={tab.key}
+                  onClick={() => setActiveTab(tab.key as any)}
+                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                    activeTab === tab.key
+                      ? 'bg-teal-500 text-white shadow-lg'
+                      : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
-            <select 
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
-              className="bg-white dark:bg-gray-800 rounded-xl px-4 py-2 shadow text-sm"
-            >
-              <option value="helpful">最有帮助</option>
-              <option value="recent">最新发布</option>
-              <option value="rating">评分最高</option>
-            </select>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-xl px-4 py-2 shadow">
+                <Search className="w-4 h-4 text-gray-400" />
+                <input 
+                  type="text" 
+                  placeholder="搜索评价..."
+                  className="bg-transparent outline-none text-sm w-40"
+                />
+              </div>
+              <select 
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as any)}
+                className="bg-white dark:bg-gray-800 rounded-xl px-4 py-2 shadow text-sm"
+              >
+                <option value="helpful">最有帮助</option>
+                <option value="recent">最新发布</option>
+                <option value="rating">评分最高</option>
+              </select>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* 评价列表 */}
         <div className="space-y-6">
-          {filteredReviews.map((review) => (
-            <div key={review.id} className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="flex items-start gap-4 mb-4">
-                <img src={review.productCover} alt={review.productName} className="w-20 h-20 rounded-xl object-cover" />
-                <div className="flex-1">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <span className="text-sm text-teal-500 font-medium">{review.productBrand}</span>
-                      <h4 className="font-bold text-gray-800 dark:text-white">{review.productName}</h4>
+          {filteredReviews.map((review, index) => (
+            <ScrollReveal key={review.id} animation="fade-up" delay={300 + index * 100}>
+              <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                <div className="flex items-start gap-4 mb-4">
+                  <img src={review.productCover} alt={review.productName} className="w-20 h-20 rounded-xl object-cover" />
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <span className="text-sm text-teal-500 font-medium">{review.productBrand}</span>
+                        <h4 className="font-bold text-gray-800 dark:text-white">{review.productName}</h4>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {review.verified && (
+                          <span className="px-2 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-xs font-medium flex items-center gap-1">
+                            <BadgeCheck className="w-3 h-3" />
+                            已购买
+                          </span>
+                        )}
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      {review.verified && (
-                        <span className="px-2 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-xs font-medium flex items-center gap-1">
-                          <BadgeCheck className="w-3 h-3" />
-                          已购买
-                        </span>
+                    <div className="flex items-center gap-2 mt-1">
+                      <div className="flex">{getStars(review.rating)}</div>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">{review.publishDate}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <h5 className="font-bold text-gray-800 dark:text-white mb-2">{review.title}</h5>
+                  <p className={`text-gray-600 dark:text-gray-300 text-sm leading-relaxed ${expandedReview === review.id ? '' : 'line-clamp-3'}`}>
+                    {review.content}
+                  </p>
+                  {review.content.length > 150 && (
+                    <button 
+                      onClick={() => setExpandedReview(expandedReview === review.id ? null : review.id)}
+                      className="text-teal-500 text-sm mt-2 flex items-center gap-1"
+                    >
+                      {expandedReview === review.id ? (
+                        <>收起 <ChevronUp className="w-4 h-4" /></>
+                      ) : (
+                        <>展开全文 <ChevronDown className="w-4 h-4" /></>
                       )}
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 mt-1">
-                    <div className="flex">{getStars(review.rating)}</div>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">{review.publishDate}</span>
-                  </div>
+                    </button>
+                  )}
                 </div>
-              </div>
 
-              <div className="mb-4">
-                <h5 className="font-bold text-gray-800 dark:text-white mb-2">{review.title}</h5>
-                <p className={`text-gray-600 dark:text-gray-300 text-sm leading-relaxed ${expandedReview === review.id ? '' : 'line-clamp-3'}`}>
-                  {review.content}
-                </p>
-                {review.content.length > 150 && (
-                  <button 
-                    onClick={() => setExpandedReview(expandedReview === review.id ? null : review.id)}
-                    className="text-teal-500 text-sm mt-2 flex items-center gap-1"
-                  >
-                    {expandedReview === review.id ? (
-                      <>收起 <ChevronUp className="w-4 h-4" /></>
-                    ) : (
-                      <>展开全文 <ChevronDown className="w-4 h-4" /></>
-                    )}
-                  </button>
-                )}
-              </div>
-
-              {/* 优点标签 */}
-              <div className="flex flex-wrap gap-2 mb-4">
-                {review.pros.map((pro, i) => (
-                  <span key={i} className="px-3 py-1 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-full text-xs flex items-center gap-1">
-                    <span className="text-green-500">✓</span> {pro}
-                  </span>
-                ))}
-                {review.cons.map((con, i) => (
-                  <span key={i} className="px-3 py-1 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-full text-xs flex items-center gap-1">
-                    <span className="text-red-500">✗</span> {con}
-                  </span>
-                ))}
-              </div>
-
-              {/* 用户信息 */}
-              <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
-                <div className="flex items-center gap-3">
-                  <img src={review.authorAvatar} alt={review.author} className="w-10 h-10 rounded-full object-cover" />
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium text-gray-800 dark:text-white text-sm">{review.author}</span>
-                      <span className={`px-2 py-0.5 rounded-full text-xs ${
-                        review.authorLevel === '明星体验官' ? 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400' :
-                        review.authorLevel === '资深体验官' ? 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400' :
-                        review.authorLevel === '进阶体验官' ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400' :
-                        'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
-                      }`}>
-                        {review.authorLevel}
-                      </span>
-                    </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {review.skinType} · {review.skinTone}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-xs text-gray-400">购买渠道: {review.purchaseSource}</span>
-                </div>
-              </div>
-
-              {/* 图片预览 */}
-              {review.images.length > 0 && (
-                <div className="flex gap-2 mt-4 overflow-x-auto pb-2">
-                  {review.images.map((img, i) => (
-                    <img key={i} src={img} alt="" className="w-24 h-24 rounded-xl object-cover flex-shrink-0" />
+                {/* 优点标签 */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {review.pros.map((pro, i) => (
+                    <span key={i} className="px-3 py-1 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-full text-xs flex items-center gap-1">
+                      <span className="text-green-500">✓</span> {pro}
+                    </span>
+                  ))}
+                  {review.cons.map((con, i) => (
+                    <span key={i} className="px-3 py-1 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-full text-xs flex items-center gap-1">
+                      <span className="text-red-500">✗</span> {con}
+                    </span>
                   ))}
                 </div>
-              )}
 
-              {/* 互动按钮 */}
-              <div className="flex items-center gap-4 mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
-                <button className="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-teal-500 transition-colors">
-                  <ThumbsUp className="w-4 h-4" />
-                  <span className="text-sm">{review.helpfulCount} 有帮助</span>
-                </button>
-                <button className="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-teal-500 transition-colors">
-                  <MessageCircle className="w-4 h-4" />
-                  <span className="text-sm">{review.replyCount} 回复</span>
-                </button>
-                <button className="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-teal-500 transition-colors">
-                  <Share2 className="w-4 h-4" />
-                  <span className="text-sm">分享</span>
-                </button>
-                <button className="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-teal-500 transition-colors ml-auto">
-                  <Bookmark className="w-4 h-4" />
-                  <span className="text-sm">收藏</span>
-                </button>
-              </div>
+                {/* 用户信息 */}
+                <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+                  <div className="flex items-center gap-3">
+                    <img src={review.authorAvatar} alt={review.author} className="w-10 h-10 rounded-full object-cover" />
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium text-gray-800 dark:text-white text-sm">{review.author}</span>
+                        <span className={`px-2 py-0.5 rounded-full text-xs ${
+                          review.authorLevel === '明星体验官' ? 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400' :
+                            review.authorLevel === '资深体验官' ? 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400' :
+                            review.authorLevel === '进阶体验官' ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400' :
+                            'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
+                        }`}>
+                          {review.authorLevel}
+                        </span>
+                      </div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                        {review.skinType} · {review.skinTone}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className="text-xs text-gray-400">购买渠道: {review.purchaseSource}</span>
+                  </div>
+                </div>
 
-              {/* 标签 */}
-              <div className="flex flex-wrap gap-2 mt-4">
-                {review.tags.map((tag, i) => (
-                  <span key={i} className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded text-xs">
-                    #{tag}
-                  </span>
-                ))}
+                {/* 图片预览 */}
+                {review.images.length > 0 && (
+                  <div className="flex gap-2 mt-4 overflow-x-auto pb-2">
+                    {review.images.map((img, i) => (
+                      <img key={i} src={img} alt="" className="w-24 h-24 rounded-xl object-cover flex-shrink-0" />
+                    ))}
+                  </div>
+                )}
+
+                {/* 互动按钮 */}
+                <div className="flex items-center gap-4 mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                  <button className="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-teal-500 transition-colors">
+                    <ThumbsUp className="w-4 h-4" />
+                    <span className="text-sm">{review.helpfulCount} 有帮助</span>
+                  </button>
+                  <button className="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-teal-500 transition-colors">
+                    <MessageCircle className="w-4 h-4" />
+                    <span className="text-sm">{review.replyCount} 回复</span>
+                  </button>
+                  <button className="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-teal-500 transition-colors">
+                    <Share2 className="w-4 h-4" />
+                    <span className="text-sm">分享</span>
+                  </button>
+                  <button className="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-teal-500 transition-colors ml-auto">
+                    <Bookmark className="w-4 h-4" />
+                    <span className="text-sm">收藏</span>
+                  </button>
+                </div>
+
+                {/* 标签 */}
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {review.tags.map((tag, i) => (
+                    <span key={i} className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded text-xs">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

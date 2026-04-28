@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { MessageCircle, Heart, Eye, MoreHorizontal, Send, Image, AtSign, Hash, Sparkles, TrendingUp, Users, Clock } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import ScrollReveal from '../ScrollReveal'
 
 const tabs = [
   { id: 'following', label: '关注' },
@@ -134,84 +135,84 @@ export default function MobileCommunity({ onCreatePost }: MobileCommunityProps) 
   return (
     <div className="min-h-screen">
       {/* 顶部导航 */}
-      <header className={cn(
-        "sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-gray-100/50 dark:border-slate-700/50",
-        mounted ? "animate-fade-in" : "opacity-0"
-      )}>
-        {/* Tab切换 */}
-        <div className="flex items-center justify-around px-4 py-3">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={cn(
-                "relative px-4 py-2 text-base font-medium transition-all duration-300 cursor-pointer",
-                activeTab === tab.id
-                  ? "text-gray-900 dark:text-white"
-                  : "text-gray-400 dark:text-gray-500"
-              )}
-            >
-              {tab.label}
-              {activeTab === tab.id && (
-                <>
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-100 to-rose-100 dark:from-pink-900/40 dark:to-rose-900/40 rounded-xl -z-10" />
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full shadow-lg shadow-pink-500/30" />
-                </>
-              )}
-            </button>
-          ))}
-        </div>
-      </header>
-
-      {/* 主内容 */}
-      <div className={cn(
-        "relative z-10",
-        mounted ? "animate-fade-in" : "opacity-0"
-      )}>
-        {/* 热门话题 */}
-        <div className="px-4 py-4">
-          <div className="flex items-center gap-2 mb-3">
-            <TrendingUp className="w-4 h-4 text-pink-500" />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">热门话题</span>
-          </div>
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
-            {trends.map((trend) => (
-              <div
-                key={trend.id}
-                className="flex-shrink-0 p-3 bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-900/30 dark:to-rose-900/30 rounded-2xl border border-pink-100/50 dark:border-pink-800/30 hover:shadow-md transition-all cursor-pointer"
+      <ScrollReveal animation="fade-down" immediate={true}>
+        <header className={cn(
+          "sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-gray-100/50 dark:border-slate-700/50"
+        )}>
+          {/* Tab切换 */}
+          <div className="flex items-center justify-around px-4 py-3">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={cn(
+                  "relative px-4 py-2 text-base font-medium transition-all duration-300 cursor-pointer",
+                  activeTab === tab.id
+                    ? "text-gray-900 dark:text-white"
+                    : "text-gray-400 dark:text-gray-500"
+                )}
               >
-                <div className="flex items-center gap-1 mb-1">
-                  <Hash className="w-3 h-3 text-pink-500" />
-                  <span className="text-sm font-medium text-gray-800 dark:text-white">{trend.topic}</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
-                  <span className="flex items-center gap-1">
-                    <Users className="w-3 h-3" />
-                    {trend.participants}万
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <MessageCircle className="w-3 h-3" />
-                    {(trend.posts / 10000).toFixed(1)}万
-                  </span>
-                </div>
-              </div>
+                {tab.label}
+                {activeTab === tab.id && (
+                  <>
+                    <div className="absolute inset-0 bg-gradient-to-r from-pink-100 to-rose-100 dark:from-pink-900/40 dark:to-rose-900/40 rounded-xl -z-10" />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full shadow-lg shadow-pink-500/30" />
+                  </>
+                )}
+              </button>
             ))}
           </div>
-        </div>
+        </header>
+      </ScrollReveal>
+
+      {/* 主内容 */}
+      <div className="relative z-10">
+        {/* 热门话题 */}
+        <ScrollReveal animation="fade-up" delay={50} immediate={true}>
+          <div className="px-4 py-4">
+            <div className="flex items-center gap-2 mb-3">
+              <TrendingUp className="w-4 h-4 text-pink-500" />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">热门话题</span>
+            </div>
+            <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+              {trends.map((trend, index) => (
+                <ScrollReveal key={trend.id} animation="fade-up" delay={60 + index * 40} duration={400}>
+                  <div
+                    className="flex-shrink-0 p-3 bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-900/30 dark:to-rose-900/30 rounded-2xl border border-pink-100/50 dark:border-pink-800/30 hover:shadow-md transition-all cursor-pointer"
+                  >
+                    <div className="flex items-center gap-1 mb-1">
+                      <Hash className="w-3 h-3 text-pink-500" />
+                      <span className="text-sm font-medium text-gray-800 dark:text-white">{trend.topic}</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+                      <span className="flex items-center gap-1">
+                        <Users className="w-3 h-3" />
+                        {trend.participants}万
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <MessageCircle className="w-3 h-3" />
+                        {(trend.posts / 10000).toFixed(1)}万
+                      </span>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
 
         {/* 帖子列表 */}
         <div className="px-4 space-y-4 pb-6">
-          {posts.map((post) => {
+          {posts.map((post, index) => {
             const isLiked = likedPosts.has(post.id)
             const isFollowed = followedUsers.has(post.id) || post.isFollowed
             const showComments = expandedComments.has(post.id)
 
             return (
-              <article
-                key={post.id}
-                className="bg-white/90 dark:bg-slate-800/90 rounded-3xl overflow-hidden border border-pink-100/50 dark:border-slate-700/50 shadow-sm transition-all duration-500 cursor-pointer"
-              >
-                {/* 帖子头部 */}
+              <ScrollReveal key={post.id} animation="fade-up" delay={100 + index * 75} duration={500}>
+                <article
+                  className="bg-white/90 dark:bg-slate-800/90 rounded-3xl overflow-hidden border border-pink-100/50 dark:border-slate-700/50 shadow-sm transition-all duration-500 cursor-pointer"
+                >
                 <div className="flex items-center justify-between p-4">
                   <div className="flex items-center gap-3">
                     <div className="relative">
@@ -344,8 +345,9 @@ export default function MobileCommunity({ onCreatePost }: MobileCommunityProps) 
                       </div>
                     </div>
                   </div>
-                )}
+              )}
               </article>
+              </ScrollReveal>
             )
           })}
         </div>

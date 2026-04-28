@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Users, UserPlus, Clock, MapPin, ShoppingBag, Heart, Share2, MessageCircle, Shield, Star, ChevronRight, Zap, Gift, TrendingUp, UsersRound, Award, ArrowUpRight } from 'lucide-react'
+import ScrollReveal from '@/components/ScrollReveal'
 
 const GroupBuying: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'ongoing' | 'create' | 'myGroups'>('ongoing')
@@ -154,214 +155,226 @@ const GroupBuying: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-indigo-900/10 dark:to-purple-900/10 py-8 px-4">
       <div className="max-w-6xl mx-auto">
         {/* 顶部 Banner */}
-        <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-3xl p-6 text-white shadow-xl mb-8">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <UsersRound className="w-8 h-8" />
+        <ScrollReveal animation="fade-up">
+          <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-3xl p-6 text-white shadow-xl mb-8">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                <UsersRound className="w-8 h-8" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-1">社区团购</h2>
+                <p className="text-indigo-100 text-sm">团长担保 · 互助省钱 · 信任购买</p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-2xl font-bold mb-1">社区团购</h2>
-              <p className="text-indigo-100 text-sm">团长担保 · 互助省钱 · 信任购买</p>
-            </div>
-          </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-white/10 rounded-2xl p-4 text-center">
-              <div className="text-3xl font-bold">128</div>
-              <div className="text-sm text-indigo-200">进行中团购</div>
-            </div>
-            <div className="bg-white/10 rounded-2xl p-4 text-center">
-              <div className="text-3xl font-bold">3.2k</div>
-              <div className="text-sm text-indigo-200">参与人数</div>
-            </div>
-            <div className="bg-white/10 rounded-2xl p-4 text-center">
-              <div className="text-3xl font-bold">¥85</div>
-              <div className="text-sm text-indigo-200">平均节省</div>
-            </div>
-            <div className="bg-white/10 rounded-2xl p-4 text-center">
-              <div className="text-3xl font-bold">98%</div>
-              <div className="text-sm text-indigo-200">成团率</div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-white/10 rounded-2xl p-4 text-center">
+                <div className="text-3xl font-bold">128</div>
+                <div className="text-sm text-indigo-200">进行中团购</div>
+              </div>
+              <div className="bg-white/10 rounded-2xl p-4 text-center">
+                <div className="text-3xl font-bold">3.2k</div>
+                <div className="text-sm text-indigo-200">参与人数</div>
+              </div>
+              <div className="bg-white/10 rounded-2xl p-4 text-center">
+                <div className="text-3xl font-bold">¥85</div>
+                <div className="text-sm text-indigo-200">平均节省</div>
+              </div>
+              <div className="bg-white/10 rounded-2xl p-4 text-center">
+                <div className="text-3xl font-bold">98%</div>
+                <div className="text-sm text-indigo-200">成团率</div>
+              </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* 团购优势 */}
-        <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 mb-8 shadow-lg">
-          <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-6">为什么选择社区团购？</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {benefits.map((benefit, index) => (
-              <div key={index} className={`p-4 rounded-2xl bg-gradient-to-br ${
-                benefit.color === 'emerald' ? 'from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20' :
-                benefit.color === 'amber' ? 'from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20' :
-                benefit.color === 'pink' ? 'from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20' :
-                'from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20'
-              }`}>
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-3 ${
-                  benefit.color === 'emerald' ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400' :
-                  benefit.color === 'amber' ? 'bg-amber-100 text-amber-600 dark:bg-amber-900/50 dark:text-amber-400' :
-                  benefit.color === 'pink' ? 'bg-pink-100 text-pink-600 dark:bg-pink-900/50 dark:text-pink-400' :
-                  'bg-violet-100 text-violet-600 dark:bg-violet-900/50 dark:text-violet-400'
-                }`}>
-                  <benefit.icon className="w-6 h-6" />
-                </div>
-                <h4 className="font-bold text-gray-800 dark:text-white mb-1">{benefit.title}</h4>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{benefit.desc}</p>
-              </div>
-            ))}
+        <ScrollReveal animation="fade-up" delay={100}>
+          <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 mb-8 shadow-lg">
+            <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-6">为什么选择社区团购？</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {benefits.map((benefit, index) => (
+                <ScrollReveal key={index} animation="fade-up" delay={200 + index * 50}>
+                  <div className={`p-4 rounded-2xl bg-gradient-to-br ${
+                    benefit.color === 'emerald' ? 'from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20' :
+                    benefit.color === 'amber' ? 'from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20' :
+                    benefit.color === 'pink' ? 'from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20' :
+                    'from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20'
+                  }`}>
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-3 ${
+                      benefit.color === 'emerald' ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-400' :
+                      benefit.color === 'amber' ? 'bg-amber-100 text-amber-600 dark:bg-amber-900/50 dark:text-amber-400' :
+                      benefit.color === 'pink' ? 'bg-pink-100 text-pink-600 dark:bg-pink-900/50 dark:text-pink-400' :
+                      'bg-violet-100 text-violet-600 dark:bg-violet-900/50 dark:text-violet-400'
+                    }`}>
+                      <benefit.icon className="w-6 h-6" />
+                    </div>
+                    <h4 className="font-bold text-gray-800 dark:text-white mb-1">{benefit.title}</h4>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{benefit.desc}</p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Tab 切换 */}
-        <div className="flex gap-2 mb-6">
-          {[
-            { key: 'ongoing', label: '正在拼团', icon: ShoppingBag },
-            { key: 'create', label: '发起团购', icon: UserPlus },
-            { key: 'myGroups', label: '我的团购', icon: Users },
-          ].map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key as any)}
-              className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                activeTab === tab.key
-                  ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg'
-                  : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow'
-              }`}
-            >
-              <tab.icon className="w-4 h-4" />
-              {tab.label}
-            </button>
-          ))}
-        </div>
+        <ScrollReveal animation="fade-up" delay={300}>
+          <div className="flex gap-2 mb-6">
+            {[
+              { key: 'ongoing', label: '正在拼团', icon: ShoppingBag },
+              { key: 'create', label: '发起团购', icon: UserPlus },
+              { key: 'myGroups', label: '我的团购', icon: Users },
+            ].map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key as any)}
+                className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  activeTab === tab.key
+                    ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg'
+                    : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 shadow'
+                }`}
+              >
+                <tab.icon className="w-4 h-4" />
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </ScrollReveal>
 
         {/* 正在拼团 */}
         {activeTab === 'ongoing' && (
           <div className="space-y-6">
             {/* 热门拼团 */}
-            <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg">
-              <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-                <Zap className="w-5 h-5 text-amber-500" />
-                热门拼团
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {hotProducts.map((product, index) => (
-                  <div key={index} className="flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                    <span className="text-amber-500 font-bold">{index + 1}</span>
-                    <span className="text-gray-700 dark:text-gray-300 text-sm">{product.name}</span>
-                    <span className="text-xs text-gray-500">{product.groupCount}团</span>
-                  </div>
-                ))}
+            <ScrollReveal animation="fade-up" delay={400}>
+              <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg">
+                <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-amber-500" />
+                  热门拼团
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {hotProducts.map((product, index) => (
+                    <div key={index} className="flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                      <span className="text-amber-500 font-bold">{index + 1}</span>
+                      <span className="text-gray-700 dark:text-gray-300 text-sm">{product.name}</span>
+                      <span className="text-xs text-gray-500">{product.groupCount}团</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* 团购列表 */}
             <div className="space-y-4">
-              {ongoingGroups.map((group) => (
-                <div key={group.id} className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
-                  <div className="flex flex-col lg:flex-row">
-                    {/* 产品图片 */}
-                    <div className="lg:w-64 h-48 lg:h-auto relative">
-                      <img src={group.cover} alt={group.productName} className="w-full h-full object-cover" />
-                      {group.guarantee && (
-                        <div className="absolute top-3 left-3 px-3 py-1 bg-emerald-500 text-white rounded-full text-xs font-medium flex items-center gap-1">
-                          <Shield className="w-3 h-3" />
-                          团长担保
-                        </div>
-                      )}
-                    </div>
-
-                    {/* 内容 */}
-                    <div className="flex-1 p-5">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <span className="text-sm text-indigo-500 font-medium">{group.brand}</span>
-                          <h4 className="text-lg font-bold text-gray-800 dark:text-white">{group.productName}</h4>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-2xl font-bold text-pink-500">¥{group.groupPrice}</div>
-                          <div className="text-sm text-gray-400 line-through">¥{group.originalPrice}</div>
-                        </div>
-                      </div>
-
-                      {/* 价格和进度 */}
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="flex items-center gap-2">
-                          <div className="flex -space-x-2">
-                            {group.members.slice(0, 3).map((member, i) => (
-                              <img key={i} src={member.avatar} alt={member.name} className="w-8 h-8 rounded-full border-2 border-white" />
-                            ))}
+              {ongoingGroups.map((group, index) => (
+                <ScrollReveal key={group.id} animation="fade-up" delay={500 + index * 100}>
+                  <div key={group.id} className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div className="flex flex-col lg:flex-row">
+                      {/* 产品图片 */}
+                      <div className="lg:w-64 h-48 lg:h-auto relative">
+                        <img src={group.cover} alt={group.productName} className="w-full h-full object-cover" />
+                        {group.guarantee && (
+                          <div className="absolute top-3 left-3 px-3 py-1 bg-emerald-500 text-white rounded-full text-xs font-medium flex items-center gap-1">
+                            <Shield className="w-3 h-3" />
+                            团长担保
                           </div>
-                          <span className="text-sm text-gray-500">等{group.currentMembers}人已参团</span>
-                        </div>
-                        <div className="text-sm text-amber-500 font-medium">
-                          预计节省 ¥{(group.originalPrice - group.groupPrice)}
-                        </div>
+                        )}
                       </div>
 
-                      {/* 进度条 */}
-                      <div className="mb-4">
-                        <div className="flex justify-between text-xs text-gray-500 mb-1">
-                          <span>成团进度</span>
-                          <span>{group.currentMembers}/{group.targetMembers}</span>
-                        </div>
-                        <div className="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
-                            style={{ width: `${(group.currentMembers / group.targetMembers) * 100}%` }}
-                          />
-                        </div>
-                      </div>
-
-                      {/* 团长信息 */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <img src={group.creatorAvatar} alt={group.creator} className="w-8 h-8 rounded-full" />
+                      {/* 内容 */}
+                      <div className="flex-1 p-5">
+                        <div className="flex items-start justify-between mb-3">
                           <div>
-                            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{group.creator}</span>
-                            <span className="ml-2 text-xs px-2 py-0.5 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full">
-                              {group.creatorLevel}
-                            </span>
+                            <span className="text-sm text-indigo-500 font-medium">{group.brand}</span>
+                            <h4 className="text-lg font-bold text-gray-800 dark:text-white">{group.productName}</h4>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-2xl font-bold text-pink-500">¥{group.groupPrice}</div>
+                            <div className="text-sm text-gray-400 line-through">¥{group.originalPrice}</div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-gray-500">
-                          <Clock className="w-4 h-4" />
-                          <span>剩余 {group.deadline.split(' ')[0]}</span>
-                        </div>
-                      </div>
 
-                      {/* 展开详情 */}
-                      <button 
-                        onClick={() => setExpandedGroup(expandedGroup === group.id ? null : group.id)}
-                        className="w-full mt-4 py-2 text-sm text-indigo-500 font-medium"
-                      >
-                        {expandedGroup === group.id ? '收起详情' : '查看详情'}
-                      </button>
-
-                      {expandedGroup === group.id && (
-                        <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 space-y-4">
-                          <div>
-                            <div className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">团长说</div>
-                            <p className="text-sm text-gray-600 dark:text-gray-300">{group.description}</p>
-                          </div>
-                          <div className="flex flex-wrap gap-2">
-                            {group.tags.map((tag, i) => (
-                              <span key={i} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded text-xs">
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                          <div className="flex items-center justify-between pt-4">
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm text-gray-500">已有 {group.currentMembers} 人参团，还差 {group.targetMembers - group.currentMembers} 人</span>
+                        {/* 价格和进度 */}
+                        <div className="flex items-center gap-4 mb-4">
+                          <div className="flex items-center gap-2">
+                            <div className="flex -space-x-2">
+                              {group.members.slice(0, 3).map((member, i) => (
+                                <img key={i} src={member.avatar} alt={member.name} className="w-8 h-8 rounded-full border-2 border-white" />
+                              ))}
                             </div>
-                            <button className="px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-medium hover:shadow-lg transition-all">
-                              立即参团
-                            </button>
+                            <span className="text-sm text-gray-500">等{group.currentMembers}人已参团</span>
+                          </div>
+                          <div className="text-sm text-amber-500 font-medium">
+                            预计节省 ¥{(group.originalPrice - group.groupPrice)}
                           </div>
                         </div>
-                      )}
+
+                        {/* 进度条 */}
+                        <div className="mb-4">
+                          <div className="flex justify-between text-xs text-gray-500 mb-1">
+                            <span>成团进度</span>
+                            <span>{group.currentMembers}/{group.targetMembers}</span>
+                          </div>
+                          <div className="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
+                              style={{ width: `${(group.currentMembers / group.targetMembers) * 100}%` }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* 团长信息 */}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <img src={group.creatorAvatar} alt={group.creator} className="w-8 h-8 rounded-full" />
+                            <div>
+                              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{group.creator}</span>
+                              <span className="ml-2 text-xs px-2 py-0.5 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full">
+                                {group.creatorLevel}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 text-sm text-gray-500">
+                            <Clock className="w-4 h-4" />
+                            <span>剩余 {group.deadline.split(' ')[0]}</span>
+                          </div>
+                        </div>
+
+                        {/* 展开详情 */}
+                        <button 
+                          onClick={() => setExpandedGroup(expandedGroup === group.id ? null : group.id)}
+                          className="w-full mt-4 py-2 text-sm text-indigo-500 font-medium"
+                        >
+                          {expandedGroup === group.id ? '收起详情' : '查看详情'}
+                        </button>
+
+                        {expandedGroup === group.id && (
+                          <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 space-y-4">
+                            <div>
+                              <div className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">团长说</div>
+                              <p className="text-sm text-gray-600 dark:text-gray-300">{group.description}</p>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              {group.tags.map((tag, i) => (
+                                <span key={i} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded text-xs">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                            <div className="flex items-center justify-between pt-4">
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm text-gray-500">已有 {group.currentMembers} 人参团，还差 {group.targetMembers - group.currentMembers} 人</span>
+                              </div>
+                              <button className="px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-medium hover:shadow-lg transition-all">
+                                立即参团
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -369,142 +382,146 @@ const GroupBuying: React.FC = () => {
 
         {/* 发起团购 */}
         {activeTab === 'create' && (
-          <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg">
-            <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-6">发起新团购</h3>
-            
-            <div className="space-y-6 max-w-2xl">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">选择产品</label>
-                <div className="border-2 border-dashed border-gray-200 dark:border-gray-600 rounded-2xl p-8 text-center hover:border-indigo-400 transition-colors cursor-pointer">
-                  <ShoppingBag className="w-12 h-12 mx-auto text-gray-300 mb-3" />
-                  <p className="text-gray-500 dark:text-gray-400">点击选择你想要团购的产品</p>
-                  <p className="text-xs text-gray-400 mt-1">支持搜索或在商品详情页发起团购</p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
+          <ScrollReveal animation="fade-up" delay={400}>
+            <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg">
+              <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-6">发起新团购</h3>
+              
+              <div className="space-y-6 max-w-2xl">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">原价 (¥)</label>
-                  <input type="number" placeholder="0.00" className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent focus:border-indigo-500 outline-none" />
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">选择产品</label>
+                  <div className="border-2 border-dashed border-gray-200 dark:border-gray-600 rounded-2xl p-8 text-center hover:border-indigo-400 transition-colors cursor-pointer">
+                    <ShoppingBag className="w-12 h-12 mx-auto text-gray-300 mb-3" />
+                    <p className="text-gray-500 dark:text-gray-400">点击选择你想要团购的产品</p>
+                    <p className="text-xs text-gray-400 mt-1">支持搜索或在商品详情页发起团购</p>
+                  </div>
                 </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">原价 (¥)</label>
+                    <input type="number" placeholder="0.00" className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent focus:border-indigo-500 outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">团购价 (¥)</label>
+                    <input type="number" placeholder="0.00" className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent focus:border-indigo-500 outline-none" />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">目标人数</label>
+                    <select className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent focus:border-indigo-500 outline-none">
+                      <option>5人团</option>
+                      <option>8人团</option>
+                      <option selected>10人团</option>
+                      <option>15人团</option>
+                      <option>20人团</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">截止时间</label>
+                    <input type="datetime-local" className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent focus:border-indigo-500 outline-none" />
+                  </div>
+                </div>
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">团购价 (¥)</label>
-                  <input type="number" placeholder="0.00" className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent focus:border-indigo-500 outline-none" />
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">团长说 (可选)</label>
+                  <textarea 
+                    rows={3} 
+                    placeholder="分享你开团的原因，或者对产品的使用感受..."
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent focus:border-indigo-500 outline-none resize-none"
+                  />
                 </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">目标人数</label>
-                  <select className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent focus:border-indigo-500 outline-none">
-                    <option>5人团</option>
-                    <option>8人团</option>
-                    <option selected>10人团</option>
-                    <option>15人团</option>
-                    <option>20人团</option>
-                  </select>
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-indigo-500 focus:ring-indigo-500" />
+                    <span className="text-sm text-gray-600 dark:text-gray-400">我愿意为产品质量担保</span>
+                  </label>
+                  <p className="text-xs text-gray-400 mt-1 ml-8">担保可提升成团率，但需承担相应责任</p>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">截止时间</label>
-                  <input type="datetime-local" className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent focus:border-indigo-500 outline-none" />
-                </div>
-              </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">团长说 (可选)</label>
-                <textarea 
-                  rows={3} 
-                  placeholder="分享你开团的原因，或者对产品的使用感受..."
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-transparent focus:border-indigo-500 outline-none resize-none"
-                />
+                <button className="w-full py-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-bold text-lg hover:shadow-xl transition-all">
+                  发起团购
+                </button>
               </div>
-
-              <div>
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-indigo-500 focus:ring-indigo-500" />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">我愿意为产品质量担保</span>
-                </label>
-                <p className="text-xs text-gray-400 mt-1 ml-8">担保可提升成团率，但需承担相应责任</p>
-              </div>
-
-              <button className="w-full py-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl font-bold text-lg hover:shadow-xl transition-all">
-                发起团购
-              </button>
             </div>
-          </div>
+          </ScrollReveal>
         )}
 
         {/* 我的团购 */}
         {activeTab === 'myGroups' && (
-          <div className="space-y-6">
-            <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg">
-              <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-6">我的团购记录</h3>
-              {myGroups.length === 0 ? (
-                <div className="text-center py-12">
-                  <Users className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-                  <p className="text-gray-500 dark:text-gray-400">暂无团购记录</p>
-                  <button 
-                    onClick={() => setActiveTab('ongoing')}
-                    className="mt-4 px-6 py-2 bg-indigo-500 text-white rounded-xl font-medium"
-                  >
-                    去参团
-                  </button>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {myGroups.map((group) => (
-                    <div key={group.id} className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-2xl">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h4 className="font-medium text-gray-800 dark:text-white">{group.productName}</h4>
-                          <p className="text-sm text-gray-500 mt-1">
-                            参与方式: {group.myRole} · {group.joinedDate}
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                            group.status === '已成团' 
-                              ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400'
-                              : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400'
-                          }`}>
-                            {group.status}
-                          </span>
-                          {'savings' in group && (
-                            <p className="text-sm text-emerald-500 mt-1">已省 ¥{group.savings}</p>
-                          )}
-                          {'progress' in group && (
-                            <p className="text-sm text-gray-500 mt-1">{group.progress}/{group.target}人</p>
-                          )}
+          <ScrollReveal animation="fade-up" delay={400}>
+            <div className="space-y-6">
+              <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg">
+                <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-6">我的团购记录</h3>
+                {myGroups.length === 0 ? (
+                  <div className="text-center py-12">
+                    <Users className="w-16 h-16 mx-auto text-gray-300 mb-4" />
+                    <p className="text-gray-500 dark:text-gray-400">暂无团购记录</p>
+                    <button 
+                      onClick={() => setActiveTab('ongoing')}
+                      className="mt-4 px-6 py-2 bg-indigo-500 text-white rounded-xl font-medium"
+                    >
+                      去参团
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {myGroups.map((group) => (
+                      <div key={group.id} className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-2xl">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h4 className="font-medium text-gray-800 dark:text-white">{group.productName}</h4>
+                            <p className="text-sm text-gray-500 mt-1">
+                              参与方式: {group.myRole} · {group.joinedDate}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                              group.status === '已成团' 
+                                ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400'
+                                : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400'
+                            }`}>
+                              {group.status}
+                            </span>
+                            {'savings' in group && (
+                              <p className="text-sm text-emerald-500 mt-1">已省 ¥{group.savings}</p>
+                            )}
+                            {'progress' in group && (
+                              <p className="text-sm text-gray-500 mt-1">{group.progress}/{group.target}人</p>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+                    ))}
+                  </div>
+                )}
+              </div>
 
-            {/* 成为团长指南 */}
-            <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl p-6 text-white">
-              <h3 className="font-bold mb-4 flex items-center gap-2">
-                <Award className="w-5 h-5" />
-                团长特权
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                <div className="bg-white/10 rounded-xl p-4">
-                  <div className="text-lg font-bold mb-2">信任背书</div>
-                  <p className="opacity-80">作为团长为产品质量担保，获得更多用户信任</p>
-                </div>
-                <div className="bg-white/10 rounded-xl p-4">
-                  <div className="text-lg font-bold mb-2">团长专属优惠</div>
-                  <p className="opacity-80">成功成团可获得额外美丽币奖励</p>
-                </div>
-                <div className="bg-white/10 rounded-xl p-4">
-                  <div className="text-lg font-bold mb-2">曝光加权</div>
-                  <p className="opacity-80">团长发起的团购获得更多推荐位</p>
+              {/* 成为团长指南 */}
+              <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl p-6 text-white">
+                <h3 className="font-bold mb-4 flex items-center gap-2">
+                  <Award className="w-5 h-5" />
+                  团长特权
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div className="bg-white/10 rounded-xl p-4">
+                    <div className="text-lg font-bold mb-2">信任背书</div>
+                    <p className="opacity-80">作为团长为产品质量担保，获得更多用户信任</p>
+                  </div>
+                  <div className="bg-white/10 rounded-xl p-4">
+                    <div className="text-lg font-bold mb-2">团长专属优惠</div>
+                    <p className="opacity-80">成功成团可获得额外美丽币奖励</p>
+                  </div>
+                  <div className="bg-white/10 rounded-xl p-4">
+                    <div className="text-lg font-bold mb-2">曝光加权</div>
+                    <p className="opacity-80">团长发起的团购获得更多推荐位</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         )}
       </div>
     </div>

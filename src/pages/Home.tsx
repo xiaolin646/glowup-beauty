@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { ShieldCheck, Sparkles, Star, Users, ArrowRight, CheckCircle, AlertTriangle } from 'lucide-react';
+import ScrollReveal from '../components/ScrollReveal';
 
 const Home: React.FC = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -69,61 +70,71 @@ const Home: React.FC = () => {
         <div className="relative container mx-auto px-4 py-20 lg:py-32">
           <div className="max-w-4xl mx-auto text-center">
             {/* 主标语 */}
-            <div className="inline-flex items-center gap-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm px-4 py-2 rounded-full mb-8 shadow-sm">
-              <Sparkles className="w-4 h-4 text-pink-500" />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">免费验真 · 买前先查</span>
-            </div>
+            <ScrollReveal animation="fade-up" immediate={true}>
+              <div className="inline-flex items-center gap-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm px-4 py-2 rounded-full mb-8 shadow-sm">
+                <Sparkles className="w-4 h-4 text-pink-500" />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">免费验真 · 买前先查</span>
+              </div>
+            </ScrollReveal>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              AI帮你辨别真假
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">
-                找到真正适合你的美妆好物
-              </span>
-            </h1>
+            <ScrollReveal animation="fade-up" immediate={true} delay={50}>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                AI帮你辨别真假
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-rose-500">
+                  找到真正适合你的美妆好物
+                </span>
+              </h1>
+            </ScrollReveal>
 
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
-              上传产品照片，AI智能分析成分、验明真假、匹配肤质，
-              <br className="hidden md:block" />
-              让你不再踩坑，买得放心、用得安心。
-            </p>
+            <ScrollReveal animation="fade-up" immediate={true} delay={100}>
+              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+                上传产品照片，AI智能分析成分、验明真假、匹配肤质，
+                <br className="hidden md:block" />
+                让你不再踩坑，买得放心、用得安心。
+              </p>
+            </ScrollReveal>
 
             {/* CTA 按钮 */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                to="/verify"
-                className="group inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40 transition-all duration-300 cursor-pointer"
-              >
-                <ShieldCheck className="w-5 h-5" />
-                立即验真
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                to="/skin-test"
-                className="inline-flex items-center gap-2 bg-white/80 dark:bg-slate-800 hover:bg-white dark:hover:bg-slate-700 text-gray-700 dark:text-gray-300 px-6 py-4 rounded-full font-medium shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
-              >
-                <Sparkles className="w-5 h-5 text-pink-500" />
-                测试肤质
-              </Link>
-            </div>
+            <ScrollReveal animation="fade-up" immediate={true} delay={150}>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link
+                  to="/verify"
+                  className="group inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40 transition-all duration-300 cursor-pointer"
+                >
+                  <ShieldCheck className="w-5 h-5" />
+                  立即验真
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  to="/skin-test"
+                  className="inline-flex items-center gap-2 bg-white/80 dark:bg-slate-800 hover:bg-white dark:hover:bg-slate-700 text-gray-700 dark:text-gray-300 px-6 py-4 rounded-full font-medium shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+                >
+                  <Sparkles className="w-5 h-5 text-pink-500" />
+                  测试肤质
+                </Link>
+              </div>
+            </ScrollReveal>
 
             {/* 数据统计 */}
-            <div className="flex items-center justify-center gap-8 md:gap-16 mt-12 text-sm text-gray-500 dark:text-gray-400">
-              <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">10万+</div>
-                <div>已验真产品</div>
+            <ScrollReveal animation="fade-up" immediate={true} delay={200}>
+              <div className="flex items-center justify-center gap-8 md:gap-16 mt-12 text-sm text-gray-500 dark:text-gray-400">
+                <div className="text-center">
+                  <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">10万+</div>
+                  <div>已验真产品</div>
+                </div>
+                <div className="w-px h-10 bg-gray-300 dark:bg-gray-700" />
+                <div className="text-center">
+                  <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">98.6%</div>
+                  <div>验真准确率</div>
+                </div>
+                <div className="w-px h-10 bg-gray-300 dark:bg-gray-700" />
+                <div className="text-center">
+                  <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">50万+</div>
+                  <div>用户信赖</div>
+                </div>
               </div>
-              <div className="w-px h-10 bg-gray-300 dark:bg-gray-700" />
-              <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">98.6%</div>
-                <div>验真准确率</div>
-              </div>
-              <div className="w-px h-10 bg-gray-300 dark:bg-gray-700" />
-              <div className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">50万+</div>
-                <div>用户信赖</div>
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
 
@@ -138,17 +149,20 @@ const Home: React.FC = () => {
       {/* ② 验真Demo区 */}
       <section className="py-16 bg-white dark:bg-slate-900">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              3秒理解产品价值
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400">
-              看看我们的AI验真报告能告诉你什么
-            </p>
-          </div>
+          <ScrollReveal animation="fade-up">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                3秒理解产品价值
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                看看我们的AI验真报告能告诉你什么
+              </p>
+            </div>
+          </ScrollReveal>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-gray-50 to-pink-50 dark:from-slate-800 dark:to-slate-800 rounded-3xl p-6 md:p-10 shadow-xl border border-gray-100 dark:border-slate-700">
+          <ScrollReveal animation="fade-up" delay={100}>
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-gradient-to-br from-gray-50 to-pink-50 dark:from-slate-800 dark:to-slate-800 rounded-3xl p-6 md:p-10 shadow-xl border border-gray-100 dark:border-slate-700">
               {/* 报告头部 */}
               <div className="flex items-start justify-between mb-6">
                 <div>
@@ -218,34 +232,37 @@ const Home: React.FC = () => {
                   查看更多案例
                 </button>
               </div>
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* ③ 热门产品推荐 */}
       <section className="py-16 bg-gray-50 dark:bg-slate-800">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">热门产品</h2>
-              <p className="text-gray-500 dark:text-gray-400">带验真标识的正品好物</p>
+          <ScrollReveal animation="fade-up">
+            <div className="flex items-center justify-between mb-10">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">热门产品</h2>
+                <p className="text-gray-500 dark:text-gray-400">带验真标识的正品好物</p>
+              </div>
+              <Link
+                to="/products"
+                className="inline-flex items-center gap-1 text-pink-500 hover:text-pink-600 font-medium cursor-pointer"
+              >
+                查看更多
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
-            <Link
-              to="/products"
-              className="inline-flex items-center gap-1 text-pink-500 hover:text-pink-600 font-medium cursor-pointer"
-            >
-              查看更多
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <div
-                key={product.id}
-                className="bg-white dark:bg-slate-700 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group"
-              >
+            {products.map((product, index) => (
+              <ScrollReveal key={product.id} animation="fade-up" delay={100 + index * 50}>
+                <div
+                  className="bg-white dark:bg-slate-700 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer group"
+                >
                 <div className="relative aspect-square bg-gradient-to-br from-pink-50 to-rose-50 dark:from-slate-600 dark:to-slate-700 flex items-center justify-center">
                   <span className="text-7xl">{product.image}</span>
                   {product.verified && (
@@ -274,7 +291,8 @@ const Home: React.FC = () => {
                     查看详情
                   </button>
                 </div>
-              </div>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -283,21 +301,23 @@ const Home: React.FC = () => {
       {/* ④ 用户评价区 */}
       <section className="py-16 bg-white dark:bg-slate-900">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              真实用户评价
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400">
-              来自真实用户的反馈
-            </p>
-          </div>
+          <ScrollReveal animation="fade-up">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                真实用户评价
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                来自真实用户的反馈
+              </p>
+            </div>
+          </ScrollReveal>
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {reviews.map((review) => (
-              <div
-                key={review.id}
-                className="bg-gray-50 dark:bg-slate-800 rounded-2xl p-6 hover:shadow-lg transition-shadow"
-              >
+            {reviews.map((review, index) => (
+              <ScrollReveal key={review.id} animation="fade-up" delay={100 + index * 50}>
+                <div
+                  className="bg-gray-50 dark:bg-slate-800 rounded-2xl p-6 hover:shadow-lg transition-shadow"
+                >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-rose-500 rounded-full flex items-center justify-center text-2xl">
                     {review.avatar}
@@ -318,7 +338,8 @@ const Home: React.FC = () => {
                 <div className="text-xs text-gray-400 dark:text-gray-500">
                   评价产品: {review.product}
                 </div>
-              </div>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -327,25 +348,28 @@ const Home: React.FC = () => {
       {/* ⑤ 品牌承诺 */}
       <section className="py-16 bg-gradient-to-br from-pink-50 to-rose-50 dark:from-slate-800 dark:to-slate-900">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              我们的承诺
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400">
-              真实、客观、为你着想
-            </p>
-          </div>
+          <ScrollReveal animation="fade-up">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                我们的承诺
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                真实、客观、为你着想
+              </p>
+            </div>
+          </ScrollReveal>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {commitments.map((item, index) => (
-              <div
-                key={index}
-                className="text-center bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow"
-              >
+              <ScrollReveal key={index} animation="fade-up" delay={100 + index * 50}>
+                <div
+                  className="text-center bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow"
+                >
                 <div className="text-5xl mb-4">{item.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{item.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400">{item.desc}</p>
-              </div>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -354,19 +378,21 @@ const Home: React.FC = () => {
       {/* ⑥ 社区/共建入口 */}
       <section className="py-16 bg-white dark:bg-slate-900">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-pink-100 dark:bg-pink-900/30 px-4 py-2 rounded-full mb-6">
-              <Users className="w-4 h-4 text-pink-500" />
-              <span className="text-sm font-medium text-pink-600 dark:text-pink-400">共建者招募中</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              加入美妆共建社区
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-              成为 GlowUp 共建者，分享你的美妆经验，参与产品测评，
-              一起打造最真实、最值得信赖的美妆平台。
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <ScrollReveal animation="fade-up">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 bg-pink-100 dark:bg-pink-900/30 px-4 py-2 rounded-full mb-6">
+                <Users className="w-4 h-4 text-pink-500" />
+                <span className="text-sm font-medium text-pink-600 dark:text-pink-400">共建者招募中</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                加入美妆共建社区
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+                成为 GlowUp 共建者，分享你的美妆经验，参与产品测评，
+                一起打造最真实、最值得信赖的美妆平台。
+              </p>
+              <ScrollReveal animation="fade-up" delay={100}>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 to="/community"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
@@ -380,8 +406,10 @@ const Home: React.FC = () => {
               >
                 了解共建者权益
               </Link>
+              </div>
+            </ScrollReveal>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 

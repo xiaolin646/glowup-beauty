@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { 
+import {
   Sparkles, ChevronRight, ArrowRight, Crown,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -7,6 +7,7 @@ import {
   LipstickIcon, EyeshadowIcon, HighlighterIcon, FoundationIcon,
   SerumIcon, BrushIcon
 } from '@/components/icons/MakeupIcons'
+import ScrollReveal from '@/components/ScrollReveal'
 
 const categories = [
   { id: 'foundation', name: '底妆系列', icon: FoundationIcon, bgColor: 'bg-pink-50 dark:bg-pink-900/20', activeBg: 'bg-pink-500', textColor: 'text-pink-600 dark:text-pink-400' },
@@ -75,135 +76,157 @@ export default function ProductCategories() {
     <section className="py-28 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#0f0f0f] transition-colors">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 text-sm font-medium mb-6">
-            <Sparkles className="w-4 h-4" />
-            <span>精选好物</span>
+        <ScrollReveal animation="fade-up" duration={800}>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 text-sm font-medium mb-6">
+              <Sparkles className="w-4 h-4" />
+              <span>精选好物</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              美妆之家
+            </h2>
+            <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-lg">
+              精选全球优质美妆产品，从底妆到彩妆，为你打造完美妆容
+            </p>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            美妆之家
-          </h2>
-          <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-lg">
-            精选全球优质美妆产品，从底妆到彩妆，为你打造完美妆容
-          </p>
-        </div>
+        </ScrollReveal>
 
         {/* Category Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
-          {categories.map((cat) => {
-            const CatIcon = cat.icon
-            const isActive = activeCategory === cat.id
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={cn(
-                  "flex items-center gap-2.5 px-5 py-3 rounded-full font-medium transition-all duration-200 cursor-pointer",
-                  isActive
-                    ? `${cat.activeBg} text-white shadow-md`
-                    : `${cat.bgColor} ${cat.textColor} hover:opacity-80`
-                )}
-              >
-                <CatIcon size={20} />
-                <span>{cat.name}</span>
-              </button>
-            )
-          })}
-        </div>
+        <ScrollReveal animation="fade-up" delay={200} duration={600}>
+          <div className="flex flex-wrap justify-center gap-3 mb-16">
+            {categories.map((cat) => {
+              const CatIcon = cat.icon
+              const isActive = activeCategory === cat.id
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={cn(
+                    "flex items-center gap-2.5 px-5 py-3 rounded-full font-medium transition-all duration-200 cursor-pointer",
+                    isActive
+                      ? `${cat.activeBg} text-white shadow-md`
+                      : `${cat.bgColor} ${cat.textColor} hover:opacity-80`
+                  )}
+                >
+                  <CatIcon size={20} />
+                  <span>{cat.name}</span>
+                </button>
+              )
+            })}
+          </div>
+        </ScrollReveal>
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           {products.map((product, idx) => (
-            <div
+            <ScrollReveal
               key={idx}
-              className="group bg-white dark:bg-gray-800 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+              animation="fade-up"
+              delay={300 + idx * 100}
+              duration={600}
             >
-              {/* Product Image Area */}
-              <div className={cn(
-                "aspect-square flex items-center justify-center relative",
-                currentCategory?.bgColor
-              )}>
-                <IconComponent size={64} />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 dark:group-hover:bg-white/5 transition-colors duration-300" />
-              </div>
-              
-              {/* Product Info */}
-              <div className="p-6">
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-1 group-hover:text-pink-500 dark:group-hover:text-pink-400 transition-colors">
-                  {product.name}
-                </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                  {product.desc}
-                </p>
+              <div
+                className="group bg-white dark:bg-gray-800 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+              >
+                {/* Product Image Area */}
                 <div className={cn(
-                  "flex items-center gap-1 text-sm font-medium transition-colors",
-                  currentCategory?.textColor
+                  "aspect-square flex items-center justify-center relative",
+                  currentCategory?.bgColor
                 )}>
-                  <span>查看详情</span>
-                  <ChevronRight className="w-4 h-4" />
+                  <IconComponent size={64} />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 dark:group-hover:bg-white/5 transition-colors duration-300" />
+                </div>
+
+                {/* Product Info */}
+                <div className="p-6">
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1 group-hover:text-pink-500 dark:group-hover:text-pink-400 transition-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+                    {product.desc}
+                  </p>
+                  <div className={cn(
+                    "flex items-center gap-1 text-sm font-medium transition-colors",
+                    currentCategory?.textColor
+                  )}>
+                    <span>查看详情</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
 
         {/* Featured Brands */}
         <div className="mb-20">
-          <div className="flex items-center justify-between mb-10">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-              热门品牌
-            </h3>
-            <button className="flex items-center gap-1 text-pink-500 dark:text-pink-400 font-medium hover:gap-2 transition-all cursor-pointer">
-              查看全部 <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
+          <ScrollReveal animation="fade-up" delay={100} duration={600}>
+            <div className="flex items-center justify-between mb-10">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                热门品牌
+              </h3>
+              <button className="flex items-center gap-1 text-pink-500 dark:text-pink-400 font-medium hover:gap-2 transition-all cursor-pointer">
+                查看全部 <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </ScrollReveal>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {brands.map((brand) => (
-              <div
+            {brands.map((brand, idx) => (
+              <ScrollReveal
                 key={brand.name}
-                className="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:border-pink-200 dark:hover:border-pink-800 transition-colors cursor-pointer text-center"
+                animation="fade-up"
+                delay={200 + idx * 100}
+                duration={600}
               >
-                <div className="w-16 h-16 rounded-full mx-auto mb-4 bg-gray-100 dark:bg-gray-700 flex items-center justify-center group-hover:bg-pink-50 dark:group-hover:bg-pink-900/20 transition-colors">
-                  <Crown className="w-8 h-8 text-gray-400 group-hover:text-pink-500 transition-colors" />
+                <div
+                  className="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:border-pink-200 dark:hover:border-pink-800 transition-colors cursor-pointer text-center"
+                >
+                  <div className="w-16 h-16 rounded-full mx-auto mb-4 bg-gray-100 dark:bg-gray-700 flex items-center justify-center group-hover:bg-pink-50 dark:group-hover:bg-pink-900/20 transition-colors">
+                    <Crown className="w-8 h-8 text-gray-400 group-hover:text-pink-500 transition-colors" />
+                  </div>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">{brand.name}</h4>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{brand.tag}</p>
                 </div>
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-1">{brand.name}</h4>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{brand.tag}</p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
 
         {/* Banner Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 border border-gray-100 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow group">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-pink-100 dark:bg-pink-900/40 flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-pink-500" />
+          <ScrollReveal animation="fade-right" delay={0} duration={800}>
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 border border-gray-100 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow group">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-pink-100 dark:bg-pink-900/40 flex items-center justify-center">
+                  <Sparkles className="w-6 h-6 text-pink-500" />
+                </div>
+                <span className="px-3 py-1 bg-pink-100 dark:bg-pink-900/40 text-pink-600 dark:text-pink-400 rounded-full text-sm font-medium">新品首发</span>
               </div>
-              <span className="px-3 py-1 bg-pink-100 dark:bg-pink-900/40 text-pink-600 dark:text-pink-400 rounded-full text-sm font-medium">新品首发</span>
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">春季限定系列</h3>
-            <p className="text-gray-500 dark:text-gray-400 mb-4">全新上市，限时优惠</p>
-            <div className="flex items-center gap-1 text-pink-500 dark:text-pink-400 font-medium group-hover:gap-2 transition-all">
-              <span>立即选购</span>
-              <ArrowRight className="w-4 h-4" />
-            </div>
-          </div>
-          
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 border border-gray-100 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow group">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center">
-                <Crown className="w-6 h-6 text-amber-500" />
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">春季限定系列</h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-4">全新上市，限时优惠</p>
+              <div className="flex items-center gap-1 text-pink-500 dark:text-pink-400 font-medium group-hover:gap-2 transition-all">
+                <span>立即选购</span>
+                <ArrowRight className="w-4 h-4" />
               </div>
-              <span className="px-3 py-1 bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 rounded-full text-sm font-medium">人气推荐</span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">明星同款</h3>
-            <p className="text-gray-500 dark:text-gray-400 mb-4">跟着明星学化妆</p>
-            <div className="flex items-center gap-1 text-amber-500 dark:text-amber-400 font-medium group-hover:gap-2 transition-all">
-              <span>查看详情</span>
-              <ArrowRight className="w-4 h-4" />
+          </ScrollReveal>
+
+          <ScrollReveal animation="fade-left" delay={200} duration={800}>
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 border border-gray-100 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow group">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center">
+                  <Crown className="w-6 h-6 text-amber-500" />
+                </div>
+                <span className="px-3 py-1 bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 rounded-full text-sm font-medium">人气推荐</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">护肤精选套装</h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-4">明星单品组合，护肤更高效</p>
+              <div className="flex items-center gap-1 text-amber-500 dark:text-amber-400 font-medium group-hover:gap-2 transition-all">
+                <span>立即选购</span>
+                <ArrowRight className="w-4 h-4" />
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

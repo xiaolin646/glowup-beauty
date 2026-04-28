@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Search, ShoppingCart, Star, Heart, Flame, Sparkles, Gift, Truck, Shield, RotateCcw, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import ScrollReveal from '../ScrollReveal'
 
 const categories = [
   { id: 'all', name: '全部', icon: '✨' },
@@ -181,87 +182,109 @@ export default function MobileShop({ onCartClick, onProductClick }: MobileShopPr
         mounted ? "animate-fade-in" : "opacity-0"
       )}>
         {/* 限时秒杀 */}
-        <section className="px-4 pt-4 pb-2">
-          <div className="relative p-4 bg-gradient-to-br from-pink-100 via-rose-50 to-purple-50 dark:from-pink-900/30 dark:via-slate-800 dark:to-purple-900/20 rounded-3xl overflow-hidden">
-            {/* 背景光晕 */}
-            <div className="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-pink-300/30 to-rose-300/20 rounded-full blur-2xl animate-float-slow" />
-            <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-gradient-to-tr from-purple-300/30 to-pink-300/20 rounded-full blur-2xl animate-float-medium" />
+        <ScrollReveal animation="fade-up" delay={50} duration={350} immediate={true}>
+          <section className="px-4 pt-4 pb-2">
+            <div className="relative p-4 bg-gradient-to-br from-pink-100 via-rose-50 to-purple-50 dark:from-pink-900/30 dark:via-slate-800 dark:to-purple-900/20 rounded-3xl overflow-hidden">
+              {/* 背景光晕 */}
+              <div className="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-pink-300/30 to-rose-300/20 rounded-full blur-2xl animate-float-slow" />
+              <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-gradient-to-tr from-purple-300/30 to-pink-300/20 rounded-full blur-2xl animate-float-medium" />
 
-            <div className="relative flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full shadow-lg shadow-pink-500/30">
-                  <Flame className="w-4 h-4 text-white" />
-                  <span className="text-white text-sm font-bold">限时秒杀</span>
+              <div className="relative flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full shadow-lg shadow-pink-500/30">
+                    <Flame className="w-4 h-4 text-white" />
+                    <span className="text-white text-sm font-bold">限时秒杀</span>
+                  </div>
+                  <div className="flex items-center gap-1 px-2 py-1 bg-white/80 dark:bg-slate-800/80 rounded-lg">
+                    <span className="text-pink-500 text-sm font-mono font-bold">{flashSale.endTime}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-1 px-2 py-1 bg-white/80 dark:bg-slate-800/80 rounded-lg">
-                  <span className="text-pink-500 text-sm font-mono font-bold">{flashSale.endTime}</span>
-                </div>
+                <button className="flex items-center gap-1 text-pink-500 text-sm font-medium cursor-pointer">
+                  更多 <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
-              <button className="flex items-center gap-1 text-pink-500 text-sm font-medium cursor-pointer">
-                更多 <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
 
-            <div className="flex gap-3 overflow-x-auto scrollbar-hide">
-              {flashSale.items.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex-shrink-0 w-24 bg-white/90 dark:bg-slate-800/90 rounded-2xl overflow-hidden border border-pink-100/50 dark:border-slate-700/50 hover:shadow-lg transition-all cursor-pointer"
-                >
-                  <div className="relative aspect-square">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                    <div className="absolute top-1.5 left-1.5 px-1.5 py-0.5 bg-red-500 text-white text-[10px] font-bold rounded">
-                      {item.discount}折
+              <div className="flex gap-3 overflow-x-auto scrollbar-hide">
+                {flashSale.items.map((item, index) => (
+                  <ScrollReveal
+                    key={item.id}
+                    animation="fade-up"
+                    delay={60 + index * 30}
+                    duration={300}
+                  >
+                    <div
+                      className="flex-shrink-0 w-24 bg-white/90 dark:bg-slate-800/90 rounded-2xl overflow-hidden border border-pink-100/50 dark:border-slate-700/50 hover:shadow-lg transition-all cursor-pointer"
+                    >
+                      <div className="relative aspect-square">
+                        <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                        <div className="absolute top-1.5 left-1.5 px-1.5 py-0.5 bg-red-500 text-white text-[10px] font-bold rounded">
+                          {item.discount}折
+                        </div>
+                      </div>
+                      <div className="p-2">
+                        <p className="text-xs text-pink-500 font-semibold">¥{item.price}</p>
+                        <p className="text-[10px] text-gray-400 line-through">¥{item.originalPrice}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-2">
-                    <p className="text-xs text-pink-500 font-semibold">¥{item.price}</p>
-                    <p className="text-[10px] text-gray-400 line-through">¥{item.originalPrice}</p>
-                  </div>
-                </div>
-              ))}
+                  </ScrollReveal>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </ScrollReveal>
 
         {/* 品质保障 */}
-        <section className="px-4 py-4">
-          <div className="grid grid-cols-4 gap-2">
-            {[
-              { icon: Gift, text: '新人礼包', color: 'text-pink-500' },
-              { icon: Truck, text: '急速配送', color: 'text-emerald-500' },
-              { icon: Shield, text: '正品保障', color: 'text-amber-500' },
-              { icon: RotateCcw, text: '7天退换', color: 'text-blue-500' },
-            ].map((item) => (
-              <div
-                key={item.text}
-                className="flex flex-col items-center gap-1 p-2 bg-white/80 dark:bg-slate-800/80 rounded-2xl border border-pink-100/30 dark:border-slate-700/50"
-              >
-                <item.icon className={cn("w-5 h-5", item.color)} />
-                <span className="text-[10px] text-gray-600 dark:text-gray-400">{item.text}</span>
-              </div>
-            ))}
-          </div>
-        </section>
+        <ScrollReveal animation="fade-up" delay={100} duration={350} immediate={true}>
+          <section className="px-4 py-4">
+            <div className="grid grid-cols-4 gap-2">
+              {[
+                { icon: Gift, text: '新人礼包', color: 'text-pink-500' },
+                { icon: Truck, text: '急速配送', color: 'text-emerald-500' },
+                { icon: Shield, text: '正品保障', color: 'text-amber-500' },
+                { icon: RotateCcw, text: '7天退换', color: 'text-blue-500' },
+              ].map((item, index) => (
+                <ScrollReveal
+                  key={item.text}
+                  animation="fade-up"
+                  delay={110 + index * 30}
+                  duration={300}
+                >
+                  <div
+                    className="flex flex-col items-center gap-1 p-2 bg-white/80 dark:bg-slate-800/80 rounded-2xl border border-pink-100/30 dark:border-slate-700/50"
+                  >
+                    <item.icon className={cn("w-5 h-5", item.color)} />
+                    <span className="text-[10px] text-gray-600 dark:text-gray-400">{item.text}</span>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </section>
+        </ScrollReveal>
 
         {/* 猜你喜欢 */}
-        <section className="px-4 pb-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-pink-500" />
-              <span className="text-base font-semibold text-gray-800 dark:text-white">猜你喜欢</span>
+        <ScrollReveal animation="fade-up" delay={150} duration={350} immediate={true}>
+          <section className="px-4 pb-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-pink-500" />
+                <span className="text-base font-semibold text-gray-800 dark:text-white">猜你喜欢</span>
+              </div>
             </div>
-          </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            {products.map((product) => {
-              const isLiked = likedProducts.has(product.id)
+            <div className="grid grid-cols-2 gap-3">
+              {products.map((product, index) => {
+                const isLiked = likedProducts.has(product.id)
 
-              return (
-                <article
-                  key={product.id}
-                  className="group bg-white/90 dark:bg-slate-800/90 rounded-2xl overflow-hidden border border-pink-100/50 dark:border-slate-700/50 hover:shadow-xl transition-all duration-500 cursor-pointer"
-                >
+                return (
+                  <ScrollReveal
+                    key={product.id}
+                    animation="fade-up"
+                    delay={160 + index * 50}
+                    duration={300}
+                  >
+                    <article
+                      className="group bg-white/90 dark:bg-slate-800/90 rounded-2xl overflow-hidden border border-pink-100/50 dark:border-slate-700/50 hover:shadow-xl transition-all duration-500 cursor-pointer"
+                    >
                   {/* 图片 */}
                   <div className="relative aspect-square overflow-hidden">
                     <img
@@ -324,10 +347,12 @@ export default function MobileShop({ onCartClick, onProductClick }: MobileShopPr
                     </div>
                   </div>
                 </article>
+                </ScrollReveal>
               )
             })}
           </div>
         </section>
+        </ScrollReveal>
       </div>
 
       {/* 全局样式 */}

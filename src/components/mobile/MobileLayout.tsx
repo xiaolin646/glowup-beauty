@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Home, Search, Plus, MessageCircle, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import MobileHome from './MobileHome'
@@ -29,6 +29,10 @@ export default function MobileLayout({
   onProductClick
 }: MobileLayoutProps) {
   const [activeTab, setActiveTab] = useState<MobileTab>('home')
+  const [prevTab, setPrevTab] = useState<MobileTab>('home')
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [animationDirection, setAnimationDirection] = useState<'forward' | 'backward'>('forward')
+  const contentRef = useRef<HTMLDivElement>(null)
 
   const tabs: { id: MobileTab; icon: typeof Home; label: string }[] = [
     { id: 'home', icon: Home, label: '首页' },
@@ -38,32 +42,59 @@ export default function MobileLayout({
     { id: 'profile', icon: User, label: '我的' },
   ]
 
+  const tabOrder: MobileTab[] = ['home', 'search', 'shop', 'community', 'profile']
+
   const handleTabChange = (tabId: MobileTab) => {
     if (tabId === 'shop') {
       onCreatorOpen?.()
       return
     }
+    
+    if (tabId === activeTab) return
+    
+    // 判断动画方向
+    const currentIndex = tabOrder.indexOf(activeTab)
+    const newIndex = tabOrder.indexOf(tabId)
+    setAnimationDirection(newIndex > currentIndex ? 'forward' : 'backward')
+    
+    // 触发动画
+    setIsAnimating(true)
+    setPrevTab(activeTab)
     setActiveTab(tabId)
+    
+    // 动画结束后重置状态
+    setTimeout(() => {
+      setIsAnimating(false)
+    }, 300)
+  }
+
+  const getAnimationClass = () => {
+    if (!isAnimating) return 'animate-page-enter'
+    
+    if (animationDirection === 'forward') {
+      return 'animate-slide-in-right'
+    } else {
+      return 'animate-slide-in-left'
+    }
   }
 
   const renderContent = () => {
-    switch (activeTab) {
-      case 'home':
-        return <MobileHome onProductClick={onProductClick} />
-      case 'search':
-        return <MobileSearch onProductClick={onProductClick} />
-      case 'community':
-        return <MobileCommunity />
-      case 'profile':
-        return <MobileProfile />
-      default:
-        return <MobileHome onProductClick={onProductClick} />
-    }
+    const content = (
+      <div ref={contentRef} className={getAnimationClass()}>
+        {activeTab === 'home' && <MobileHome onProductClick={onProductClick} />}
+        {activeTab === 'search' && <MobileSearch onProductClick={onProductClick} />}
+        {activeTab === 'community' && <MobileCommunity />}
+        {activeTab === 'profile' && <MobileProfile />}
+        {activeTab === 'shop' && <MobileHome onProductClick={onProductClick} />}
+      </div>
+    )
+    
+    return content
   }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
-      {/* 背景光晕效果 - 更大的、更明显的动画 */}
+      {/* 背景光晕效果 */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         {/* 左上角光晕 - 大粉色 */}
         <div className="absolute -top-32 -left-32 w-80 h-80 bg-gradient-to-br from-pink-400/40 via-rose-300/30 to-transparent rounded-full blur-3xl animate-float-slow" />
