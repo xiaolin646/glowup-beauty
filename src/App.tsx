@@ -41,9 +41,10 @@ import ProductDetailPage from './pages/ProductDetailPage'
 import SkinProfilePage from './pages/SkinProfilePage'
 import SearchPage from './pages/SearchPage'
 import MobileLayout from './components/mobile/MobileLayout'
+import FeatureCenter from './components/FeatureCenter'
 import useDevice from './hooks/useDevice'
 
-const VALID_SECTIONS = ['home', 'search', 'products', 'tutorials', 'styling', 'looks', 'analysis', 'consumer', 'community', 'shop', 'trustmall', 'authenticate', 'creator', 'ai-test', 'skin-profile', 'product-search']
+const VALID_SECTIONS = ['home', 'search', 'products', 'tutorials', 'styling', 'looks', 'analysis', 'consumer', 'community', 'shop', 'trustmall', 'authenticate', 'creator', 'ai-test', 'skin-profile', 'product-search', 'features']
 
 function AppContent() {
   const { isAuthenticated } = useAuth()
@@ -261,6 +262,8 @@ function AppContent() {
           <AuthenticityCenter />
         ) : activeSection === 'ai-test' ? (
           <AITest onClose={() => setActiveSection('home')} />
+        ) : activeSection === 'features' ? (
+          <FeatureCenter />
         ) : activeSection === 'skin-profile' ? (
           showSkinProfile ? (
             <div className="min-h-screen bg-background">

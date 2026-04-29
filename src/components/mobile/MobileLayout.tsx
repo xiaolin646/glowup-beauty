@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useCallback } from 'react'
 import { Home, Search, Plus, MessageCircle, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import MobileHome from './MobileHome'
@@ -29,10 +29,9 @@ export default function MobileLayout({
   onProductClick
 }: MobileLayoutProps) {
   const [activeTab, setActiveTab] = useState<MobileTab>('home')
-  const [prevTab, setPrevTab] = useState<MobileTab>('home')
+  const [animationDirection, setAnimationDirection] = useState<'left' | 'right'>('right')
   const [isAnimating, setIsAnimating] = useState(false)
-  const [animationDirection, setAnimationDirection] = useState<'forward' | 'backward'>('forward')
-  const contentRef = useRef<HTMLDivElement>(null)
+  const [exitTab, setExitTab] = useState<MobileTab | null>(null)
 
   const tabs: { id: MobileTab; icon: typeof Home; label: string }[] = [
     { id: 'home', icon: Home, label: '首页' },
@@ -44,53 +43,47 @@ export default function MobileLayout({
 
   const tabOrder: MobileTab[] = ['home', 'search', 'shop', 'community', 'profile']
 
-  const handleTabChange = (tabId: MobileTab) => {
+  const handleTabChange = useCallback((tabId: MobileTab) => {
     if (tabId === 'shop') {
       onCreatorOpen?.()
       return
     }
     
-    if (tabId === activeTab) return
+    if (tabId === activeTab || isAnimating) return
     
-    // 判断动画方向
     const currentIndex = tabOrder.indexOf(activeTab)
     const newIndex = tabOrder.indexOf(tabId)
-    setAnimationDirection(newIndex > currentIndex ? 'forward' : 'backward')
     
-    // 触发动画
+    setAnimationDirection(newIndex > currentIndex ? 'left' : 'right')
+    setExitTab(activeTab)
     setIsAnimating(true)
-    setPrevTab(activeTab)
-    setActiveTab(tabId)
     
-    // 动画结束后重置状态
     setTimeout(() => {
+      setActiveTab(tabId)
+    }, 50)
+    
+    setTimeout(() => {
+      setExitTab(null)
       setIsAnimating(false)
     }, 300)
-  }
+  }, [activeTab, isAnimating, onCreatorOpen])
 
-  const getAnimationClass = () => {
-    if (!isAnimating) return 'animate-page-enter'
-    
-    if (animationDirection === 'forward') {
-      return 'animate-slide-in-right'
-    } else {
-      return 'animate-slide-in-left'
+  const renderPage = useCallback((tab: MobileTab) => {
+    switch (tab) {
+      case 'home':
+        return <MobileHome key="home" onProductClick={onProductClick} />
+      case 'search':
+        return <MobileSearch key="search" onProductClick={onProductClick} />
+      case 'community':
+        return <MobileCommunity key="community" />
+      case 'profile':
+        return <MobileProfile key="profile" />
+      case 'shop':
+        return <MobileHome key="shop" onProductClick={onProductClick} />
+      default:
+        return <MobileHome key="default" onProductClick={onProductClick} />
     }
-  }
-
-  const renderContent = () => {
-    const content = (
-      <div ref={contentRef} className={getAnimationClass()}>
-        {activeTab === 'home' && <MobileHome onProductClick={onProductClick} />}
-        {activeTab === 'search' && <MobileSearch onProductClick={onProductClick} />}
-        {activeTab === 'community' && <MobileCommunity />}
-        {activeTab === 'profile' && <MobileProfile />}
-        {activeTab === 'shop' && <MobileHome onProductClick={onProductClick} />}
-      </div>
-    )
-    
-    return content
-  }
+  }, [onProductClick])
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
@@ -119,9 +112,21 @@ export default function MobileLayout({
         <div className="absolute bottom-1/3 right-1/4 w-36 h-36 bg-gradient-to-bl from-rose-500/10 via-pink-500/5 to-transparent rounded-full blur-2xl animate-float-medium dark:block hidden" style={{ animationDelay: '1.5s' }} />
       </div>
 
-      {/* 主内容区 */}
-      <main className="relative z-10 pb-24">
-        {renderContent()}
+      {/* 主内容区 - 参考成熟App的平滑切换 */}
+      <main className="relative z-10 pb-24 overflow-hidden" style={{ height: 'calc(100vh - 6rem)' }}>
+        {/* 离开的页面 - 淡出动画 */}
+        {exitTab && isAnimating && (
+          <div className="absolute inset-0 will-change-transform animate-fade-out">
+            {renderPage(exitTab)}
+          </div>
+        )}
+        
+        {/* 当前页面 - 始终显示，带动画进入 */}
+        <div className={`absolute inset-0 will-change-transform ${
+          isAnimating ? 'animate-fade-in-fast' : ''
+        }`}>
+          {renderPage(activeTab)}
+        </div>
       </main>
 
       {/* 底部导航栏 - Instagram风格 */}

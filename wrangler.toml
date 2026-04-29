@@ -2,10 +2,10 @@ name = "glowup-beauty"
 compatibility_date = "2026-04-18"
 
 [build]
-command = "cd poc/frontend-react && npm install && npm run build"
-upload_directory = "poc/frontend-react/dist"
+command = "npm run build"
+upload_directory = "dist"
 
 [build.environment]
-NODE_VERSION = "18"
+NODE_VERSION = "20"
 
-pages_build_output_dir = "poc/frontend-react/dist"
+pages_build_output_dir = "dist"

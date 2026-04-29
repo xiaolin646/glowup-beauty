@@ -9,13 +9,19 @@
 // ============================================
 
 // AI 服务商类型
-export type AIProvider = 'openai' | 'claude' | 'gemini' | 'custom'
+export type AIProvider = 'openai' | 'claude' | 'gemini' | 'deepseek' | 
+  'kimi' | 'qianwen' | 'zhipu' | 'xiaomi' | 'custom'
 
 // AI 模型类型
 export type AIModel = 
   | 'gpt-4o' | 'gpt-4o-mini' | 'gpt-4-turbo' | 'gpt-3.5-turbo'  // OpenAI
   | 'claude-3-5-sonnet' | 'claude-3-opus' | 'claude-3-haiku'        // Claude
   | 'gemini-pro' | 'gemini-flash'                                   // Gemini
+  | 'deepseek-chat' | 'deepseek-coder'                              // DeepSeek
+  | 'kimi' | 'moonshot-v1-8k' | 'moonshot-v1-32k'                   // Kimi (月之暗面)
+  | 'qwen-turbo' | 'qwen-plus' | 'qwen-max' | 'qwen-omni'            // 千问 (通义千问)
+  | 'glm-4' | 'glm-4-flash' | 'glm-3-turbo'                         // 智谱 (GLM)
+  | 'xiaomi-ai'                                                     // 小米
   | string  // 自定义模型
 
 // 消息角色
@@ -117,14 +123,14 @@ interface APIConfig {
 
 // 获取配置
 function getAPIConfig(provider: AIProvider): APIConfig {
-  // 开发环境使用代理路径，生产环境使用完整 URL
-  const useProxy = import.meta.env.DEV && !import.meta.env.VITE_OPENAI_API_KEY
+  // 开发环境使用代理路径（仅适用于 OpenAI）
+  const useOpenAIProxy = import.meta.env.DEV && !import.meta.env.VITE_OPENAI_API_KEY
   
   const configs: Record<AIProvider, Omit<APIConfig, 'maxRetries' | 'retryDelay'>> = {
     openai: {
       // 开发环境：使用相对路径通过 Vite 代理
       // 生产环境：使用配置的 URL
-      baseURL: useProxy 
+      baseURL: useOpenAIProxy 
         ? '/v1' 
         : (import.meta.env.VITE_OPENAI_BASE_URL || 'https://api.openai.com/v1'),
       apiKey: import.meta.env.VITE_OPENAI_API_KEY || 'mock-key-for-dev',
@@ -132,13 +138,39 @@ function getAPIConfig(provider: AIProvider): APIConfig {
       timeout: parseInt(import.meta.env.VITE_AI_TIMEOUT || '60000'), // AI 默认 60 秒
     },
     claude: {
-      baseURL: useProxy ? '/v1' : (import.meta.env.VITE_CLAUDE_BASE_URL || 'https://api.anthropic.com/v1'),
+      baseURL: import.meta.env.VITE_CLAUDE_BASE_URL || 'https://api.anthropic.com/v1',
       apiKey: import.meta.env.VITE_CLAUDE_API_KEY || 'mock-key-for-dev',
       timeout: parseInt(import.meta.env.VITE_AI_TIMEOUT || '60000'),
     },
     gemini: {
-      baseURL: useProxy ? '/v1beta' : (import.meta.env.VITE_GEMINI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta'),
+      baseURL: import.meta.env.VITE_GEMINI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta',
       apiKey: import.meta.env.VITE_GEMINI_API_KEY || 'mock-key-for-dev',
+      timeout: parseInt(import.meta.env.VITE_AI_TIMEOUT || '60000'),
+    },
+    deepseek: {
+      baseURL: import.meta.env.VITE_DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
+      apiKey: import.meta.env.VITE_DEEPSEEK_API_KEY || 'mock-key-for-dev',
+      timeout: parseInt(import.meta.env.VITE_AI_TIMEOUT || '60000'),
+    },
+    // 国内大模型（不使用代理逻辑）
+    kimi: {
+      baseURL: import.meta.env.VITE_KIMI_BASE_URL || 'https://api.moonshot.cn/v1',
+      apiKey: import.meta.env.VITE_KIMI_API_KEY || 'mock-key-for-dev',
+      timeout: parseInt(import.meta.env.VITE_AI_TIMEOUT || '60000'),
+    },
+    qianwen: {
+      baseURL: import.meta.env.VITE_QIANWEN_BASE_URL || 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+      apiKey: import.meta.env.VITE_QIANWEN_API_KEY || 'mock-key-for-dev',
+      timeout: parseInt(import.meta.env.VITE_AI_TIMEOUT || '60000'),
+    },
+    zhipu: {
+      baseURL: import.meta.env.VITE_ZHIPU_BASE_URL || 'https://open.bigmodel.cn/api/paas/v4',
+      apiKey: import.meta.env.VITE_ZHIPU_API_KEY || 'mock-key-for-dev',
+      timeout: parseInt(import.meta.env.VITE_AI_TIMEOUT || '60000'),
+    },
+    xiaomi: {
+      baseURL: import.meta.env.VITE_XIAOMI_BASE_URL || 'https://api.ai.mi.com/v1',
+      apiKey: import.meta.env.VITE_XIAOMI_API_KEY || 'mock-key-for-dev',
       timeout: parseInt(import.meta.env.VITE_AI_TIMEOUT || '60000'),
     },
     custom: {
@@ -501,6 +533,168 @@ async function callGemini(
 }
 
 // ============================================
+// DeepSeek API 调用
+// ============================================
+
+async function callDeepSeek(
+  config: APIConfig,
+  request: AIRequestConfig,
+  signal?: AbortSignal
+): Promise<AIResponse> {
+  const url = `${config.baseURL}/chat/completions`
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${config.apiKey}`,
+  }
+
+  const body: Record<string, unknown> = {
+    model: request.model,
+    messages: request.messages,
+    temperature: request.temperature ?? 0.7,
+    max_tokens: request.max_tokens ?? 4096,
+    top_p: request.top_p ?? 1,
+    stream: request.stream ?? false,
+  }
+
+  if (request.functions?.length) {
+    body.functions = request.functions
+    body.function_call = request.function_call ?? 'auto'
+  }
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(body),
+    signal,
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    const code = parseErrorCode(response.status, errorData.message)
+    const error = createAIError(
+      errorData.error?.message || `DeepSeek API error: ${response.status}`,
+      code,
+      'deepseek',
+      response.status,
+      errorData
+    )
+    throw error
+  }
+
+  if (request.stream) {
+    throw new Error('Stream response not implemented in non-stream mode')
+  }
+
+  const data = await response.json()
+
+  return {
+    id: data.id,
+    provider: 'deepseek',
+    model: data.model,
+    message: {
+      role: data.choices[0].message.role,
+      content: data.choices[0].message.content || '',
+      function_call: data.choices[0].message.function_call,
+    },
+    usage: {
+      prompt_tokens: data.usage.prompt_tokens,
+      completion_tokens: data.usage.completion_tokens,
+      total_tokens: data.usage.total_tokens,
+    },
+    finish_reason: data.choices[0].finish_reason,
+    raw: data,
+  }
+}
+
+// ============================================
+// OpenAI 兼容格式 API 调用（国内大模型通用）
+// ============================================
+
+async function callOpenAICompatible(
+  provider: AIProvider,
+  config: APIConfig,
+  request: AIRequestConfig,
+  signal?: AbortSignal
+): Promise<AIResponse> {
+  const url = `${config.baseURL}/chat/completions`
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${config.apiKey}`,
+  }
+
+  const body: Record<string, unknown> = {
+    model: request.model,
+    messages: request.messages,
+    temperature: request.temperature ?? 0.7,
+    max_tokens: request.max_tokens ?? 4096,
+    top_p: request.top_p ?? 1,
+    stream: request.stream ?? false,
+  }
+
+  if (request.functions?.length) {
+    body.functions = request.functions
+    body.function_call = request.function_call ?? 'auto'
+  }
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(body),
+    signal,
+  })
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}))
+    const code = parseErrorCode(response.status, errorData.message)
+    const providerNames: Record<AIProvider, string> = {
+      deepseek: 'DeepSeek',
+      kimi: 'Kimi',
+      qianwen: '通义千问',
+      zhipu: '智谱AI',
+      xiaomi: '小米AI',
+      openai: 'OpenAI',
+      claude: 'Claude',
+      gemini: 'Gemini',
+      custom: 'CustomAI',
+    }
+    const error = createAIError(
+      errorData.error?.message || `${providerNames[provider] || provider} API error: ${response.status}`,
+      code,
+      provider,
+      response.status,
+      errorData
+    )
+    throw error
+  }
+
+  if (request.stream) {
+    throw new Error('Stream response not implemented in non-stream mode')
+  }
+
+  const data = await response.json()
+
+  return {
+    id: data.id,
+    provider,
+    model: data.model,
+    message: {
+      role: data.choices?.[0]?.message?.role || 'assistant',
+      content: data.choices?.[0]?.message?.content || '',
+      function_call: data.choices?.[0]?.message?.function_call,
+    },
+    usage: {
+      prompt_tokens: data.usage?.prompt_tokens || 0,
+      completion_tokens: data.usage?.completion_tokens || 0,
+      total_tokens: data.usage?.total_tokens || 0,
+    },
+    finish_reason: data.choices?.[0]?.finish_reason || 'stop',
+    raw: data,
+  }
+}
+
+// ============================================
 // 主 API 类
 // ============================================
 
@@ -572,6 +766,13 @@ export class AIAgent {
               return callClaude(this.config, fullRequest, this.abortController?.signal)
             case 'gemini':
               return callGemini(this.config, fullRequest, this.abortController?.signal)
+            case 'deepseek':
+            case 'kimi':
+            case 'qianwen':
+            case 'zhipu':
+            case 'xiaomi':
+              // 国内模型大多使用 OpenAI 兼容格式
+              return callOpenAICompatible(this.provider, this.config, fullRequest, this.abortController?.signal)
             case 'openai':
             default:
               return callOpenAI(this.config, fullRequest, this.abortController?.signal)
@@ -602,6 +803,11 @@ export class AIAgent {
       openai: 'gpt-4o-mini',
       claude: 'claude-3-5-sonnet',
       gemini: 'gemini-pro',
+      deepseek: 'deepseek-chat',
+      kimi: 'moonshot-v1-8k',
+      qianwen: 'qwen-turbo',
+      zhipu: 'glm-4-flash',
+      xiaomi: 'xiaomi-ai',
       custom: 'gpt-4o-mini',
     }
     return defaults[this.provider]

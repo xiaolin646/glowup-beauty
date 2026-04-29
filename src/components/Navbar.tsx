@@ -21,6 +21,7 @@ const navItems = [
   { id: 'styling', label: '造型搭配' },
   { id: 'looks', label: '妆容展示' },
   { id: 'analysis', label: '人像分析' },
+  { id: 'features', label: '功能中心', icon: Sparkles },
   { id: 'consumer', label: '消费中心' },
   { id: 'authenticate', label: '鉴定', icon: ShieldCheck },
   { id: 'trustmall', label: '信任商城', icon: HeartHandshake },
