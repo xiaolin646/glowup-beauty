@@ -18,3 +18,6 @@ export {
   FormError,
   Loading as LoadingSpinner
 } from './Accessibility'
+
+// Phase 4 页面加载组件
+export { PageLoading as PageLoadingV2, usePageLoading, LoadingContent, LazyContent } from './PageLoading'

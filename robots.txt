@@ -1,7 +1,7 @@
 # GlowUp 搜索引擎爬虫配置
 
 # ==========================================
-# robots.txt for glowup.com
+# robots.txt for glowup-beauty.pages.dev
 # ==========================================
 
 # 允许所有爬虫访问公开内容
@@ -26,7 +26,7 @@ Disallow: /*.json$
 Disallow: /sw.js
 
 # Sitemap 位置
-Sitemap: https://glowup.com/sitemap.xml
+Sitemap: https://glowup-beauty.pages.dev/sitemap.xml
 
 # 爬虫延迟（友好设置）
 Crawl-delay: 1
