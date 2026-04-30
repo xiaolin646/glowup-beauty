@@ -1,0 +1,31 @@
+# Cloudflare Pages Headers Configuration
+# 安全和缓存策略
+
+# ===========================================
+# Security Headers
+# ===========================================
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# ===========================================
+# Cache Headers
+# ===========================================
+# 静态资源长期缓存
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+# HTML 不缓存
+/index.html
+  Cache-Control: no-cache, no-store, must-revalidate
+# Service Worker 及时更新
+/sw.js
+  Cache-Control: no-cache
+
+# ===========================================
+# CORS Headers
+# ===========================================
+/api/*
+  Access-Control-Allow-Origin: *
