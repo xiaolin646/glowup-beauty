@@ -85,7 +85,7 @@ export default function Navbar({ activeSection, onNavigate, onSearchClick, onMes
           </div>
 
           {/* Scrollable Navigation - Desktop & Tablet */}
-          <div className="relative flex-1 mx-1">
+          <div className="relative flex-1 mx-1 min-w-0">
             {/* Left Scroll Button */}
             {canScrollLeft && (
               <button
@@ -141,17 +141,19 @@ export default function Navbar({ activeSection, onNavigate, onSearchClick, onMes
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-1 flex-shrink-0">
+          <div className="flex items-center gap-1 flex-shrink-0 pl-2">
             <button 
               onClick={onSearchClick}
-              className="p-2 rounded-full hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer"
+              className="p-2 rounded-full hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer flex-shrink-0"
             >
               <Search className="w-5 h-5 text-gray-600 dark:text-gray-300" />
             </button>
-            <LanguageSwitcher />
+            <div className="flex-shrink-0">
+              <LanguageSwitcher />
+            </div>
             <button 
               onClick={onCartClick}
-              className="p-2 rounded-full hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer relative"
+              className="p-2 rounded-full hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer relative flex-shrink-0"
             >
               <ShoppingBag className="w-5 h-5 text-gray-600 dark:text-gray-300" />
               {cartCount > 0 && (
@@ -162,7 +164,7 @@ export default function Navbar({ activeSection, onNavigate, onSearchClick, onMes
             </button>
             <button 
               onClick={onMessagesClick}
-              className="p-2 rounded-full hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer relative"
+              className="p-2 rounded-full hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer relative flex-shrink-0"
             >
               <Bell className="w-5 h-5 text-gray-600 dark:text-gray-300" />
               {/* Notification dot */}
@@ -187,7 +189,7 @@ export default function Navbar({ activeSection, onNavigate, onSearchClick, onMes
             
             {/* Mobile menu button */}
             <button
-              className="lg:hidden p-2 rounded-full hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer"
+              className="lg:hidden p-2 rounded-full hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer flex-shrink-0"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? (
