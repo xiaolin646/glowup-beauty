@@ -1,0 +1,4 @@
+# Cloudflare Pages SPA路由配置
+# 确保所有路由都返回 index.html，让 SPA 的客户端路由正常工作
+
+/*  /index.html  200
