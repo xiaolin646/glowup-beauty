@@ -3,7 +3,8 @@ import { ThemeProvider } from './contexts/ThemeContext'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { CartContextProvider } from './contexts/CartContext'
 import { ToastProvider } from './components/common'
-import { ErrorBoundary } from './components/common'
+import { ErrorBoundary } from './components/ui/ErrorBoundary'
+import { AppProvider } from './context/AppContext'
 import SplashScreen from './components/SplashScreen'
 import Navbar from './components/Navbar'
 import Hero from './sections/Hero'
@@ -42,9 +43,10 @@ import SkinProfilePage from './pages/SkinProfilePage'
 import SearchPage from './pages/SearchPage'
 import MobileLayout from './components/mobile/MobileLayout'
 import FeatureCenter from './components/FeatureCenter'
+import FeatureTestPage from './components/FeatureTestPage'
 import useDevice from './hooks/useDevice'
 
-const VALID_SECTIONS = ['home', 'search', 'products', 'tutorials', 'styling', 'looks', 'analysis', 'consumer', 'community', 'shop', 'trustmall', 'authenticate', 'creator', 'ai-test', 'skin-profile', 'product-search', 'features']
+const VALID_SECTIONS = ['home', 'search', 'products', 'tutorials', 'styling', 'looks', 'analysis', 'consumer', 'community', 'shop', 'trustmall', 'authenticate', 'creator', 'ai-test', 'skin-profile', 'product-search', 'features', 'test']
 
 function AppContent() {
   const { isAuthenticated } = useAuth()
@@ -264,6 +266,8 @@ function AppContent() {
           <AITest onClose={() => setActiveSection('home')} />
         ) : activeSection === 'features' ? (
           <FeatureCenter />
+        ) : activeSection === 'test' ? (
+          <FeatureTestPage />
         ) : activeSection === 'skin-profile' ? (
           showSkinProfile ? (
             <div className="min-h-screen bg-background">
@@ -339,25 +343,27 @@ function App() {
   }, [])
 
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <CartContextProvider>
-          <ToastProvider>
-            <ErrorBoundary>
-              {showSplash && (
-                <SplashScreen
-                  onComplete={(preferences) => {
-                    console.log('用户兴趣偏好:', preferences)
-                    setShowSplash(false)
-                  }}
-                />
-              )}
-              {!showSplash && <AppContent />}
-            </ErrorBoundary>
-          </ToastProvider>
-        </CartContextProvider>
-      </AuthProvider>
-    </ThemeProvider>
+    <AppProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <CartContextProvider>
+            <ToastProvider>
+              <ErrorBoundary>
+                {showSplash && (
+                  <SplashScreen
+                    onComplete={(preferences) => {
+                      console.log('用户兴趣偏好:', preferences)
+                      setShowSplash(false)
+                    }}
+                  />
+                )}
+                {!showSplash && <AppContent />}
+              </ErrorBoundary>
+            </ToastProvider>
+          </CartContextProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </AppProvider>
   )
 }
 

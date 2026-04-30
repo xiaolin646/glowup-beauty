@@ -1,371 +1,374 @@
 /**
- * 性能监控工具 - Phase 3 性能优化
- * Web Vitals 性能指标监控 (原生实现)
+ * 性能优化工具函数
  */
 
-// 性能指标类型
-export interface WebVitalsMetric {
-  name: string
-  value: number
-  delta: number
-  id: string
-  rating: 'good' | 'needs-improvement' | 'poor'
+// ============================================
+// 防抖函数
+// ============================================
+export function debounce<T extends (...args: unknown[]) => unknown>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: ReturnType<typeof setTimeout> | null = null
+  return (...args: Parameters<T>) => {
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(() => func(...args), wait)
+  }
 }
 
-// 报告函数类型
-export type ReportHandler = (metric: WebVitalsMetric) => void
-
-/**
- * 获取FCP (First Contentful Paint)
- */
-function getFCP(): Promise<WebVitalsMetric> {
-  return new Promise((resolve) => {
-    const observer = new PerformanceObserver((list) => {
-      const entries = list.getEntriesByName('first-contentful-paint')
-      if (entries.length > 0) {
-        observer.disconnect()
-        const entry = entries[0] as PerformancePaintTiming
-        resolve({
-          name: 'FCP',
-          value: entry.startTime,
-          delta: entry.startTime,
-          id: `fcp-${Date.now()}`,
-          rating: entry.startTime < 1800 ? 'good' : entry.startTime < 3000 ? 'needs-improvement' : 'poor'
-        })
-      }
-    })
-    observer.observe({ type: 'paint', buffered: true })
-    
-    // 超时处理
-    setTimeout(() => {
-      observer.disconnect()
-      resolve({
-        name: 'FCP',
-        value: -1,
-        delta: -1,
-        id: `fcp-timeout`,
-        rating: 'poor'
-      })
-    }, 10000)
-  })
-}
-
-/**
- * 获取LCP (Largest Contentful Paint)
- */
-function getLCP(): Promise<WebVitalsMetric> {
-  return new Promise((resolve) => {
-    let lcpValue = 0
-    
-    const observer = new PerformanceObserver((list) => {
-      const entries = list.getEntries()
-      if (entries.length > 0) {
-        const lastEntry = entries[entries.length - 1] as PerformancePaintTiming
-        lcpValue = lastEntry.startTime
-      }
-    })
-    
-    observer.observe({ type: 'largest-contentful-paint', buffered: true })
-    
-    // 在页面隐藏时报告
-    const onHidden = () => {
-      observer.disconnect()
-      resolve({
-        name: 'LCP',
-        value: lcpValue,
-        delta: lcpValue,
-        id: `lcp-${Date.now()}`,
-        rating: lcpValue < 2500 ? 'good' : lcpValue < 4000 ? 'needs-improvement' : 'poor'
-      })
+// ============================================
+// 节流函数
+// ============================================
+export function throttle<T extends (...args: unknown[]) => unknown>(
+  func: T,
+  limit: number
+): (...args: Parameters<T>) => void {
+  let inThrottle = false
+  return (...args: Parameters<T>) => {
+    if (!inThrottle) {
+      func(...args)
+      inThrottle = true
+      setTimeout(() => (inThrottle = false), limit)
     }
-    
-    document.addEventListener('visibilitychange', onHidden, { once: true })
-    
-    // 超时处理
-    setTimeout(() => {
-      observer.disconnect()
-      document.removeEventListener('visibilitychange', onHidden)
-      resolve({
-        name: 'LCP',
-        value: lcpValue,
-        delta: lcpValue,
-        id: `lcp-timeout`,
-        rating: 'poor'
-      })
-    }, 10000)
-  })
+  }
 }
 
-/**
- * 获取CLS (Cumulative Layout Shift)
- */
-function getCLS(): Promise<WebVitalsMetric> {
-  return new Promise((resolve) => {
-    let clsValue = 0
-    const entries: LayoutShift[] = []
-    
-    const observer = new PerformanceObserver((list) => {
-      for (const entry of list.getEntries()) {
-        if (!(entry as LayoutShift).hadRecentInput) {
-          entries.push(entry as LayoutShift)
-          clsValue += (entry as LayoutShift).value
+// ============================================
+// 图片懒加载观察器
+// ============================================
+export class ImageLazyLoader {
+  private observer: IntersectionObserver | null = null
+  private options: IntersectionObserverInit = {
+    rootMargin: '50px',
+    threshold: 0.1
+  }
+
+  constructor(callback?: (entries: IntersectionObserverEntry[]) => void) {
+    this.observer = new IntersectionObserver(
+      callback || this.handleIntersection.bind(this),
+      this.options
+    )
+  }
+
+  private handleIntersection(entries: IntersectionObserverEntry[]) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target as HTMLImageElement
+        const src = img.dataset.src
+        if (src) {
+          img.src = src
+          img.removeAttribute('data-src')
         }
+        this.observer?.unobserve(entry.target)
       }
     })
-    
-    observer.observe({ type: 'layout-shift', buffered: true })
-    
-    const onHidden = () => {
-      observer.disconnect()
-      resolve({
-        name: 'CLS',
-        value: clsValue,
-        delta: clsValue,
-        id: `cls-${Date.now()}`,
-        rating: clsValue < 0.1 ? 'good' : clsValue < 0.25 ? 'needs-improvement' : 'poor'
-      })
-    }
-    
-    document.addEventListener('visibilitychange', onHidden, { once: true })
-    
-    // 超时处理
-    setTimeout(() => {
-      onHidden()
-    }, 5000)
-  })
-}
-
-/**
- * 获取TTFB (Time to First Byte)
- */
-function getTTFB(): WebVitalsMetric {
-  const [navigation] = performance.getEntriesByType('navigation') as PerformanceNavigationTiming[]
-  
-  if (!navigation) {
-    return {
-      name: 'TTFB',
-      value: -1,
-      delta: -1,
-      id: `ttfb-no-nav`,
-      rating: 'poor'
-    }
   }
-  
-  const ttfb = navigation.responseStart
-  return {
-    name: 'TTFB',
-    value: ttfb,
-    delta: ttfb,
-    id: `ttfb-${Date.now()}`,
-    rating: ttfb < 800 ? 'good' : ttfb < 1800 ? 'needs-improvement' : 'poor'
+
+  observe(element: Element) {
+    this.observer?.observe(element)
+  }
+
+  disconnect() {
+    this.observer?.disconnect()
   }
 }
 
-/**
- * 获取FID (First Input Delay)
- */
-function getFID(): Promise<WebVitalsMetric> {
-  return new Promise((resolve) => {
-    let fidValue = 0
-    
-    const observer = new PerformanceObserver((list) => {
-      const entries = list.getEntries()
-      if (entries.length > 0) {
-        const firstEntry = entries[0] as PerformanceEventTiming
-        fidValue = firstEntry.processingStart - firstEntry.startTime
-        
-        observer.disconnect()
-        resolve({
-          name: 'FID',
-          value: fidValue,
-          delta: fidValue,
-          id: `fid-${Date.now()}`,
-          rating: fidValue < 100 ? 'good' : fidValue < 300 ? 'needs-improvement' : 'poor'
-        })
-      }
+// ============================================
+// 缓存管理
+// ============================================
+export class CacheManager {
+  private cache = new Map<string, { data: unknown; timestamp: number; ttl: number }>()
+
+  set<T>(key: string, data: T, ttl: number = 3600000): void {
+    this.cache.set(key, {
+      data,
+      timestamp: Date.now(),
+      ttl
     })
-    
-    observer.observe({ type: 'first-input', buffered: true })
-    
-    // 超时处理
-    setTimeout(() => {
-      observer.disconnect()
-      resolve({
-        name: 'FID',
-        value: fidValue,
-        delta: fidValue,
-        id: `fid-timeout`,
-        rating: fidValue > 0 ? 'needs-improvement' : 'good'
-      })
-    }, 5000)
-  })
-}
-
-/**
- * 性能监控初始化
- */
-export async function initWebVitals(onReport: ReportHandler) {
-  try {
-    // FCP
-    const fcp = await getFCP()
-    if (fcp.value > 0) onReport(fcp)
-    
-    // LCP
-    const lcp = await getLCP()
-    onReport(lcp)
-    
-    // CLS
-    const cls = await getCLS()
-    onReport(cls)
-    
-    // TTFB
-    const ttfb = getTTFB()
-    if (ttfb.value > 0) onReport(ttfb)
-    
-    // FID
-    const fid = await getFID()
-    onReport(fid)
-    
-    if (import.meta.env.DEV) {
-      console.log('[Web Vitals] 性能监控已初始化')
-    }
-  } catch (error) {
-    console.warn('Web Vitals 初始化失败:', error)
-  }
-}
-
-/**
- * 性能时间戳记录
- */
-export class PerformanceTimer {
-  private marks: Map<string, number> = new Map()
-  private measures: Map<string, number> = new Map()
-
-  /**
-   * 记录时间点
-   */
-  mark(name: string) {
-    const time = performance.now()
-    this.marks.set(name, time)
-    
-    if (import.meta.env.DEV) {
-      console.log(`[Timer] Mark: ${name} at ${time.toFixed(2)}ms`)
-    }
   }
 
-  /**
-   * 测量两个时间点之间的间隔
-   */
-  measure(name: string, startMark: string, endMark?: string) {
-    const startTime = this.marks.get(startMark)
-    const endTime = endMark ? this.marks.get(endMark) : performance.now()
-
-    if (!startTime) {
-      console.warn(`[Timer] Start mark "${startMark}" not found`)
+  get<T>(key: string): T | null {
+    const item = this.cache.get(key)
+    if (!item) return null
+    if (Date.now() - item.timestamp > item.ttl) {
+      this.cache.delete(key)
       return null
     }
+    return item.data as T
+  }
 
-    const duration = (endTime || performance.now()) - startTime
-    this.measures.set(name, duration)
+  delete(key: string): void {
+    this.cache.delete(key)
+  }
 
-    if (import.meta.env.DEV) {
-      console.log(`[Timer] Measure: ${name} = ${duration.toFixed(2)}ms`)
+  clear(): void {
+    this.cache.clear()
+  }
+
+  has(key: string): boolean {
+    const item = this.cache.get(key)
+    if (!item) return false
+    if (Date.now() - item.timestamp > item.ttl) {
+      this.cache.delete(key)
+      return false
     }
-
-    return duration
-  }
-
-  /**
-   * 获取测量结果
-   */
-  getMeasure(name: string): number | undefined {
-    return this.measures.get(name)
-  }
-
-  /**
-   * 获取所有测量结果
-   */
-  getAllMeasures(): Record<string, number> {
-    return Object.fromEntries(this.measures)
-  }
-
-  /**
-   * 清除所有记录
-   */
-  clear() {
-    this.marks.clear()
-    this.measures.clear()
+    return true
   }
 }
 
-// 全局性能计时器实例
-export const globalTimer = new PerformanceTimer()
+// ============================================
+// 请求缓存装饰器
+// ============================================
+const requestCache = new CacheManager()
 
-/**
- * React 组件渲染性能监控 Hook
- */
-export function useRenderPerformance(componentName: string) {
-  const renderCountRef = React.useRef(0)
-  const lastRenderTimeRef = React.useRef(performance.now())
+export function cacheable(ttl: number = 3600000) {
+  return function <T extends (...args: unknown[]) => Promise<unknown>>(
+    target: unknown,
+    propertyKey: string | symbol,
+    descriptor: TypedPropertyDescriptor<T>
+  ) {
+    const originalMethod = descriptor.value
+    descriptor.value = async function (this: unknown, ...args: Parameters<T>) {
+      const cacheKey = `${String(propertyKey)}-${JSON.stringify(args)}`
+      
+      const cached = requestCache.get<ReturnType<T>>(cacheKey)
+      if (cached) {
+        return cached
+      }
 
-  React.useEffect(() => {
-    renderCountRef.current++
-    const now = performance.now()
-    const elapsed = now - lastRenderTimeRef.current
-    lastRenderTimeRef.current = now
+      const result = await originalMethod.apply(this, args)
+      requestCache.set(cacheKey, result, ttl)
+      return result
+    } as T
 
-    if (import.meta.env.DEV) {
-      console.log(
-        `[Render] ${componentName} #${renderCountRef.current} (+${elapsed.toFixed(2)}ms)`
-      )
+    return descriptor
+  }
+}
+
+// ============================================
+// 错误边界处理
+// ============================================
+export class ErrorBoundaryHandler {
+  static handleError(error: unknown, errorInfo?: string): void {
+    console.error('Error Boundary:', error, errorInfo)
+    
+    // 可以在这里添加上报逻辑
+    if (typeof window !== 'undefined') {
+      // 通知用户
+      const event = new CustomEvent('app-error', {
+        detail: { error, errorInfo }
+      })
+      window.dispatchEvent(event)
     }
-  })
+  }
 
-  return {
-    renderCount: renderCountRef.current,
-    lastRenderTime: lastRenderTimeRef.current
+  static getErrorMessage(error: unknown): string {
+    if (error instanceof Error) {
+      return error.message
+    }
+    return String(error)
   }
 }
 
-/**
- * 图片加载性能追踪
- */
-export function trackImageLoad(src: string, duration: number) {
-  if (import.meta.env.DEV) {
-    console.log(`[Image] Loaded: ${src} in ${duration.toFixed(2)}ms`)
-  }
+// ============================================
+// 格式化工具
+// ============================================
+export const format = {
+  // 格式化价格
+  price(value: number | string): string {
+    const num = typeof value === 'string' ? parseFloat(value) : value
+    return `¥${num.toFixed(2)}`
+  },
 
-  // 可以发送到分析服务
-  // analytics.track('image_load', { src, duration })
+  // 格式化数字（千分位）
+  number(value: number | string): string {
+    const num = typeof value === 'string' ? parseFloat(value) : value
+    return num.toLocaleString()
+  },
+
+  // 格式化日期
+  date(date: Date | string): string {
+    const d = typeof date === 'string' ? new Date(date) : date
+    return d.toLocaleDateString('zh-CN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  },
+
+  // 格式化时间
+  time(date: Date | string): string {
+    const d = typeof date === 'string' ? new Date(date) : date
+    return d.toLocaleTimeString('zh-CN', {
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  },
+
+  // 截取文本
+  truncate(text: string, maxLength: number): string {
+    if (text.length <= maxLength) return text
+    return text.substring(0, maxLength) + '...'
+  }
 }
 
-/**
- * API 请求性能追踪
- */
-export function trackApiRequest(endpoint: string, duration: number, status: number) {
-  if (import.meta.env.DEV) {
-    console.log(`[API] ${endpoint}: ${status} in ${duration.toFixed(2)}ms`)
-  }
+// ============================================
+// 本地存储工具
+// ============================================
+export const storage = {
+  getItem<T>(key: string): T | null {
+    try {
+      const item = localStorage.getItem(key)
+      return item ? JSON.parse(item) : null
+    } catch {
+      return null
+    }
+  },
 
-  // 可以发送到分析服务
-  // analytics.track('api_request', { endpoint, duration, status })
+  setItem<T>(key: string, value: T): void {
+    try {
+      localStorage.setItem(key, JSON.stringify(value))
+    } catch {
+      console.warn('Failed to set localStorage item')
+    }
+  },
+
+  removeItem(key: string): void {
+    localStorage.removeItem(key)
+  },
+
+  clear(): void {
+    localStorage.clear()
+  },
+
+  // 带过期时间的存储
+  setItemWithExpiry<T>(key: string, value: T, expiryMinutes: number): void {
+    const item = {
+      data: value,
+      expiry: Date.now() + expiryMinutes * 60 * 1000
+    }
+    this.setItem(key, item)
+  },
+
+  getItemWithExpiry<T>(key: string): T | null {
+    const item = this.getItem<{ data: T; expiry: number }>(key)
+    if (!item) return null
+    if (Date.now() > item.expiry) {
+      this.removeItem(key)
+      return null
+    }
+    return item.data
+  }
 }
 
-/**
- * 兼容 web-vitals 库的 reportWebVitals 函数
- * 用于 main.tsx 中的性能监控
- */
-export function reportWebVitals(onReport?: ReportHandler) {
-  const defaultReport: ReportHandler = (metric) => {
-    console.log('[Web Vitals]', metric.name, metric.value)
+// ============================================
+// 网络状态检测
+// ============================================
+export class NetworkDetector {
+  private listeners: Set<(isOnline: boolean) => void> = new Set()
+
+  constructor() {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('online', this.handleOnline)
+      window.addEventListener('offline', this.handleOffline)
+    }
   }
 
-  initWebVitals(onReport || defaultReport)
+  private handleOnline = () => {
+    this.notify(true)
+  }
+
+  private handleOffline = () => {
+    this.notify(false)
+  }
+
+  private notify(isOnline: boolean) {
+    this.listeners.forEach(listener => listener(isOnline))
+  }
+
+  subscribe(listener: (isOnline: boolean) => void): () => void {
+    this.listeners.add(listener)
+    return () => this.listeners.delete(listener)
+  }
+
+  isOnline(): boolean {
+    return typeof window !== 'undefined' ? navigator.onLine : true
+  }
+
+  destroy(): void {
+    this.listeners.clear()
+    window.removeEventListener('online', this.handleOnline)
+    window.removeEventListener('offline', this.handleOffline)
+  }
 }
 
-import * as React from 'react'
+// ============================================
+// 设备检测
+// ============================================
+export const device = {
+  isMobile(): boolean {
+    if (typeof window === 'undefined') return false
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  },
 
-interface LayoutShift extends PerformanceEntry {
-  value: number;
-  hadRecentInput: boolean;
+  isTablet(): boolean {
+    if (typeof window === 'undefined') return false
+    return /iPad|Tablet|Nexus 7|Kindle/i.test(navigator.userAgent)
+  },
+
+  isDesktop(): boolean {
+    return !this.isMobile() && !this.isTablet()
+  },
+
+  getOS(): string {
+    if (typeof window === 'undefined') return 'unknown'
+    const userAgent = navigator.userAgent
+    if (/windows/i.test(userAgent)) return 'windows'
+    if (/mac os/i.test(userAgent)) return 'macos'
+    if (/linux/i.test(userAgent)) return 'linux'
+    if (/android/i.test(userAgent)) return 'android'
+    if (/iphone|ipad|ipod/i.test(userAgent)) return 'ios'
+    return 'unknown'
+  },
+
+  getBrowser(): string {
+    if (typeof window === 'undefined') return 'unknown'
+    const userAgent = navigator.userAgent
+    if (/edg/i.test(userAgent)) return 'edge'
+    if (/chrome/i.test(userAgent) && !/edg/i.test(userAgent)) return 'chrome'
+    if (/firefox/i.test(userAgent)) return 'firefox'
+    if (/safari/i.test(userAgent) && !/chrome/i.test(userAgent)) return 'safari'
+    return 'unknown'
+  }
+}
+
+// ============================================
+// Web Vitals 报告
+// ============================================
+export function reportWebVitals(onPerfEntry?: (metric: { name: string; value: number; label?: string }) => void) {
+  if (onPerfEntry && onPerfEntry instanceof Function) {
+    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+      getCLS(onPerfEntry)
+      getFID(onPerfEntry)
+      getFCP(onPerfEntry)
+      getLCP(onPerfEntry)
+      getTTFB(onPerfEntry)
+    })
+  }
+}
+
+export default {
+  debounce,
+  throttle,
+  ImageLazyLoader,
+  CacheManager,
+  cacheable,
+  ErrorBoundaryHandler,
+  format,
+  storage,
+  NetworkDetector,
+  device,
+  reportWebVitals
 }
