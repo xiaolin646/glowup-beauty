@@ -3,6 +3,7 @@ import { Sparkles, Menu, X, Search, User, Heart, Users, ShoppingBag, Bell, Gift,
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/contexts/AuthContext'
 import { useCartContext } from '@/contexts/CartContext'
+import LanguageSwitcher from './common/LanguageSwitcher'
 
 interface NavbarProps {
   activeSection?: string
@@ -147,6 +148,7 @@ export default function Navbar({ activeSection, onNavigate, onSearchClick, onMes
             >
               <Search className="w-5 h-5 text-gray-600 dark:text-gray-300" />
             </button>
+            <LanguageSwitcher />
             <button 
               onClick={onCartClick}
               className="p-2 rounded-full hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer relative"

@@ -62,6 +62,7 @@ export type TranslationKey =
   | 'common.next'
   | 'common.submit'
   | 'common.retry'
+  | 'common.language'
 
   // 导航
   | 'nav.home'
@@ -157,6 +158,7 @@ export const translations: Record<Language, TranslationContent> = {
     'common.next': '下一步',
     'common.submit': '提交',
     'common.retry': '重试',
+    'common.language': '语言',
 
     // 导航
     'nav.home': '首页',
@@ -249,6 +251,7 @@ export const translations: Record<Language, TranslationContent> = {
     'common.next': 'Next',
     'common.submit': 'Submit',
     'common.retry': 'Retry',
+    'common.language': 'Language',
 
     // Navigation
     'nav.home': 'Home',

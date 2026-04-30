@@ -21,3 +21,6 @@ export {
 
 // Phase 4 页面加载组件
 export { PageLoading as PageLoadingV2, usePageLoading, LoadingContent, LazyContent } from './PageLoading'
+
+// 语言切换组件
+export { default as LanguageSwitcher } from './LanguageSwitcher'
