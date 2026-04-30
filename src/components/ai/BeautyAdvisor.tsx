@@ -235,15 +235,30 @@ export default function BeautyAdvisor() {
           className="space-y-4 pb-32 max-h-[calc(100vh-280px)] overflow-y-auto"
         >
           {messages.map((message) => (
-            <div key={message.id} className="flex gap-3">
+            <div key={message.id} className={cn(
+                'flex gap-3',
+                message.role === 'user' ? 'justify-end' : ''
+              )}>
               {message.role === 'assistant' && (
                 <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center">
                   <Bot className="w-6 h-6 text-white" />
                 </div>
               )}
 
-              <div className="flex-1">
-                {message.role === 'assistant' && (
+              {message.role === 'user' ? (
+                <div className="shrink-0 max-w-[85%]">
+                  <div className={cn(
+                    'p-4 rounded-2xl',
+                    'bg-gradient-to-r from-pink-500 to-rose-500 text-white'
+                  )}>
+                    <div
+                      className="text-sm leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: formatMessage(message.content) }}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">美美</span>
                     {message.scene && (
@@ -252,55 +267,53 @@ export default function BeautyAdvisor() {
                       </span>
                     )}
                   </div>
-                )}
 
-                <div className={cn(
-                  'p-4 rounded-2xl max-w-[85%]',
-                  message.role === 'assistant'
-                    ? 'bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm'
-                    : 'bg-gradient-to-r from-pink-500 to-rose-500 text-white ml-auto'
-                )}>
-                  <div
-                    className="text-sm leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: formatMessage(message.content) }}
-                  />
-                </div>
+                  <div className={cn(
+                    'p-4 rounded-2xl max-w-full',
+                    'bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 shadow-sm'
+                  )}>
+                    <div
+                      className="text-sm leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: formatMessage(message.content) }}
+                    />
+                  </div>
 
-                {/* 快速回复建议 */}
-                {message.role === 'assistant' && message.quickSuggestions && message.quickSuggestions.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {message.quickSuggestions.map((suggestion, idx) => (
+                  {/* 快速回复建议 */}
+                  {message.quickSuggestions && message.quickSuggestions.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {message.quickSuggestions.map((suggestion, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => sendMessage(suggestion)}
+                          className="px-3 py-1.5 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-pink-100 dark:hover:bg-pink-900/40 transition-colors flex items-center gap-1.5"
+                        >
+                          <Wand2 className="w-3.5 h-3.5" />
+                          {suggestion}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* 消息操作 */}
+                  {messages.length > 1 && (
+                    <div className="flex items-center gap-2 mt-2">
                       <button
-                        key={idx}
-                        onClick={() => sendMessage(suggestion)}
-                        className="px-3 py-1.5 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-pink-100 dark:hover:bg-pink-900/40 transition-colors flex items-center gap-1.5"
+                        onClick={() => copyMessage(message.content)}
+                        className="p-1.5 text-gray-400 hover:text-pink-500 transition-colors"
+                        title="复制"
                       >
-                        <Wand2 className="w-3.5 h-3.5" />
-                        {suggestion}
+                        <Copy className="w-4 h-4" />
                       </button>
-                    ))}
-                  </div>
-                )}
-
-                {/* 消息操作 */}
-                {message.role === 'assistant' && messages.length > 1 && (
-                  <div className="flex items-center gap-2 mt-2">
-                    <button
-                      onClick={() => copyMessage(message.content)}
-                      className="p-1.5 text-gray-400 hover:text-pink-500 transition-colors"
-                      title="复制"
-                    >
-                      <Copy className="w-4 h-4" />
-                    </button>
-                    <button
-                      className="p-1.5 text-gray-400 hover:text-pink-500 transition-colors"
-                      title="点赞"
-                    >
-                      <ThumbsUp className="w-4 h-4" />
-                    </button>
-                  </div>
-                )}
-              </div>
+                      <button
+                        className="p-1.5 text-gray-400 hover:text-pink-500 transition-colors"
+                        title="点赞"
+                      >
+                        <ThumbsUp className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {message.role === 'user' && (
                 <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
