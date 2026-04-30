@@ -299,7 +299,7 @@ function AppContent() {
             <>
               <section id="home"><Hero onStartExplore={() => scrollToSection('products')} onAITest={() => scrollToSection('analysis')} /></section>
             <section id="search"><SearchSection /></section>
-            <section id="products"><ProductCategories /></section>
+            <section id="products"><ProductCategories onProductClick={(id) => { setCurrentProductId(id); setShowProductDetail(true); }} /></section>
             <section id="tutorials"><MakeupTutorials /></section>
             <section id="styling"><StylingHub /></section>
             <section id="looks"><LookGallery /></section>
