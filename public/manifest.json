@@ -1,99 +1,113 @@
-/**
- * PWA配置文件
- */
-
-export const manifest = {
-  name: 'GlowUp Beauty',
-  short_name: 'GlowUp',
-  description: 'AI驱动的美妆护肤平台',
-  start_url: '/',
-  display: 'standalone',
-  background_color: '#ffffff',
-  theme_color: '#ec4899',
-  icons: [
+{
+  "name": "GlowUp 美妆社区",
+  "short_name": "GlowUp",
+  "description": "基于信任的美妆购物平台，AI驱动的个性化美妆推荐",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ec4899",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "icons": [
     {
-      src: '/icons/icon-72x72.png',
-      sizes: '72x72',
-      type: 'image/png'
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      src: '/icons/icon-96x96.png',
-      sizes: '96x96',
-      type: 'image/png'
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      src: '/icons/icon-128x128.png',
-      sizes: '128x128',
-      type: 'image/png'
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      src: '/icons/icon-144x144.png',
-      sizes: '144x144',
-      type: 'image/png'
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      src: '/icons/icon-152x152.png',
-      sizes: '152x152',
-      type: 'image/png'
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      src: '/icons/icon-192x192.png',
-      sizes: '192x192',
-      type: 'image/png'
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      src: '/icons/icon-384x384.png',
-      sizes: '384x384',
-      type: 'image/png'
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      src: '/icons/icon-512x512.png',
-      sizes: '512x512',
-      type: 'image/png'
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  shortcuts: [
+  "shortcuts": [
     {
-      name: 'AI美妆顾问',
-      short_name: 'AI顾问',
-      description: '智能护肤咨询',
-      url: '/?section=features',
-      icons: [{ src: '/icons/icon-192x192.png', sizes: '192x192' }]
+      "name": "AI美妆顾问",
+      "short_name": "AI顾问",
+      "description": "智能护肤咨询，AI驱动的个性化建议",
+      "url": "/?section=features",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
     },
     {
-      name: '产品搜索',
-      short_name: '搜索',
-      description: '搜索美妆产品',
-      url: '/?section=search',
-      icons: [{ src: '/icons/icon-192x192.png', sizes: '192x192' }]
+      "name": "产品搜索",
+      "short_name": "搜索",
+      "description": "搜索美妆产品，获取个性化推荐",
+      "url": "/?section=search",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
     },
     {
-      name: '社区',
-      short_name: '社区',
-      description: '美妆社区',
-      url: '/?section=community',
-      icons: [{ src: '/icons/icon-192x192.png', sizes: '192x192' }]
+      "name": "美妆社区",
+      "short_name": "社区",
+      "description": "分享美妆心得，与美妆爱好者交流",
+      "url": "/?section=community",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
     }
   ],
-  categories: ['beauty', 'shopping'],
-  screenshots: [
+  "categories": ["beauty", "shopping", "lifestyle"],
+  "screenshots": [
     {
-      src: '/screenshots/home.png',
-      sizes: '1280x720',
-      type: 'image/png',
-      label: '首页'
+      "src": "/screenshots/home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "GlowUp首页"
     },
     {
-      src: '/screenshots/ai-advisor.png',
-      sizes: '1280x720',
-      type: 'image/png',
-      label: 'AI美妆顾问'
+      "src": "/screenshots/ai-advisor.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "AI美妆顾问"
     },
     {
-      src: '/screenshots/products.png',
-      sizes: '1280x720',
-      type: 'image/png',
-      label: '产品推荐'
+      "src": "/screenshots/products.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "产品推荐"
     }
-  ]
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "handle_links": "preferred",
+  "edge_side_panel": {
+    "preferred_width": 480
+  }
 }
